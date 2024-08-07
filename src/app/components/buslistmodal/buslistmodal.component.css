@@ -1,0 +1,169 @@
+
+.card-body-container {
+  display: flex;
+}
+.bus-details {
+  display: flex;
+  gap: 40px;
+}
+.image img {
+  width: 100px;
+  height: 80px;
+}
+.bus-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.bus-content h3 span {
+  font-weight: 400;
+  font-size: 15px;
+}
+.bus-content > p {
+  font-weight: 400;
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-top: -10px;
+}
+.amenities {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: -15px;
+}
+.amenities svg {
+  height: 20px;
+  width: 20px;
+}
+.amenities > p {
+  font-size: 14px;
+  font-weight: 500;
+}
+.right {
+  display: flex;
+  justify-content: end;
+  align-items: top;
+  gap: 45px;
+}
+.time {
+  display: flex;
+  align-items: center;
+}
+.time svg {
+  height: 60px;
+  width: 60px;
+  color: black;
+}
+.rating {
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rating > p {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.rating svg {
+  color: #509141;
+  height: 15px;
+  width: 15px;
+  margin-top: -30px;
+}
+.price {
+  display: flex;
+  gap: 15px;
+}
+.seats {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.seats p {
+  font-size: 15px;
+  color: #509141;
+  text-transform: capitalize;
+}
+.seats button {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #509141;
+  color: #fff;
+  width: 100px;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.seat-info-container {
+  padding-bottom: 40px;
+}
+.ng-content-container.show {
+  display: block;
+}
+.seat-info-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+._right {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+._left p,
+._right p {
+  font-size: 15px;
+}
+.input-container {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.input-container input,
+.input-container p {
+  font-size: 14px;
+  width: 35px;
+  border-right: 4px solid #000;
+  border-top: 4px solid #000;
+  border-bottom: 4px solid #000;
+  text-align: center;
+}
+.input-container span {
+  border: 1px solid black;
+}
+
+.selected {
+  background-color: #509141;
+  color: #fff;
+}
+.bookRow {
+  display: flex;
+  justify-content: end;
+}
+.bookBtn {
+  background-color: #509141;
+  color: #fff;
+  width: 100px;
+  padding: 8px 12px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+.reviewBtn {
+  background-color: #509141;
+  color: #fff;
+  width: 100px;
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+

@@ -12,6 +12,12 @@ import { LipanauliappComponent } from './components/lipanauliapp/lipanauliapp.co
 
 import { LipanaulisliderComponent } from './components/lipanaulislider/lipanaulislider.component';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaynowmodalComponent } from './components/paynowmodal/paynowmodal.component';
+import { BuslistmodalComponent } from './components/buslistmodal/buslistmodal.component';
+import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal/customerdetailsmodal.component';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +27,10 @@ import { CommonModule } from '@angular/common';
     CtaComponent,
     LipanauliappComponent,
     LipanaulisliderComponent,
+    PaynowmodalComponent,
+    BuslistmodalComponent,
+    CustomerdetailsmodalComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -28,6 +38,9 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     CarouselModule.forRoot(),
     CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

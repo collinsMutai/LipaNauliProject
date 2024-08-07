@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 .hero {
   background: url("../../../assets/Lipanauli webtools 2024/Affordable bus service Nairobi.png");
@@ -20,21 +20,20 @@
 .header {
   color: #293a43;
   font-size: 48px;
- 
   text-transform: uppercase;
   padding: 10px 0px;
-    font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 900;
   font-style: normal;
 }
 .header span {
   color: #f6b228;
 }
-.form-card{
-    padding-left: 100px;
+.form-card {
+  padding-left: 100px;
 }
-.form-card .card{
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+.form-card .card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 .input-item {
   display: flex;
@@ -69,15 +68,28 @@ input {
   width: 100px;
   padding: 7px;
 }
-/* .right {
-  background: url("../../../assets/Lipanauli webtools 2024/Reliable bus service Nairobi.png");
-   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-  height: 100vh;
-  width: 50%;
-} */
-.right img {
-  height: 100vh;
+.right {
+  height: 100%;
   width: 100%;
+}
+.right img {
+  height: 85%;
+  width: 100%;
+}
+.suggestions-list {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  position: absolute;
+  max-height: 150px;
+  overflow-y: auto;
+  display: block;
+  z-index: 1000;
+}
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+}
+.suggestion-item:hover {
+  background-color: #f0f0f0;
 }

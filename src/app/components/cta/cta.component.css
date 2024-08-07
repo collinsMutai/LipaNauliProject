@@ -1,5 +1,4 @@
-.cta{
-    background-color: #fff;
-    height: 400px;
-    padding: 0px;
+.cta img {
+  height: 60vh;
+  width: 100%;
 }

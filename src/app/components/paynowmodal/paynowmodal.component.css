@@ -1,0 +1,17 @@
+/* modal */
+
+.custom-modal {
+  max-width: 400px;
+  width: 100%;
+}
+
+.bookBtn {
+  width: 150px;
+  height: 40px;
+  padding: 5px;
+  background-color: #509141;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
