@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaynowmodalComponent } from './components/paynowmodal/paynowmodal.component';
 import { BuslistmodalComponent } from './components/buslistmodal/buslistmodal.component';
 import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal/customerdetailsmodal.component';
+import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay-for-ticketmodal.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal
     PaynowmodalComponent,
     BuslistmodalComponent,
     CustomerdetailsmodalComponent,
+    PayForTicketmodalComponent,
    
   ],
   imports: [
