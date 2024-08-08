@@ -18,6 +18,9 @@ export class BuslistmodalComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
+     this.apiService.modalTrigger$.subscribe((modalId: string) => {
+       $(modalId).modal('show');
+     });
     this.apiService.tripData$.subscribe((res) => {
       if (res) {
         console.log(res);
@@ -32,5 +35,10 @@ export class BuslistmodalComponent implements OnInit {
   }
   closeBuslistModal() {
     $('#buslistModal').modal('hide');
+  }
+  bookNow() {
+    $('#buslistModal').modal('hide');
+   
+    this.apiService.triggerModal('#customerDetailsModal');
   }
 }

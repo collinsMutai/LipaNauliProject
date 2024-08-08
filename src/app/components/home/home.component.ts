@@ -41,16 +41,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.display$.subscribe((state) => {
-      this.displayState = state;
-    });
-
-    this.apiService.modalTrigger$.subscribe((modalId: string) => {
-      $(modalId).modal('show');
-    });
-
-    this.apiService.modalClose$.subscribe(() => {
-      this.closePayNowModal();
+     this.apiService.modalTrigger$.subscribe((modalId: string) => {
+       $(modalId).modal('show');
+     });
+    this.apiService.getSourceCity().subscribe((res) => {
+      this.sourceCities = res.data;
     });
 
     const currentDate = new Date();
@@ -59,29 +54,22 @@ export class HomeComponent implements OnInit {
       month: currentDate.getMonth() + 1,
       day: currentDate.getDate(),
     });
-
-    this.apiService.getSourceCity().subscribe((res) => {
-      this.sourceCities = res.data;
-      console.log(this.sourceCities);
-    });
   }
-  selectedCity(selectedSourceCity: any) {
+
+  selectedCity(selectedSourceCity: string) {
     this.selectedSourceCity = selectedSourceCity;
-    console.log(this.selectedSourceCity);
     const selectedCity = this.sourceCities.find(
       (city) =>
         city.city_name.toLowerCase() === this.selectedSourceCity.toLowerCase()
     );
 
     if (selectedCity) {
-      this.sourceCityId = selectedCity.id;
-      this.apiService.getDestinationCity(this.sourceCityId).subscribe((res) => {
+      const sourceCityId = selectedCity.id;
+
+      this.apiService.getDestinationCity(sourceCityId).subscribe((res) => {
         this.destinationCities = res.data;
-        console.log(this.sourceCities);
+      
       });
-      console.log('Selected City ID:', this.sourceCityId);
-    } else {
-      console.error('Selected city not found in sourceCities.');
     }
   }
 
@@ -121,6 +109,10 @@ export class HomeComponent implements OnInit {
           this.apiService.triggerModal('#buslistModal');
           this.apiService.setDisplayState(true);
         });
+
+        //  this.tripForm.reset();
+        //  this.destinationCities = []; 
+        //  this.selectedSourceCity = '';
       }
     }
   }

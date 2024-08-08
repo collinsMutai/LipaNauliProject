@@ -30,8 +30,9 @@
                   class="form-control"
                   placeholder="To"
                   formControlName="to"
+                  list="destinationCities"
                 />
-                <datalist id="datalistOptions">
+                <datalist id="destinationCities">
                   <option
                     *ngFor="let suggestion of destinationCities"
                     [value]="suggestion.city_name"
@@ -95,3 +96,4 @@
 </div>
 <app-paynowmodal></app-paynowmodal>
 <app-buslistmodal></app-buslistmodal>
+<app-customerdetailsmodal></app-customerdetailsmodal>

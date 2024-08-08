@@ -1,7 +1,7 @@
 {
   "/api": {
-    "target": "http://api.lipanauli.com",
-    "secure": false,
+    "target": "https://api.lipanauli.com",
+    "secure": true,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {
