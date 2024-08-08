@@ -9,7 +9,8 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+
   padding: 0px;
   margin: 0px;
 }
@@ -31,6 +32,8 @@
 }
 .form-card {
   padding-left: 100px;
+  display: flex;
+  flex-direction: column;
 }
 .form-card .card {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -73,7 +76,7 @@ input {
   width: 100%;
 }
 .right img {
-  height: 85%;
+  height: 100vh;
   width: 100%;
 }
 .suggestions-list {
