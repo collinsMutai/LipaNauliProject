@@ -1,4 +1,46 @@
+.cta {
+  padding: 40px 10px;
+  height: 60vh;
+  display: flex; /* Ensure the main container is a flexbox */
+}
+
 .cta img {
   height: 60vh;
   width: 100%;
+}
+
+.mid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Changed from 'top' to 'flex-start' for clarity */
+  flex: 2;
+}
+
+.mid p, .mid a {
+  font-size: 14px;
+}
+
+a {
+  color: #f6b228;
+}
+
+.cta .left {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: flex-end; /* Align items to the bottom */
+  flex: 1;
+  position: relative; /* Establish positioning context */
+}
+.cta .left, .cta .right {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: flex-end; /* Align items to the bottom */
+  flex: 1;
+  position: relative; /* Establish positioning context */
+}
+
+.cta .right img {
+  width: 100px;
+  height: 80px;
+  margin-bottom: -120px; /* Remove bottom margin if any */
 }

@@ -1,5 +1,68 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+.hero .nav-section {
+  position: absolute;
+  right: 24%;
+  top: 24px;
+  z-index: 1;
+}
+.hero .nav-section ul {
+  position: absolute;
+  left: 30%;
+  top: -10px;
+  z-index: 1;
+}
+.hero .nav-section ul li {
+  background-color: #739b5b;
+  color: #fff;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+.hero .nav-section .login {
+  position: absolute;
+  left: 60%;
+  top: -10px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.hero .nav-section .login {
+  font-size: 14px;
+  font-weight: 500;
+}
+.hero .nav-section .login p {
+  font-size: 13px;
+}
+.hero .nav-section .login p svg {
+  height: 40px;
+  width: 40px;
+  color: #ccc;
+}
+.hero .nav-section .login img {
+  width: 100px;
+  height: 40px;
+}
+.hero .nav-section .social-icons {
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  z-index: 1;
+}
+.hero .nav-section .social-icons p {
+  font-size: 13px;
+  font-weight: 700;
+}
+.hero .nav-section .social-icons .img {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.hero .nav-section .social-icons .img svg {
+  width: 20px;
+  height: 20px;
+  color: #739b5b;
+}
 .hero {
   background: url("../../../assets/Lipanauli/Affordable bus service Nairobi.png");
   background-size: cover;
@@ -8,7 +71,7 @@
   height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: space-between;
 
   padding: 0px;
@@ -23,7 +86,9 @@
   font-size: 48px;
   text-transform: uppercase;
   padding: 10px 0px;
-  font-family: "Poppins", sans-serif;
+
+  font-family: "Nunito", sans-serif;
+
   font-weight: 900;
   font-style: normal;
 }
@@ -37,6 +102,23 @@
 }
 .form-card .card {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+.hero .form-card .phone-cta {
+  font-size: 14px;
+  background-color: #293a43;
+  border-radius: 25px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+.hero .form-card .phone-cta svg {
+  background-color: #739b5b;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
 }
 .input-item {
   display: flex;
@@ -96,3 +178,4 @@ input {
 .suggestion-item:hover {
   background-color: #f0f0f0;
 }
+
