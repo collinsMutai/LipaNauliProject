@@ -1,0 +1,174 @@
+<div
+  class="modal fade"
+  id="loginModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" style="width: 550px">
+    <div class="modal-content">
+      <div class="">
+        <div>
+          <img
+            src="../../assets/Lipanauli/Nairobi bus reservations.jpeg"
+            alt=""
+            style="width: 200px; height: 100%; object-fit: contain"
+          />
+        </div>
+        <div>
+          <div
+            class="modal-header"
+            style="display: flex; justify-content: space-between"
+          >
+            <svg
+              *ngIf="!initial"
+              (click)="toggleInitial()"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l14 0" />
+              <path d="M5 12l4 4" />
+              <path d="M5 12l4 -4" />
+            </svg>
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Join Lipa Nauli
+            </h5>
+            <svg
+              (click)="closeLoginModal()"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+              data-bs-dismiss="modal"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M18 6l-12 12" />
+              <path d="M6 6l12 12" />
+            </svg>
+          </div>
+
+          <div class="modal-body">
+            <form [formGroup]="loginForm" (ngSubmit)="handleAction()">
+              <div class="mb-3 row">
+                <div class="col-auto">
+                  <select
+                    formControlName="country_code"
+                    class="form-select"
+                    *ngIf="signin || signup || forgot"
+                  >
+                    <option value="254" selected>254</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <input
+                    formControlName="phone"
+                    type="text"
+                    class="form-control"
+                    id="Phone"
+                    placeholder="Phone"
+                    *ngIf="signin || signup || forgot"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3" *ngIf="signin">
+                <input
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  id="Password"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="mb-3" *ngIf="verifyOtp && !signin && !signup">
+                <input
+                  formControlName="otp"
+                  type="text"
+                  class="form-control"
+                  id="Otp"
+                  placeholder="Otp"
+                />
+              </div>
+              <div *ngIf="!signin && !signup && !forgot && !verifyOtp">
+                <button (click)="toggleSignin()" type="button" class="loginBtn">
+                  Sign In
+                </button>
+                <button (click)="toggleSignup()" type="button" class="loginBtn">
+                  Sign Up
+                </button>
+              </div>
+              <p
+                *ngIf="!signin && !signup && displayState"
+                style="text-align: center"
+              >
+                Or
+              </p>
+              <button
+                *ngIf="!signin && !signup && displayState"
+                type="button"
+                class="loginBtn"
+                (click)="passengerDetails()"
+              >
+                Continue as a Guest
+              </button>
+              <button
+                *ngIf="signin || signup || forgot || verifyOtp"
+                type="submit"
+                class="loginBtn"
+              >
+                {{
+                  signin
+                    ? "Sign In"
+                    : signup
+                    ? "Send Verification"
+                    : verifyOtp
+                    ? "Verify OTP"
+                    : "Request"
+                }}
+              </button>
+
+              <div
+                style="display: flex; justify-content: flex-end; gap: 10px"
+                class="pt-4"
+              >
+                <p
+                  *ngIf="signin"
+                  (click)="toggleForgotPassword()"
+                  style="font-size: 14px"
+                >
+                  Forgot Password
+                </p>
+                <p *ngIf="signin" style="font-size: 14px">Sign Up</p>
+                <p
+                  *ngIf="forgot"
+                  (click)="toggleSignin()"
+                  style="font-size: 14px"
+                >
+                  Sign In
+                </p>
+                <p *ngIf="verifyOtp" style="font-size: 14px">Resend OTP?</p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

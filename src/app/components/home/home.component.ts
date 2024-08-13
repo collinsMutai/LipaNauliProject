@@ -41,9 +41,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.apiService.modalTrigger$.subscribe((modalId: string) => {
-       $(modalId).modal('show');
-     });
+    this.apiService.modalTrigger$.subscribe((modalId: string) => {
+      $(modalId).modal('show');
+    });
     this.apiService.getSourceCity().subscribe((res) => {
       this.sourceCities = res.data;
     });
@@ -68,7 +68,6 @@ export class HomeComponent implements OnInit {
 
       this.apiService.getDestinationCity(sourceCityId).subscribe((res) => {
         this.destinationCities = res.data;
-      
       });
     }
   }
@@ -111,7 +110,7 @@ export class HomeComponent implements OnInit {
         });
 
         //  this.tripForm.reset();
-        //  this.destinationCities = []; 
+        //  this.destinationCities = [];
         //  this.selectedSourceCity = '';
       }
     }
@@ -120,7 +119,7 @@ export class HomeComponent implements OnInit {
   closePayNowModal() {
     $('#payNowModal').modal('hide');
   }
-
+ 
   payNowTrip() {
     this.apiService.triggerModal('#payNowModal');
   }
@@ -135,5 +134,9 @@ export class HomeComponent implements OnInit {
 
       this.apiService.setDisplayState(true);
     });
+  }
+
+  loginUser() {
+    this.apiService.triggerModal('#loginModal');
   }
 }

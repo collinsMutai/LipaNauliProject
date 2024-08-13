@@ -5,4 +5,5 @@ export const environment = {
   api: '/api/globalApi/trips/getTrips',
   bookingURL: '/api/globalApi/ticket/booking',
   stkPushURL: '/api/globalApi/paymentGateway/init',
+  forgotPasswordURL: '/api/globalApi/appUser/forgotPassword',
 };

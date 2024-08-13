@@ -123,4 +123,12 @@ export class ApiService {
       .post<any>(environment.stkPushURL, ticketRefInfo, { headers })
       .pipe(tap((res) => this.stkPushSubject.next(res)));
   }
+  forgotPassword(ticketRefInfo: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: environment.AUTHORIZATION,
+    });
+    return this.http
+      .post<any>(environment.stkPushURL, ticketRefInfo, { headers })
+      .pipe(tap((res) => this.stkPushSubject.next(res)));
+  }
 }

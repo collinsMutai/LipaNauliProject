@@ -18,6 +18,7 @@ import { PaynowmodalComponent } from './components/paynowmodal/paynowmodal.compo
 import { BuslistmodalComponent } from './components/buslistmodal/buslistmodal.component';
 import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal/customerdetailsmodal.component';
 import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay-for-ticketmodal.component';
+import { LoginmodalComponent } from './loginmodal/loginmodal.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay
     BuslistmodalComponent,
     CustomerdetailsmodalComponent,
     PayForTicketmodalComponent,
+    LoginmodalComponent,
    
   ],
   imports: [
