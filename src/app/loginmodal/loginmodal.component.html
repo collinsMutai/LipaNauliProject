@@ -7,7 +7,7 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog" style="width: 550px">
+  <div class="modal-dialog modalDialog">
     <div class="modal-content">
       <div class="">
         <div>
@@ -144,26 +144,33 @@
                 }}
               </button>
 
-              <div
-                style="display: flex; justify-content: flex-end; gap: 10px"
-                class="pt-4"
-              >
-                <p
-                  *ngIf="signin"
-                  (click)="toggleForgotPassword()"
-                  style="font-size: 14px"
+              <div class="pt-4">
+                <div
+                  class="btns-actions"
+                  style="display: flex; justify-content: space-between"
                 >
-                  Forgot Password
-                </p>
-                <p *ngIf="signin" style="font-size: 14px">Sign Up</p>
+                  <p
+                    *ngIf="signin"
+                    (click)="toggleForgotPassword()"
+                    style="font-size: 14px"
+                  >
+                    Forgot Password
+                  </p>
+                  <p *ngIf="signin" style="font-size: 14px">Sign Up</p>
+                  <p
+                    *ngIf="forgot"
+                    (click)="toggleSignin()"
+                    style="font-size: 14px"
+                  >
+                    Sign In
+                  </p>
+                </div>
                 <p
-                  *ngIf="forgot"
-                  (click)="toggleSignin()"
-                  style="font-size: 14px"
+                  *ngIf="verifyOtp"
+                  style="font-size: 14px; text-align: center"
                 >
-                  Sign In
+                  Resend OTP?
                 </p>
-                <p *ngIf="verifyOtp" style="font-size: 14px">Resend OTP?</p>
               </div>
             </form>
           </div>

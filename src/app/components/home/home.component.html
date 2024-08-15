@@ -76,10 +76,64 @@
             <path d="M16.5 7.5l0 .01" />
           </svg>
         </div>
-        <p>@Lipanauli</p>
+        <p>Lipanauli</p>
       </div>
     </div>
-    <div class="col-6 form-card">
+
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-button pt-2 pb-2" (click)="toggleMobileMenu()">
+      <span *ngIf="!isMobileMenuOpen">
+        <svg
+          style="height: 40px; width: 40px; color: #739b5b"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4 6l16 0" />
+          <path d="M4 12l16 0" />
+          <path d="M4 18l16 0" /></svg
+      ></span>
+      <span *ngIf="isMobileMenuOpen"
+        ><svg
+          style="height: 40px; width: 40px; color: #739b5b"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M18 6l-12 12" />
+          <path d="M6 6l12 12" /></svg
+      ></span>
+      <img
+        style="height: 40px; width: 150px"
+        src="../../../assets/Lipanauli/Lipanauli fare prices.png"
+        alt=""
+      />
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" *ngIf="isMobileMenuOpen">
+      <ul>
+        <li (click)="loginUser()">Sign In / Sign Out</li>
+      </ul>
+    </div>
+
+    <div class="col-12 col-md-6 form-card">
       <img
         style="height: 50px; width: 150px; margin-top: 80px"
         src="../../../assets/Lipanauli/Lipanauli fare prices.png"
@@ -177,12 +231,12 @@
         </div>
       </div>
     </div>
-    <div class="col-6 right" style="padding: 0">
-      <img
+    <div class="col-12 col-md-6 right" style="padding: 0">
+      <!-- <img
         class="right-img"
         src="../../../assets/Lipanauli/Nairobi transport solutions.png"
         alt=""
-      />
+      /> -->
     </div>
   </div>
   <div class="row">

@@ -44,3 +44,49 @@ a {
   height: 80px;
   margin-bottom: -120px; /* Remove bottom margin if any */
 }
+/* Mobile styles */
+@media (max-width: 768px) {
+  .cta {
+    flex-direction: column; /* Stack elements vertically */
+    height: auto; /* Allow height to adjust to content */
+  }
+
+  .cta img {
+    height: auto; /* Let images scale down naturally */
+    width: 100%; /* Maintain full width */
+  }
+
+  .mid {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: center; /* Center items */
+  }
+
+  .mid .item {
+    width: 100%; /* Ensure each item takes full width */
+    margin-bottom: 20px; /* Add space between items */
+  }
+
+  .mid h4, .mid h5 {
+    font-size: 16px; /* Adjust heading sizes for better readability */
+  }
+
+  .mid p {
+    font-size: 12px; /* Reduce paragraph font size */
+  }
+
+  .mid a {
+    font-size: 12px; /* Reduce link font size */
+  }
+
+  .cta .left, .cta .right {
+    flex: 1; /* Allow images to occupy full width */
+    margin: 10px 0; /* Add margin between left and right images */
+    align-items: center; /* Center images */
+  }
+
+  .cta .right img {
+    width: 80px; /* Adjust width for smaller screens */
+    height: 60px; /* Adjust height for smaller screens */
+    margin-bottom: 0; /* Reset bottom margin */
+  }
+}

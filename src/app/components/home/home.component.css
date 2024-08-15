@@ -64,7 +64,8 @@
   color: #739b5b;
 }
 .hero {
-  background: url("../../../assets/Lipanauli/Affordable bus service Nairobi.png");
+  /* background: url("../../../assets/Lipanauli/Affordable bus service Nairobi.png"); */
+  background: url("../../../assets/Lipanauli/Bus routes Nairobi.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -178,4 +179,65 @@ input {
 .suggestion-item:hover {
   background-color: #f0f0f0;
 }
+.mobile-menu {
+  position: absolute;
+  top: 60px; /* Adjust based on your layout */
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
 
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mobile-menu ul li {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.mobile-menu ul li:hover {
+  background-color: #f0f0f0;
+}
+.mobile-menu-button {
+  display: none; /* Show mobile menu button on mobile */
+}
+
+@media (max-width: 475px) {
+  .form-card {
+    padding-left: 15px;
+  }
+  .form-card img {
+    display: none;
+  }
+  .hero {
+    margin-bottom: 60px;
+  }
+  .nav-section {
+    display: none;
+  }
+  input {
+    width: 150px;
+  }
+  .mobile-menu-button {
+    display: block;
+    background: #fff;
+    padding: 10px;
+  }
+
+  .mobile-menu-button > span {
+    display: inline-block;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .nav-section {
+    display: none; /* Hide desktop menu */
+  }
+}

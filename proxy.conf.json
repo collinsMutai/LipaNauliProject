@@ -1,11 +1,9 @@
 {
-  "/api": {
+  "/globalApi": {
     "target": "https://api.lipanauli.com",
     "secure": true,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "logLevel": "debug"
+  
   }
 }

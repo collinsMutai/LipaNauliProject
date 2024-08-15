@@ -1,9 +1,12 @@
-.modal-header svg{
+.modal-header svg {
   color: #000;
   height: 30px;
   width: 30px;
 }
-.modal-title{
+.modalDialog{
+  width: 550px;
+}
+.modal-title {
   font-size: 24px;
 }
 .loginBtn {
@@ -29,4 +32,12 @@
 
 .form-select {
   width: auto;
+}
+@media (max-width: 475px) {
+  .modal-content > div img {
+    display: none;
+  }
+ .modalDialog{
+  width: auto;
+}
 }

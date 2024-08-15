@@ -39,6 +39,11 @@ export class HomeComponent implements OnInit {
       passengers: [''],
     });
   }
+  isMobileMenuOpen = false;
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 
   ngOnInit() {
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
@@ -73,6 +78,7 @@ export class HomeComponent implements OnInit {
   }
 
   bookTrip() {
+    this.apiService.triggerModal('#buslistModal');
     if (this.tripForm.valid) {
       const formData = this.tripForm.value;
       const departure = formData.departure;
@@ -82,9 +88,10 @@ export class HomeComponent implements OnInit {
       );
       if (this.sourceCity) {
         this.sourceCityId = this.sourceCity.id;
-      } else {
-        console.error('Source city not found.');
-      }
+      } 
+      // else {
+      //   console.error('Source city not found.');
+      // }
 
       this.destinationCity = this.destinationCities.find(
         (city) => city.city_name.toLowerCase() === formData.to.toLowerCase()
@@ -92,9 +99,10 @@ export class HomeComponent implements OnInit {
 
       if (this.destinationCity) {
         this.destinationCityId = this.destinationCity.id;
-      } else {
-        console.error('Destination city not found.');
-      }
+      } 
+      // else {
+      //   console.error('Destination city not found.');
+      // }
 
       if (this.sourceCity && this.destinationCity) {
         const tripData = {
@@ -119,7 +127,7 @@ export class HomeComponent implements OnInit {
   closePayNowModal() {
     $('#payNowModal').modal('hide');
   }
- 
+
   payNowTrip() {
     this.apiService.triggerModal('#payNowModal');
   }

@@ -1,6 +1,11 @@
-
 .card-body-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  height: 150px;
+  margin: 10px;
 }
 .bus-details {
   display: flex;
@@ -166,4 +171,15 @@
   border-radius: 5px;
 }
 
-
+@media (max-width: 768px) {
+  .card-body-container {
+    flex-direction: column;
+  }
+  .card {
+    height: auto;
+  }
+  .right {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}

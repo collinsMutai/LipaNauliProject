@@ -25,12 +25,17 @@ export class ApiService {
   private tripDataSubject = new BehaviorSubject<any>(null);
   private bookingDataSubject = new BehaviorSubject<any>(null);
   private stkPushSubject = new BehaviorSubject<any>(null);
+  private forgotPasswordSubject = new BehaviorSubject<any>(null);
+  private changeForgotPasswordSubject = new BehaviorSubject<any>(null);
 
   sourceCity$ = this.sourceCitySubject.asObservable();
   destinationCity$ = this.destinationCitySubject.asObservable();
   tripData$ = this.tripDataSubject.asObservable();
   bookingData$ = this.bookingDataSubject.asObservable();
   stkPush$ = this.stkPushSubject.asObservable();
+  forgotPasswordSubject$ = this.forgotPasswordSubject.asObservable();
+  changeForgotPasswordSubject$ =
+    this.changeForgotPasswordSubject.asObservable();
 
   private modalTriggerSource = new Subject<string>();
   modalTrigger$ = this.modalTriggerSource.asObservable();
@@ -41,6 +46,7 @@ export class ApiService {
   // Subject to trigger modal close
   private modalCloseSubject = new Subject<void>();
   modalClose$ = this.modalCloseSubject.asObservable();
+  
 
   constructor(private http: HttpClient) {}
 
@@ -76,7 +82,10 @@ export class ApiService {
 
   getSourceCity(): Observable<any> {
     return this.http
-      .post<any>(environment.apiURL, this.sourceCities)
+      .post<any>(
+        '/globalApi/common'+'/getCity',
+        this.sourceCities
+      )
       .pipe(tap((res) => this.sourceCitySubject.next(res)));
   }
 
@@ -123,12 +132,26 @@ export class ApiService {
       .post<any>(environment.stkPushURL, ticketRefInfo, { headers })
       .pipe(tap((res) => this.stkPushSubject.next(res)));
   }
-  forgotPassword(ticketRefInfo: any): Observable<any> {
+  forgotPassword(forgotPasswordData: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: environment.AUTHORIZATION,
     });
     return this.http
-      .post<any>(environment.stkPushURL, ticketRefInfo, { headers })
-      .pipe(tap((res) => this.stkPushSubject.next(res)));
+      .post<any>(environment.forgotPasswordURL, forgotPasswordData, { headers })
+      .pipe(tap((res) => this.forgotPasswordSubject.next(res)));
+  }
+  changeForgotPassword(changeForgotPasswordData: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: environment.AUTHORIZATION,
+    });
+    return this.http
+      .post<any>(
+        environment.changeForgotPasswordURL,
+        changeForgotPasswordData,
+        {
+          headers,
+        }
+      )
+      .pipe(tap((res) => this.changeForgotPasswordSubject.next(res)));
   }
 }

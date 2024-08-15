@@ -20,7 +20,6 @@ import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal
 import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay-for-ticketmodal.component';
 import { LoginmodalComponent } from './loginmodal/loginmodal.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +33,6 @@ import { LoginmodalComponent } from './loginmodal/loginmodal.component';
     CustomerdetailsmodalComponent,
     PayForTicketmodalComponent,
     LoginmodalComponent,
-   
   ],
   imports: [
     BrowserModule,

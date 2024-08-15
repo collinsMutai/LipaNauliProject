@@ -18,27 +18,32 @@ export class BuslistmodalComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-     this.apiService.modalTrigger$.subscribe((modalId: string) => {
-       $(modalId).modal('show');
-     });
-    this.apiService.tripData$.subscribe((res) => {
-      if (res) {
-        console.log(res);
-        if (Array.isArray(res.data)) {
-          this.bookingInfo = res.data[0];
-        } else if (typeof res.data === 'object' && res.data !== null) {
-          this.bookingInfo = res.data;
-        }
-        console.log('Updated booking data:', this.bookingInfo);
-      }
+    this.apiService.modalTrigger$.subscribe((modalId: string) => {
+      $(modalId).modal('show');
     });
+    // this.apiService.tripData$.subscribe((res) => {
+    //   if (res) {
+    //     console.log(res);
+    //     if (Array.isArray(res.data)) {
+    //       this.bookingInfo = res.data[0];
+    //     } else if (typeof res.data === 'object' && res.data !== null) {
+    //       this.bookingInfo = res.data;
+    //     }
+    //     console.log('Updated booking data:', this.bookingInfo);
+    //   }
+    // });
+    this.bookingInfo = {
+      route_name: 'nairobi - juja',
+      company_name: 'buscar',
+      departure_time: '6:00PM'
+    };
   }
   closeBuslistModal() {
     $('#buslistModal').modal('hide');
   }
   bookNow() {
     $('#buslistModal').modal('hide');
-   
+
     this.apiService.triggerModal('#customerDetailsModal');
   }
 }

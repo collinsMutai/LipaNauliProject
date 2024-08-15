@@ -102,8 +102,8 @@ export class LoginmodalComponent implements OnInit {
         this.loginForm.value.phone
       );
       const forgotPasswordData = {
-        phone: '123456789',
-        country_code: '254',
+        phone: this.loginForm.value.phone,
+        country_code: this.loginForm.value.country_code,
         device_number: '9g6mwyj43tsp095xu76bwc',
         sourcetype: 'web',
       };
@@ -115,6 +115,16 @@ export class LoginmodalComponent implements OnInit {
     if (this.verifyOtp && this.loginForm.value.otp) {
       console.log('Verify otp', this.loginForm.value.otp);
       this.toggleVerifyOtp();
+      const verifyOtpData = {
+        phone: '123456789',
+        newPassword: 'xxxxxxx',
+        confirmPassword: ' xxxxxxx',
+        country_code: '254',
+        sourcetype: 'web',
+      };
+      this.apiService.changeForgotPassword(verifyOtpData).subscribe((res) => {
+        console.log(res);
+      });
     }
   }
   closeLoginModal() {

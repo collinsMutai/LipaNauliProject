@@ -1,6 +1,6 @@
 <!-- Passenger Detail Modal -->
 <div
-  class="modal fade"
+  class="modal modal-fullscreen"
   id="customerDetailsModal"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
@@ -8,11 +8,12 @@
   aria-labelledby="staticBackdropLabel4"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-scrollable">
+  <div class="modal-dialog">
     <div class="modal-content slide-in-modal">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel4">Passenger Details</h5>
         <button
+          (click)="closeCustomerdetailsModal()"
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
