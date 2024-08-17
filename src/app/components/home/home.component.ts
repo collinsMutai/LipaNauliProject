@@ -46,9 +46,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
+      // this.apiService.triggerModal('#payForTicketModal');
     this.apiService.getSourceCity().subscribe((res) => {
       this.sourceCities = res.data;
     });

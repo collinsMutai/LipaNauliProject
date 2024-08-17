@@ -74,7 +74,6 @@
   display: flex;
   align-items: top;
   justify-content: space-between;
-
   padding: 0px;
   margin: 0px;
 }
@@ -87,9 +86,7 @@
   font-size: 48px;
   text-transform: uppercase;
   padding: 10px 0px;
-
   font-family: "Nunito", sans-serif;
-
   font-weight: 900;
   font-style: normal;
 }
@@ -131,7 +128,6 @@
 input {
   width: 200px;
 }
-
 .bookBtns {
   display: flex;
   align-items: center;
@@ -155,7 +151,7 @@ input {
   padding: 7px;
 }
 .right {
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 .right img {
@@ -181,63 +177,95 @@ input {
 }
 .mobile-menu {
   position: absolute;
-  top: 60px; /* Adjust based on your layout */
+  top: 60px;
   right: 0;
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
-
 .mobile-menu ul {
   list-style: none;
   padding: 0;
 }
-
 .mobile-menu ul li {
   padding: 10px 20px;
   cursor: pointer;
   border-bottom: 1px solid #ccc;
 }
-
 .mobile-menu ul li:hover {
   background-color: #f0f0f0;
 }
 .mobile-menu-button {
-  display: none; /* Show mobile menu button on mobile */
+  display: none;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 1024px) {
+  .rowContainer {
+    margin-top: 80px;
+  }
+  .hero {
+    height: auto;
+  }
+  input {
+    width: 150px;
+  }
+  .card {
+    margin-bottom: 100px;
+  }
+}
+@media (max-width: 768px) {
+  .rowContainer {
+    margin-top: 80px;
+  }
+  .hero {
+    height: auto;
+  }
+  .input-item {
+    flex-direction: column;
+  }
+  input {
+    width: 200px;
+  }
+}
+
+@media (max-width: 425px) {
+  .hero {
+    height: auto;
+  }
   .form-card {
     padding-left: 15px;
   }
   .form-card img {
     display: none;
   }
-  .hero {
-    margin-bottom: 60px;
-  }
   .nav-section {
     display: none;
   }
   input {
-    width: 150px;
+    width: 300px;
   }
-  .mobile-menu-button {
-    display: block;
-    background: #fff;
-    padding: 10px;
-  }
-
-  .mobile-menu-button > span {
-    display: inline-block;
-  }
-
   .mobile-menu-button {
     display: flex;
     justify-content: space-between;
+    background: #fff;
+    padding: 10px;
   }
+  .mobile-menu-button > span {
+    display: inline-block;
+  }
+  .rowContainer {
+    margin-top: 60px;
+  }
+}
 
-  .nav-section {
-    display: none; /* Hide desktop menu */
+@media (max-width: 320px) {
+  .input-item .item {
+    flex-direction: row;
+  }
+  input {
+    width: 250px;
+  }
+  .rowContainer {
+    margin-top: 20px;
   }
 }

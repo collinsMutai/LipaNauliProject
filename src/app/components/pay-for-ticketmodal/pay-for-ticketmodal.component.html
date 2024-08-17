@@ -1,5 +1,5 @@
 <div
-  class="modal fade"
+  class="modal"
   id="payForTicketModal"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
@@ -7,12 +7,12 @@
   aria-labelledby="staticBackdropLabel4"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-scrollable modal-xl d-flex align-items-center justify-content-center">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content slide-in-modal">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel4">Pay For Trip</h5>
         <button
-        (click)="closePayNowModal()"
+          (click)="closePayNowModal()"
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
@@ -21,13 +21,13 @@
       </div>
 
       <div class="row mb-3">
-        <div class="col-7">
+        <div class="col-12 col-md-7">
           <div class="card modalCard" style="padding-top: 20px">
             <div
               class="card-body"
-              style="display: flex; flex-direction: column"
+             
             >
-              <div class="d-flex align-items-center" style="padding: 40px 0px">
+              <div class="custom-container">
                 <select
                   style="width: 90px"
                   class="form-select me-2"
@@ -45,7 +45,11 @@
                   placeholder="Phone"
                 />
 
-                <button type="button" class="paymentBtn" (click)="stkBtn()">
+                <button
+                  type="button"
+                  class="paymentBtn btn btn-primary"
+                  (click)="stkBtn()"
+                >
                   Make Payment
                 </button>
               </div>
@@ -53,33 +57,45 @@
               <div class="tripDetails">
                 <div class="column">
                   <p>
-                    Route: <span *ngIf="bookingInfo">{{ bookingInfo.route_name }}</span>
+                    Route:
+                    <span *ngIf="bookingInfo">{{
+                      bookingInfo.route_name
+                    }}</span>
                   </p>
                   <p>
-                    Booking Date: <span *ngIf="bookingInfo">{{ bookingInfo.start_date }}</span>
+                    Booking Date:
+                    <span *ngIf="bookingInfo">{{
+                      bookingInfo.start_date
+                    }}</span>
                   </p>
                 </div>
                 <div class="column">
                   <p>
                     Departure Time:
-                    <span *ngIf="bookingInfo">{{ bookingInfo.departure_time }}</span>
+                    <span *ngIf="bookingInfo">{{
+                      bookingInfo.departure_time
+                    }}</span>
                   </p>
                   <p>
                     Boarding Point:
-                    <span *ngIf="bookingInfo">{{ bookingInfo.route_cities[0].city_name }}</span>
+                    <span *ngIf="bookingInfo">{{
+                      bookingInfo.route_cities[0].city_name
+                    }}</span>
                   </p>
                 </div>
                 <div class="column">
                   <p>
                     Dropping Point:
-                    <span *ngIf="bookingInfo">{{ bookingInfo.route_cities[1].city_name }}</span>
+                    <span *ngIf="bookingInfo">{{
+                      bookingInfo.route_cities[1].city_name
+                    }}</span>
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-5">
+        <div class="col-12 col-md-5">
           <div class="card modalCard">
             <div class="card-body">
               <div class="fare">

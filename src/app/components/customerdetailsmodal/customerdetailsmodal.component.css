@@ -33,8 +33,11 @@
 }
 
 .modal-footer {
-  padding: 0;
   margin: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 body.modal-open {
@@ -42,17 +45,17 @@ body.modal-open {
 }
 
 .modal-dialog {
-  position: fixed; 
-  top: 0; 
-  right: 0; 
-  margin: 0; 
-  height: 100vh; 
-  width: 550px; 
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0;
+  height: 100vh;
+  width: 550px;
 }
 
 .modal-content {
-  height: 100%; 
-  border-radius: 10px; 
+  height: 100%;
+  border-radius: 10px;
 }
 
 .modal-header,
@@ -107,4 +110,19 @@ body.modal-open {
   outline: none;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+@media (max-width: 480px) {
+  .modal-dialog {
+    width: 100%; 
+    margin: 0;
+    height: 100vh; 
+    padding: 0;
+  }
+  .input-group {
+    flex-direction: column; 
+    gap: 0.5rem;
+  }
+  .inlineInput{
+    flex-direction: row;
+  }
 }

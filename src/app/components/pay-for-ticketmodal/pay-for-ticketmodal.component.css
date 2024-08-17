@@ -8,6 +8,10 @@ h2 {
   padding: 10px;
   margin-top: 10px;
 }
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
 .top-banner {
   font-size: 14px;
   background-color: #89d079;
@@ -80,4 +84,42 @@ h2 {
 .busDetails img {
   height: 80px;
   width: 80px;
+}
+.form-control {
+  width: 200px;
+}
+.custom-container {
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.custom-container select,
+.custom-container input {
+  margin-right: 10px;
+}
+@media (max-width: 480px) {
+  .modal-dialog {
+    width: 100%;
+    margin: 0;
+    height: 100vh;
+    padding: 0;
+  }
+  .form-control {
+    width: 100px;
+  }
+  .custom-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .custom-container select,
+  .custom-container input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .custom-container button {
+    width: 100%;
+  }
 }
