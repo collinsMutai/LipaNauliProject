@@ -210,7 +210,7 @@ input {
     width: 150px;
   }
   .card {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
   }
 }
 @media (max-width: 768px) {

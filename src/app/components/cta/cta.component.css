@@ -16,7 +16,8 @@
   flex: 2;
 }
 
-.mid p, .mid a {
+.mid p,
+.mid a {
   font-size: 14px;
 }
 
@@ -31,7 +32,8 @@ a {
   flex: 1;
   position: relative; /* Establish positioning context */
 }
-.cta .left, .cta .right {
+.cta .left,
+.cta .right {
   display: flex;
   justify-content: center; /* Center the content horizontally */
   align-items: flex-end; /* Align items to the bottom */
@@ -44,6 +46,36 @@ a {
   height: 80px;
   margin-bottom: -120px; /* Remove bottom margin if any */
 }
+.appBtn {
+  display: flex;
+  align-items: center; /* Vertically centers items */
+  justify-content: center; /* Horizontally centers items */
+  background-color: #000; /* Background color for the button */
+  padding: 5px; /* Even padding around the entire div */
+  border-radius: 5px; /* Rounded corners */
+  width: 100px; /* Set a fixed width for the button */
+  /* You can add a height if needed */
+  height: 60px; /* Example height, adjust as necessary */
+}
+
+.appBtnTxt p {
+  font-size: 10px;
+  color: #fff;
+  margin: 0; /* Remove default margin */
+  text-align: center; /* Center text horizontally */
+}
+
+.appBtnTxt p span {
+  font-size: 14px; /* Larger font size for "Google Play" text */
+}
+
+.appBtn img {
+  height: 30px; /* Adjust size of the image */
+  width: 30px; /* Adjust size of the image */
+  margin-right: 5px; /* Space between image and text */
+}
+
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .cta {
@@ -66,7 +98,8 @@ a {
     margin-bottom: 20px; /* Add space between items */
   }
 
-  .mid h4, .mid h5 {
+  .mid h4,
+  .mid h5 {
     font-size: 16px; /* Adjust heading sizes for better readability */
   }
 
@@ -78,7 +111,8 @@ a {
     font-size: 12px; /* Reduce link font size */
   }
 
-  .cta .left, .cta .right {
+  .cta .left,
+  .cta .right {
     flex: 1; /* Allow images to occupy full width */
     margin: 10px 0; /* Add margin between left and right images */
     align-items: center; /* Center images */
