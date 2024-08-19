@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { Subscription, interval } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 declare var $: any;
 
 @Component({
@@ -89,10 +90,19 @@ export class PayForTicketmodalComponent implements OnInit, OnDestroy {
       $(modalId).modal('show');
     });
 
-    this.apiService.tripData$.subscribe((res) => {
-      this.bookingInfo = res.data;
-      console.log(this.bookingInfo);
-    });
+    this.apiService.tripData$
+      .pipe(
+        filter((res) => res !== null),
+        tap((res) => {
+          if (res.data) {
+            this.bookingInfo = res.data[0];
+            console.log(this.bookingInfo);
+          } else {
+            console.warn('No data found');
+          }
+        })
+      )
+      .subscribe();
   }
 
   stkBtn() {

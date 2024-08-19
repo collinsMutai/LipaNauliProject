@@ -23,10 +23,7 @@
       <div class="row mb-3">
         <div class="col-12 col-md-7">
           <div class="card modalCard" style="padding-top: 20px">
-            <div
-              class="card-body"
-             
-            >
+            <div class="card-body">
               <div class="custom-container">
                 <select
                   style="width: 90px"
@@ -58,36 +55,30 @@
                 <div class="column">
                   <p>
                     Route:
-                    <span *ngIf="bookingInfo">{{
+                    <span *ngIf="bookingInfo?.route_name">{{
                       bookingInfo.route_name
                     }}</span>
                   </p>
                   <p>
                     Booking Date:
-                    <span *ngIf="bookingInfo">{{
+                    <span *ngIf="bookingInfo?.start_date">{{
                       bookingInfo.start_date
                     }}</span>
                   </p>
                 </div>
                 <div class="column">
                   <p>
-                    Departure Time:
-                    <span *ngIf="bookingInfo">{{
-                      bookingInfo.departure_time
-                    }}</span>
-                  </p>
-                  <p>
                     Boarding Point:
-                    <span *ngIf="bookingInfo">{{
-                      bookingInfo.route_cities[0].city_name
+                    <span *ngIf="bookingInfo?.route_cities?.length > 0">{{
+                      bookingInfo.route_cities[0]?.city_name
                     }}</span>
                   </p>
                 </div>
                 <div class="column">
                   <p>
                     Dropping Point:
-                    <span *ngIf="bookingInfo">{{
-                      bookingInfo.route_cities[1].city_name
+                    <span *ngIf="bookingInfo?.route_cities?.length > 1">{{
+                      bookingInfo.route_cities[1]?.city_name
                     }}</span>
                   </p>
                 </div>

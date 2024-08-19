@@ -14,6 +14,9 @@
           <h5 *ngIf="bookingInfo" class="modal-title" id="staticBackdropLabel5">
             Bus route: {{ bookingInfo.route_name }}
           </h5>
+          <h5 *ngIf="!bookingInfo" class="modal-title" id="staticBackdropLabel5">
+            Bus not found for the route.
+          </h5>
           <button
             (click)="closeBuslistModal()"
             type="button"
@@ -217,7 +220,7 @@
                 <div class="">
                   <p>Price</p>
                   <p *ngIf="bookingInfo.fares && bookingInfo.fares.length > 0">
-                    KES: {{ bookingInfo.price }}
+                    KES: {{ bookingInfo.fares[0].price }}
                   </p>
                 </div>
                 <div class="seats">

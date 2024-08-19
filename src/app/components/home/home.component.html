@@ -187,6 +187,7 @@
                   class="form-control"
                   placeholder="To"
                   formControlName="to"
+                   (change)="selectedDestCity($any($event.target).value)"
                   list="destinationCities"
                 />
                 <datalist id="destinationCities">

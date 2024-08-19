@@ -129,7 +129,7 @@
         class="modal-footer"
        
       >
-        <p>KES 1,700</p>
+        <p>KES: {{ trip_Info?.fares[0]?.price }}</p>
         <button type="button" class="payBtn" (click)="tripReview()">
           Proceed To Pay
         </button>

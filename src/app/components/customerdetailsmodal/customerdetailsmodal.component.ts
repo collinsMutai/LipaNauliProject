@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { filter, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/api.service';
 declare var $: any;
 
@@ -61,6 +62,7 @@ export class CustomerdetailsmodalComponent implements OnInit {
   };
 
   bookingInfo!: any;
+  trip_Info!: any;
   passengerForm!: FormGroup;
 
   constructor(
@@ -80,6 +82,19 @@ export class CustomerdetailsmodalComponent implements OnInit {
         console.log('Updated booking data:', this.bookingInfo);
       }
     });
+    this.apiService.tripData$
+      .pipe(
+        filter((res) => res !== null),
+        tap((res) => {
+          if (res.data) {
+            this.trip_Info = res.data[0];
+            console.log(this.trip_Info);
+          } else {
+            console.warn('No data found');
+          }
+        })
+      )
+      .subscribe();
   }
 
   initForm() {
@@ -112,8 +127,13 @@ export class CustomerdetailsmodalComponent implements OnInit {
       this.passengerForm.get('nationality')?.value;
     this.tripInfo.passenger[0].id_no = this.passengerForm.get('idNo')?.value;
 
+    // const datetimeStr = this.tripInfo?.sort_time;
+    // const dateStr = datetimeStr.split(' ')[0];
+    // this.tripInfo.booking_date = dateStr;
+
     const tripInfoString = JSON.stringify(this.tripInfo);
     localStorage.setItem('user', tripInfoString);
+    console.log('this.tripInfo', this.tripInfo);
 
     this.apiService.booking(this.tripInfo).subscribe((res) => {
       console.log(res);
@@ -124,7 +144,6 @@ export class CustomerdetailsmodalComponent implements OnInit {
   closeCustomerdetailsModal() {
     $('#customerDetailsModal').modal('hide');
     // $('#payForTicketModal').modal('show');
-     this.apiService.triggerModal('#payForTicketModal');
-    
+    this.apiService.triggerModal('#payForTicketModal');
   }
 }

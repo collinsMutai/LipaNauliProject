@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { filter, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/api.service';
 declare var $: any;
 
@@ -21,22 +22,20 @@ export class BuslistmodalComponent implements OnInit {
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
-    // this.apiService.tripData$.subscribe((res) => {
-    //   if (res) {
-    //     console.log(res);
-    //     if (Array.isArray(res.data)) {
-    //       this.bookingInfo = res.data[0];
-    //     } else if (typeof res.data === 'object' && res.data !== null) {
-    //       this.bookingInfo = res.data;
-    //     }
-    //     console.log('Updated booking data:', this.bookingInfo);
-    //   }
-    // });
-    this.bookingInfo = {
-      route_name: 'nairobi - juja',
-      company_name: 'buscar',
-      departure_time: '6:00PM'
-    };
+    this.apiService.tripData$
+      .pipe(
+        filter((res) => res !== null),
+        tap((res) => {
+          if (res) {
+            if (Array.isArray(res.data)) {
+              this.bookingInfo = res.data[0];
+            } else if (typeof res.data === 'object' && res.data !== null) {
+              this.bookingInfo = res.data;
+            }
+          }
+        })
+      )
+      .subscribe();
   }
   closeBuslistModal() {
     $('#buslistModal').modal('hide');

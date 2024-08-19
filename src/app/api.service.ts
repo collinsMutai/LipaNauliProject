@@ -46,7 +46,6 @@ export class ApiService {
   // Subject to trigger modal close
   private modalCloseSubject = new Subject<void>();
   modalClose$ = this.modalCloseSubject.asObservable();
-  
 
   constructor(private http: HttpClient) {}
 
@@ -81,18 +80,33 @@ export class ApiService {
   }
 
   getSourceCity(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
     return this.http
-      .post<any>(
-        '/globalApi/common'+'/getCity',
-        this.sourceCities
-      )
+      .post<any>('/api/globalApi/common/getCity', this.sourceCities, {
+        headers,
+      })
       .pipe(tap((res) => this.sourceCitySubject.next(res)));
   }
 
   getDestinationCity(cityId: any): Observable<any> {
-    this.destCities.city_id = cityId;
+    const token = '4F5D3QC5-C94A-CFD5-87C1-4E2903311DF0';
+   
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    // this.destCities = {
+    //   city_id: '1',
+    //   city_type: 'destination',
+    //   sourcetype: 'web',
+    // };
     return this.http
-      .post<any>(environment.apiURL, this.destCities)
+      .post<any>('/api/globalApi/common/getCity', this.destCities, {
+        headers,
+      })
       .pipe(tap((res) => this.destinationCitySubject.next(res)));
   }
 
@@ -102,7 +116,11 @@ export class ApiService {
     });
 
     return this.http
-      .post<any>(environment.api, tripData, { headers })
+      .post<any>(
+        '/api/globalApi/trips/getTrips',
+        tripData,
+        { headers }
+      )
       .pipe(tap((res) => this.tripDataSubject.next(res)));
   }
 
@@ -120,7 +138,7 @@ export class ApiService {
       Authorization: environment.AUTHORIZATION,
     });
     return this.http
-      .post<any>(environment.bookingURL, bookingData, { headers })
+      .post<any>('/api/globalApi/ticket/booking', bookingData, { headers })
       .pipe(tap((res) => this.bookingDataSubject.next(res)));
   }
 

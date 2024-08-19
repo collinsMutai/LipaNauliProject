@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { ApiService } from 'src/app/api.service';
+import Swal from 'sweetalert2';
+
 declare var $: any;
 
 @Component({
@@ -46,21 +48,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-   
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
-      // this.apiService.triggerModal('#payForTicketModal');
+    // this.apiService.triggerModal('#payForTicketModal');
     this.apiService.getSourceCity().subscribe((res) => {
       this.sourceCities = res.data;
     });
 
-    const currentDate = new Date();
-    this.tripForm.get('departure').setValue({
-      year: currentDate.getFullYear(),
-      month: currentDate.getMonth() + 1,
-      day: currentDate.getDate(),
-    });
+    const currentDate = new Date().toISOString().split('T')[0];
+    this.tripForm.get('departure').setValue(currentDate);
   }
 
   selectedCity(selectedSourceCity: string) {
@@ -76,11 +73,25 @@ export class HomeComponent implements OnInit {
       this.apiService.getDestinationCity(sourceCityId).subscribe((res) => {
         this.destinationCities = res.data;
       });
+    } else {
+      Swal.fire('Source city not found.');
+    }
+  }
+  selectedDestCity(selectedDestinationCity: string) {
+    const selectedCity = this.destinationCities.find(
+      (city) =>
+        city.city_name.toLowerCase() === selectedDestinationCity.toLowerCase()
+    );
+    if (this.destinationCities.length === 0) {
+      Swal.fire('Select destination city first.');
+    }
+    if (!selectedCity) {
+      Swal.fire('Destination city not found.');
     }
   }
 
   bookTrip() {
-    this.apiService.triggerModal('#buslistModal');
+    // this.apiService.triggerModal('#buslistModal');
     if (this.tripForm.valid) {
       const formData = this.tripForm.value;
       const departure = formData.departure;
@@ -90,10 +101,9 @@ export class HomeComponent implements OnInit {
       );
       if (this.sourceCity) {
         this.sourceCityId = this.sourceCity.id;
-      } 
-      // else {
-      //   console.error('Source city not found.');
-      // }
+      } else {
+        console.error('Source city not found.');
+      }
 
       this.destinationCity = this.destinationCities.find(
         (city) => city.city_name.toLowerCase() === formData.to.toLowerCase()
@@ -101,22 +111,27 @@ export class HomeComponent implements OnInit {
 
       if (this.destinationCity) {
         this.destinationCityId = this.destinationCity.id;
-      } 
-      // else {
-      //   console.error('Destination city not found.');
-      // }
+      } else {
+        Swal.fire('Destination city not found.');
+        console.error('Destination city not found.');
+      }
 
       if (this.sourceCity && this.destinationCity) {
         const tripData = {
           source_id: this.sourceCityId,
           destination_id: this.destinationCityId,
           booking_date: '2024-05-29',
+          // booking_date: departure,
         };
 
         this.apiService.getAllTrip(tripData).subscribe((res) => {
-          console.log(res);
-          this.apiService.triggerModal('#buslistModal');
-          this.apiService.setDisplayState(true);
+          if (res.data[0]) {
+            this.apiService.triggerModal('#buslistModal');
+
+            this.apiService.setDisplayState(true);
+          }else{
+            Swal.fire(' Bus not found for the route.');
+          }
         });
 
         //  this.tripForm.reset();
