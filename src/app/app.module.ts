@@ -19,6 +19,7 @@ import { BuslistmodalComponent } from './components/buslistmodal/buslistmodal.co
 import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal/customerdetailsmodal.component';
 import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay-for-ticketmodal.component';
 import { LoginmodalComponent } from './loginmodal/loginmodal.component';
+import { UserconfirmmodalComponent } from './components/userconfirmmodal/userconfirmmodal.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LoginmodalComponent } from './loginmodal/loginmodal.component';
     CustomerdetailsmodalComponent,
     PayForTicketmodalComponent,
     LoginmodalComponent,
+    UserconfirmmodalComponent,
   ],
   imports: [
     BrowserModule,

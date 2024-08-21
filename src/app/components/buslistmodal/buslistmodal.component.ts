@@ -43,6 +43,7 @@ export class BuslistmodalComponent implements OnInit {
   bookNow() {
     $('#buslistModal').modal('hide');
 
-    this.apiService.triggerModal('#customerDetailsModal');
+    // this.apiService.triggerModal('#customerDetailsModal');
+    this.apiService.triggerModal('#userconfirmmodal');
   }
 }

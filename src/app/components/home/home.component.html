@@ -1,9 +1,29 @@
-<div class="container-fluid hero-section" style="padding: 0">
+<div class="container-fluid hero-section">
   <div class="row hero">
     <div class="nav-section">
-      <ul>
-        <li>Home</li>
-      </ul>
+      <img
+        class="logo"
+        style="height: 50px; width: 150px"
+        src="../../../assets/Lipanauli/Lipanauli fare prices.png"
+        alt=""
+      />
+      <p class="phone-cta" style="height: 40px; width: 250px">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="icon icon-tabler icons-tabler-filled icon-tabler-phone"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M9 3a1 1 0 0 1 .877 .519l.051 .11l2 5a1 1 0 0 1 -.313 1.16l-.1 .068l-1.674 1.004l.063 .103a10 10 0 0 0 3.132 3.132l.102 .062l1.005 -1.672a1 1 0 0 1 1.113 -.453l.115 .039l5 2a1 1 0 0 1 .622 .807l.007 .121v4c0 1.657 -1.343 3 -3.06 2.998c-8.579 -.521 -15.418 -7.36 -15.94 -15.998a3 3 0 0 1 2.824 -2.995l.176 -.005h4z"
+          />
+        </svg>
+        0790 215 215 | 0737 740 740
+      </p>
+
       <div class="login" (click)="loginUser()">
         <p>Sign In / Sign Out</p>
         <p>
@@ -134,28 +154,6 @@
     </div>
 
     <div class="col-12 col-md-6 form-card">
-      <img
-        style="height: 50px; width: 150px; margin-top: 80px"
-        src="../../../assets/Lipanauli/Lipanauli fare prices.png"
-        alt=""
-      />
-      <p class="phone-cta" style="height: 40px; width: 250px; margin-top: 40px">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="icon icon-tabler icons-tabler-filled icon-tabler-phone"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M9 3a1 1 0 0 1 .877 .519l.051 .11l2 5a1 1 0 0 1 -.313 1.16l-.1 .068l-1.674 1.004l.063 .103a10 10 0 0 0 3.132 3.132l.102 .062l1.005 -1.672a1 1 0 0 1 1.113 -.453l.115 .039l5 2a1 1 0 0 1 .622 .807l.007 .121v4c0 1.657 -1.343 3 -3.06 2.998c-8.579 -.521 -15.418 -7.36 -15.94 -15.998a3 3 0 0 1 2.824 -2.995l.176 -.005h4z"
-          />
-        </svg>
-        0790 215 215 | 0737 740 740
-      </p>
-
       <h1 style="letter-spacing: 1px" class="header">
         <span>Fare</span> ya kisure
       </h1>
@@ -187,7 +185,7 @@
                   class="form-control"
                   placeholder="To"
                   formControlName="to"
-                   (change)="selectedDestCity($any($event.target).value)"
+                  (change)="selectedDestCity($any($event.target).value)"
                   list="destinationCities"
                 />
                 <datalist id="destinationCities">
@@ -208,37 +206,35 @@
                 />
               </div>
               <div>
-                <label for="passengers" class="form-label"
-                  >Passengers/ luggage</label
-                >
+                <label for="passengers" class="form-label">Passengers</label>
                 <input
                   type="text"
                   class="form-control"
                   formControlName="passengers"
-                  placeholder="1 Adult, 0 Baggage"
+                  placeholder="1"
                 />
               </div>
             </div>
-            <div class="bookBtns">
-              <button (click)="bookTrip()" type="button" class="search">
-                Search
-              </button>
 
-              <button (click)="payNowTrip()" type="button" class="paynow">
-                Pay Now
-              </button>
-            </div>
+            <button (click)="bookTrip()" type="button" class="search">
+              Book Advance Tickets
+            </button>
           </form>
         </div>
       </div>
+      <div>
+        <p class="or">Or</p>
+      </div>
+      <div class="card">
+        <div class="card-body payForTripCard">
+          <p>Are you traveling now? </p>
+          <button (click)="payNowTrip()" type="button" class="paynow">
+            Pay For Trip
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-12 col-md-6 right" style="padding: 0">
-      <!-- <img
-        class="right-img"
-        src="../../../assets/Lipanauli/Nairobi transport solutions.png"
-        alt=""
-      /> -->
-    </div>
+    <div class="col-12 col-md-6 right" style="padding: 0"></div>
   </div>
   <div class="row">
     <app-lipanaulislider></app-lipanaulislider>
@@ -256,5 +252,6 @@
 <app-loginmodal></app-loginmodal>
 <app-paynowmodal></app-paynowmodal>
 <app-buslistmodal></app-buslistmodal>
+<app-userconfirmmodal></app-userconfirmmodal>
 <app-customerdetailsmodal></app-customerdetailsmodal>
 <app-pay-for-ticketmodal></app-pay-for-ticketmodal>

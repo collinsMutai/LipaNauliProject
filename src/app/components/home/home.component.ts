@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
       from: [''],
       to: [''],
       departure: [''],
-      passengers: [''],
+      passengers: [1],
     });
   }
   isMobileMenuOpen = false;
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
-    // this.apiService.triggerModal('#payForTicketModal');
+    // this.apiService.triggerModal('#customerDetailsModal');
     this.apiService.getSourceCity().subscribe((res) => {
       this.sourceCities = res.data;
     });
@@ -95,6 +95,9 @@ export class HomeComponent implements OnInit {
     if (this.tripForm.valid) {
       const formData = this.tripForm.value;
       const departure = formData.departure;
+      console.log(formData);
+      this.apiService.setFormData(formData);
+     
 
       this.sourceCity = this.sourceCities.find(
         (city) => city.city_name.toLowerCase() === formData.from.toLowerCase()
@@ -129,7 +132,7 @@ export class HomeComponent implements OnInit {
             this.apiService.triggerModal('#buslistModal');
 
             this.apiService.setDisplayState(true);
-          }else{
+          } else {
             Swal.fire(' Bus not found for the route.');
           }
         });

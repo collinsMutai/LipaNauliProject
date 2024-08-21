@@ -27,7 +27,9 @@ export class ApiService {
   private stkPushSubject = new BehaviorSubject<any>(null);
   private forgotPasswordSubject = new BehaviorSubject<any>(null);
   private changeForgotPasswordSubject = new BehaviorSubject<any>(null);
+  private formDataSubject = new BehaviorSubject<any>(null);
 
+  formData$ = this.formDataSubject.asObservable();
   sourceCity$ = this.sourceCitySubject.asObservable();
   destinationCity$ = this.destinationCitySubject.asObservable();
   tripData$ = this.tripDataSubject.asObservable();
@@ -49,6 +51,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  setFormData(formData: any): void {
+    this.formDataSubject.next(formData);
+  }
+  getFormData(): Observable<any> {
+    return this.formData$;
+  }
   // Login method
   login(data): Observable<any> {
     return;
@@ -92,7 +100,6 @@ export class ApiService {
 
   getDestinationCity(cityId: any): Observable<any> {
     const token = '4F5D3QC5-C94A-CFD5-87C1-4E2903311DF0';
-   
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -116,11 +123,7 @@ export class ApiService {
     });
 
     return this.http
-      .post<any>(
-        '/api/globalApi/trips/getTrips',
-        tripData,
-        { headers }
-      )
+      .post<any>('/api/globalApi/trips/getTrips', tripData, { headers })
       .pipe(tap((res) => this.tripDataSubject.next(res)));
   }
 

@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+.hero-section {
+  padding: 0px;
+}
 .hero .nav-section {
   position: absolute;
   right: 24%;
@@ -6,6 +9,12 @@
   z-index: 1;
 }
 .hero .nav-section ul {
+  position: absolute;
+  left: 30%;
+  top: -10px;
+  z-index: 1;
+}
+.hero .nav-section .logo {
   position: absolute;
   left: 30%;
   top: -10px;
@@ -19,7 +28,7 @@
 }
 .hero .nav-section .login {
   position: absolute;
-  left: 60%;
+  left: 75%;
   top: -10px;
   z-index: 1;
   display: flex;
@@ -94,14 +103,18 @@
   color: #f6b228;
 }
 .form-card {
-  padding-left: 100px;
+  padding-left: 80px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  margin-top: 100px;
 }
 .form-card .card {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  max-width: 500px;
+  width: 100%;
 }
-.hero .form-card .phone-cta {
+.hero .nav-section .phone-cta {
   font-size: 14px;
   background-color: #293a43;
   border-radius: 25px;
@@ -110,6 +123,10 @@
   align-items: center;
   justify-content: space-evenly;
   cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  z-index: 1;
 }
 .hero .form-card .phone-cta svg {
   background-color: #739b5b;
@@ -128,27 +145,44 @@
 input {
   width: 200px;
 }
-.bookBtns {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
 .search {
   border: none;
   outline: none;
   background-color: #f6b228;
   color: #fff;
-  width: 100px;
+  width: 200px;
   padding: 7px;
+  border-radius: 20px;
+  margin-left: 20px;
 }
+.or {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+.payForTripCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.payForTripCard p {
+  margin: 0;
+}
+
+.payForTripCard button {
+  margin-left: 10px;
+}
+
 .paynow {
   border: none;
   outline: none;
   background-color: #739b5b;
   color: #fff;
-  width: 100px;
+  width: 140px;
   padding: 7px;
+  border-radius: 20px;
 }
 .right {
   height: auto;
@@ -225,6 +259,13 @@ input {
   }
   input {
     width: 200px;
+  }
+  .payForTripCard {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .or {
+    margin-top: -40px;
   }
 }
 

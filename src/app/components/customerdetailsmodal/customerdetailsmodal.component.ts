@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { filter, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/api.service';
@@ -12,58 +12,17 @@ declare var $: any;
 })
 export class CustomerdetailsmodalComponent implements OnInit {
   tripInfo: any = {
-    booking_date: '2024-08-05',
-    route_id: '5',
-    token: 'E8887142-7E2A-4327-B324-27B4402FAE2A',
-    pickup_id: '4',
-    return_id: '1',
-    departure_time: '05:00 AM',
-    paymentMethod: 'mpesa',
-    bus_id: '69',
-    currencyId: '1',
-    ticket_cnt: '1',
-    sub_total: '1.00',
-    tax: '0',
-    total: '1.00',
-    is_luggage: false,
-    c_address: '',
-    c_city: '',
-    c_state: '',
-    c_zip: '',
-    c_country: '',
-    is_flat_offer: false,
-    passenger: [
-      {
-        seat_id: '1',
-        seat_name: '',
-        seat_type: 'normal',
-        ticketPrice: '1.00',
-        flatTicketPrice: '1.00',
-        currency: 'KES',
-        flat_sale: 0,
-        name: '',
-        last_name: '',
-        gender: '',
-        age: '',
-        mobileId: '254',
-        mobile: '726097666',
-        nationality: 'Kenyan',
-        id_no: '0000',
-      },
-    ],
-    isPromotional: false,
-    promotionalTripMsg: '',
-    seatSelectionLimit: '0',
     c_email: '',
-    delayedFlag: false,
-    delayedDate: '',
-    bookedThrough: 'web',
-    sourcetype: 'web',
+    c_first_name: '',
+    c_last_name: '',
+    passenger: [],
   };
-
-  bookingInfo!: any;
-  trip_Info!: any;
   passengerForm!: FormGroup;
+  bookingInfo!: any;
+  trip_Info: any = { fares: [{ price: 0 }] }; // Initialize with default price
+  basePrice: number = 0; // To hold the base price for calculations
+  totalPrice: number = 0; // To hold the total price for display
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -72,78 +31,157 @@ export class CustomerdetailsmodalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.apiService.getFormData().subscribe((formData) => {
+      if (formData) {
+        const numberOfPassengers = parseInt(formData.passengers, 10);
+        this.initForm(numberOfPassengers);
+
+        this.apiService.tripData$
+          .pipe(
+            filter((res) => res !== null),
+            tap((res) => {
+              if (res.data) {
+                this.trip_Info = res.data[0];
+                this.basePrice = this.trip_Info.fares[0].price;
+                this.updatePriceBasedOnPassengers(this.passengersArray.length);
+              } else {
+                console.warn('No data found');
+              }
+            })
+          )
+          .subscribe();
+      }
+    });
+
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
-    this.initForm();
+
     this.apiService.bookingData$.subscribe((res) => {
       if (res) {
         this.bookingInfo = res.data;
         console.log('Updated booking data:', this.bookingInfo);
       }
     });
-    this.apiService.tripData$
-      .pipe(
-        filter((res) => res !== null),
-        tap((res) => {
-          if (res.data) {
-            this.trip_Info = res.data[0];
-            console.log(this.trip_Info);
-          } else {
-            console.warn('No data found');
-          }
-        })
-      )
-      .subscribe();
   }
 
-  initForm() {
+  initForm(numberOfPassengers: number) {
     this.passengerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      gender: ['Male'], // Default to Male
-      mobileId: ['', Validators.required], // Add this line
-      mobile: ['', Validators.required],
-      nationality: ['', Validators.required],
-      idNo: ['', Validators.required],
+      passengers: this.fb.array([], Validators.required),
     });
+
+    this.updatePassengers(numberOfPassengers);
+  }
+
+  get passengersArray(): FormArray {
+    return this.passengerForm.get('passengers') as FormArray;
+  }
+
+  addPassenger() {
+    this.passengersArray.push(
+      this.fb.group({
+        name: [''],
+        phone: [''],
+      })
+    );
+
+    // Update price after adding a passenger
+    this.updatePriceBasedOnPassengers(this.passengersArray.length);
+  }
+
+  updatePassengers(numberOfPassengers: number) {
+    const passengerArray = this.passengerForm.get('passengers') as FormArray;
+
+    // Clear any existing controls
+    passengerArray.clear();
+
+    // Create form groups for each passenger
+    for (let i = 0; i < numberOfPassengers; i++) {
+      passengerArray.push(
+        this.fb.group({
+          name: [''],
+          phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+        })
+      );
+    }
+
+    // Update price based on the initial number of passengers
+    this.updatePriceBasedOnPassengers(numberOfPassengers);
+  }
+
+  removePassenger(index: number) {
+    const passengerArray = this.passengerForm.get('passengers') as FormArray;
+    if (index > -1 && index < passengerArray.length) {
+      passengerArray.removeAt(index);
+
+      // Update price after removing a passenger
+      this.updatePriceBasedOnPassengers(passengerArray.length);
+    }
+  }
+
+  updatePriceBasedOnPassengers(passengerCount: number) {
+    if (this.basePrice) {
+      this.totalPrice = this.basePrice * passengerCount;
+    }
   }
 
   tripReview() {
-    // if (this.passengerForm.valid) {
+      if (!this.passengerForm) {
+        console.error('Form is not initialized');
+        return;
+      }
+
+    // Log the current form values
+    console.log('Form Values:', this.passengerForm.value);
+    // Ensure the form is valid before proceeding
+    if (this.passengerForm.invalid) {
+      console.log('Form is invalid');
+      return; // Stop submission if the form is invalid
+    }
+
+    // Initialize tripInfo object with form data
+    this.tripInfo.c_email = this.passengerForm.get('email')?.value;
+
+    // Map passenger form data to tripInfo object
+    this.tripInfo.passenger = this.passengerForm
+      .get('passengers')
+      ?.value.map((passenger: any) => ({
+        name: passenger.name,
+        mobile: passenger.phone,
+      }));
+
+    // Log the tripInfo object to check data before sending it
+    console.log('Trip Info:', this.tripInfo);
+
+    // Set loading state to true
+    this.isLoading = true;
+
+    // Hide the customer details modal
     $('#customerDetailsModal').modal('hide');
+
+    // Trigger the payment modal
     this.apiService.triggerModal('#payForTicketModal');
 
-    // Populate tripInfo with passenger form data
-    this.tripInfo.c_email = this.passengerForm.get('email')?.value;
-    this.tripInfo.passenger[0].name =
-      this.passengerForm.get('firstName')?.value;
-    this.tripInfo.passenger[0].last_name =
-      this.passengerForm.get('lastName')?.value;
-    this.tripInfo.passenger[0].gender = this.passengerForm.get('gender')?.value;
-    // this.tripInfo.passenger[0].mobile = this.passengerForm.get('mobile')?.value;
-    this.tripInfo.passenger[0].nationality =
-      this.passengerForm.get('nationality')?.value;
-    this.tripInfo.passenger[0].id_no = this.passengerForm.get('idNo')?.value;
-
-    // const datetimeStr = this.tripInfo?.sort_time;
-    // const dateStr = datetimeStr.split(' ')[0];
-    // this.tripInfo.booking_date = dateStr;
-
-    const tripInfoString = JSON.stringify(this.tripInfo);
-    localStorage.setItem('user', tripInfoString);
-    console.log('this.tripInfo', this.tripInfo);
-
-    this.apiService.booking(this.tripInfo).subscribe((res) => {
-      console.log(res);
-      this.router.navigate(['booking']);
-    });
-    // }
+    // Send the booking data to the API service
+    this.apiService.booking(this.tripInfo).subscribe(
+      (res) => {
+        this.isLoading = false;
+        console.log('Booking response:', res);
+        // Optionally navigate or show a success message
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Booking failed', error);
+        // Optionally, show an error message to the user
+      }
+    );
   }
+
   closeCustomerdetailsModal() {
     $('#customerDetailsModal').modal('hide');
-    // $('#payForTicketModal').modal('show');
     this.apiService.triggerModal('#payForTicketModal');
   }
 }
