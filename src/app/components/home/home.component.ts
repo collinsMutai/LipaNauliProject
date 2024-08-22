@@ -95,9 +95,16 @@ export class HomeComponent implements OnInit {
     if (this.tripForm.valid) {
       const formData = this.tripForm.value;
       const departure = formData.departure;
-      console.log(formData);
-      this.apiService.setFormData(formData);
-     
+      // console.log(formData);
+      if (
+        formData &&
+        formData.from &&
+        formData.to &&
+        formData.departure &&
+        formData.passengers
+      ) {
+        this.apiService.setFormData(formData.passengers);
+      }
 
       this.sourceCity = this.sourceCities.find(
         (city) => city.city_name.toLowerCase() === formData.from.toLowerCase()

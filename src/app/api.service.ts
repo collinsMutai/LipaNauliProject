@@ -29,6 +29,8 @@ export class ApiService {
   private changeForgotPasswordSubject = new BehaviorSubject<any>(null);
   private formDataSubject = new BehaviorSubject<any>(null);
 
+  private selectedOptionSubject = new BehaviorSubject<string>('yes'); // Default value
+
   formData$ = this.formDataSubject.asObservable();
   sourceCity$ = this.sourceCitySubject.asObservable();
   destinationCity$ = this.destinationCitySubject.asObservable();
@@ -38,6 +40,7 @@ export class ApiService {
   forgotPasswordSubject$ = this.forgotPasswordSubject.asObservable();
   changeForgotPasswordSubject$ =
     this.changeForgotPasswordSubject.asObservable();
+  selectedOption$ = this.selectedOptionSubject.asObservable(); // Observable for selected option
 
   private modalTriggerSource = new Subject<string>();
   modalTrigger$ = this.modalTriggerSource.asObservable();
@@ -45,7 +48,6 @@ export class ApiService {
   private displaySubject = new BehaviorSubject<boolean>(false);
   display$ = this.displaySubject.asObservable();
 
-  // Subject to trigger modal close
   private modalCloseSubject = new Subject<void>();
   modalClose$ = this.modalCloseSubject.asObservable();
 
@@ -54,9 +56,11 @@ export class ApiService {
   setFormData(formData: any): void {
     this.formDataSubject.next(formData);
   }
+
   getFormData(): Observable<any> {
     return this.formData$;
   }
+
   // Login method
   login(data): Observable<any> {
     return;
@@ -87,6 +91,15 @@ export class ApiService {
     this.modalCloseSubject.next();
   }
 
+  // Manage selected option
+  setSelectedOption(option: string): void {
+    this.selectedOptionSubject.next(option);
+  }
+
+  getSelectedOption(): Observable<string> {
+    return this.selectedOption$;
+  }
+
   getSourceCity(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -105,11 +118,6 @@ export class ApiService {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
-    // this.destCities = {
-    //   city_id: '1',
-    //   city_type: 'destination',
-    //   sourcetype: 'web',
-    // };
     return this.http
       .post<any>('/api/globalApi/common/getCity', this.destCities, {
         headers,
@@ -153,6 +161,7 @@ export class ApiService {
       .post<any>(environment.stkPushURL, ticketRefInfo, { headers })
       .pipe(tap((res) => this.stkPushSubject.next(res)));
   }
+
   forgotPassword(forgotPasswordData: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: environment.AUTHORIZATION,
@@ -161,6 +170,7 @@ export class ApiService {
       .post<any>(environment.forgotPasswordURL, forgotPasswordData, { headers })
       .pipe(tap((res) => this.forgotPasswordSubject.next(res)));
   }
+
   changeForgotPassword(changeForgotPasswordData: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: environment.AUTHORIZATION,

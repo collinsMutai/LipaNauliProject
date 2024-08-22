@@ -8,6 +8,8 @@ declare var $: any;
   styleUrls: ['./userconfirmmodal.component.css'],
 })
 export class UserconfirmmodalComponent implements OnInit {
+  selectedOption: string = 'yes';
+
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -20,9 +22,10 @@ export class UserconfirmmodalComponent implements OnInit {
     $('#userconfirmmodal').modal('hide');
   }
 
-  confirmUser(){
-    $('#userconfirmmodal').modal('hide');
+  confirmUser() {
+    this.apiService.setSelectedOption(this.selectedOption); // Update the service with the selected option
 
+    $('#userconfirmmodal').modal('hide');
     this.apiService.triggerModal('#customerDetailsModal');
   }
 }

@@ -23,78 +23,111 @@
       <form [formGroup]="passengerForm" (ngSubmit)="tripReview()">
         <div class="modal-body" style="padding: 20px">
           <div class="mb-3">
-            <div class="contact-detail" style="padding-bottom: 10px">
-              <label for="email" class="form-label">Contact Detail</label>
-              <input
-                style="width: 100%"
-                type="text"
-                class="form-control"
-                formControlName="email"
-                placeholder="Email"
-              />
-            </div>
+            <ng-container *ngIf="user === 'yes'">
+              <div class="contact-detail" style="padding-bottom: 10px">
+                <label class="form-label">Contact Detail</label>
+                  <div
+                class="input-group inlineInput mb-3"
+                style="padding-bottom: 10px; display: flex; gap: 10px"
+              >
+                <input
+                  style="width: 40%"
+                  type="text"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="john@gmail.com"
+                />
+                <input
+                  style="width: 40%"
+                  type="text"
+                  class="form-control"
+                  formControlName="primary_phone"
+                  placeholder="john@gmail.com"
+                />
+                </div>
+              </div>
 
-            <div style="display: flex; justify-content: space-between">
-              <label for="">Primary Passenger</label>
-            </div>
-            <div
-              class="input-group inlineInput mb-3"
-              style="padding-bottom: 10px; display: flex; gap: 10px"
-            >
-              <input
-                style="width: 40%"
-                type="text"
-                class="form-control"
-                formControlName="firstName"
-                placeholder="First Name"
-              />
-              <input
-                style="width: 40%"
-                type="text"
-                class="form-control"
-                formControlName="lastName"
-                placeholder="Last Name"
-              />
-            </div>
+              <div style="display: flex; justify-content: space-between">
+                <label for="">Primary Passenger</label>
+              </div>
+              <div
+                class="input-group inlineInput mb-3"
+                style="padding-bottom: 10px; display: flex; gap: 10px"
+              >
+                <input
+                  style="width: 40%"
+                  type="text"
+                  class="form-control"
+                  formControlName="firstName"
+                  placeholder="john"
+                />
+                <input
+                  style="width: 40%"
+                  type="text"
+                  class="form-control"
+                  formControlName="lastName"
+                  placeholder="doe"
+                />
+              </div>
+            </ng-container>
 
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 10px;
+            <!-- Render Add button if there is exactly one passenger -->
+            <ng-container>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-bottom: 10px;
+                "
+              >
+                <p>Add passenger information</p>
+                <button class="addBtn" type="button" (click)="addPassenger()">
+                  Add
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- Conditionally render passengers if there are more than one -->
+            <ng-container
+              *ngIf="
+                (user === 'yes' && passengers.length > 0) ||
+                (user === 'no' && passengers.length >= 1)
               "
             >
-              <p>Add passenger information</p>
-              <button class="addBtn" type="button" (click)="addPassenger()">Add</button>
-            </div>
-
-            <div
-              class="input-group inlineInput mb-3"
-              *ngFor="let passenger of passengersArray.controls; let i = index"
-              [formGroupName]="i"
-              style="display: flex; align-items: center; gap: 10px"
-            >
-              <input
-                style="flex: 1"
-                type="text"
-                class="form-control"
-                formControlName="name"
-                placeholder="Name"
-              />
-              <input
-                style="flex: 1"
-                type="text"
-                class="form-control"
-                formControlName="phone"
-                placeholder="Phone"
-              />
-              <button type="button" (click)="removePassenger(i)">Remove</button>
-            </div>
+              <div formArrayName="passengers">
+                <div
+                  *ngFor="let passenger of passengers.controls; let i = index"
+                  [formGroupName]="i"
+                  class="input-group inlineInput mb-3"
+                  style="display: flex; align-items: center; gap: 10px"
+                >
+                  <ng-container [formGroup]="passenger">
+                    <input
+                      style="flex: 1"
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      placeholder="Name"
+                    />
+                    <input
+                      style="flex: 1"
+                      type="text"
+                      class="form-control"
+                      formControlName="phone"
+                      placeholder="Phone"
+                    />
+                    <button type="button" (click)="removePassenger(i)">
+                      Remove
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
         <div class="modal-footer">
-          <p>Total Price: {{ totalPrice | currency }}</p>
+           <p>Total Price: {{ calculateTotalPrice() | currency }}</p>
           <button type="submit" class="payBtn">Proceed To Pay</button>
         </div>
       </form>

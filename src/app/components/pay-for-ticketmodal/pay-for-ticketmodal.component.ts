@@ -105,23 +105,6 @@ export class PayForTicketmodalComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  stkBtn() {
-    this.loading = true;
-    this.error = null;
-    this.apiService.stkPushPay(this.ticketRefInfo).subscribe(
-      (response) => {
-        this.paymentStatus = response;
-        console.log(this.paymentStatus);
-
-        this.loading = false;
-      },
-      (error) => {
-        this.error = error.message;
-        this.loading = false;
-      }
-    );
-  }
-
   onSubmit() {
     if (this.paymentForm.invalid) {
       // Handle form validation errors
