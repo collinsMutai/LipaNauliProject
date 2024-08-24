@@ -21,7 +21,7 @@
       </div>
 
       <div class="row mb-3">
-        <div class="col-12 col-md-7">
+        <div class="" style="flex: 2;">
           <div class="card modalCard" style="padding-top: 20px">
             <div class="card-body">
               <div class="custom-container">
@@ -55,30 +55,30 @@
                 <div class="column">
                   <p>
                     Route:
-                    <span *ngIf="bookingInfo?.route_name">{{
-                      bookingInfo.route_name
+                    <span *ngIf="tripInfo?.route_name">{{
+                      tripInfo.route_name
                     }}</span>
                   </p>
                   <p>
                     Booking Date:
-                    <span *ngIf="bookingInfo?.start_date">{{
-                      bookingInfo.start_date
+                    <span *ngIf="tripInfo?.sort_time">{{
+                      tripInfo.sort_time | date : "yyyy-MM-dd"
                     }}</span>
                   </p>
                 </div>
                 <div class="column">
                   <p>
                     Boarding Point:
-                    <span *ngIf="bookingInfo?.route_cities?.length > 0">{{
-                      bookingInfo.route_cities[0]?.city_name
+                    <span *ngIf="tripInfo?.route_name">{{
+                      tripInfo.route_name.split(" -")[0]
                     }}</span>
                   </p>
                 </div>
                 <div class="column">
                   <p>
                     Dropping Point:
-                    <span *ngIf="bookingInfo?.route_cities?.length > 1">{{
-                      bookingInfo.route_cities[1]?.city_name
+                    <span *ngIf="tripInfo?.route_name">{{
+                      tripInfo.route_name.split("-")[1]
                     }}</span>
                   </p>
                 </div>
@@ -86,7 +86,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-5">
+        <div class="" style="flex: 1;">
           <div class="card modalCard">
             <div class="card-body">
               <div class="fare">
@@ -95,7 +95,7 @@
               </div>
               <div class="fare">
                 <p>Onward Fare</p>
-                <p>KES {{ bookingData.total }}</p>
+                <p>KES {{ totalPrice | kesCurrency }}</p>
               </div>
               <div class="fare">
                 <p>Wallet</p>
@@ -104,7 +104,7 @@
             </div>
             <div class="card-footer">
               <P>Total Payable</P>
-              <p>KES 2,200</p>
+              <p>KES {{ totalPrice | kesCurrency }}</p>
             </div>
           </div>
         </div>

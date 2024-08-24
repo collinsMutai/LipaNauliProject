@@ -20,6 +20,7 @@ import { CustomerdetailsmodalComponent } from './components/customerdetailsmodal
 import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay-for-ticketmodal.component';
 import { LoginmodalComponent } from './loginmodal/loginmodal.component';
 import { UserconfirmmodalComponent } from './components/userconfirmmodal/userconfirmmodal.component';
+import { KesCurrencyPipe } from './kes-currency.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { UserconfirmmodalComponent } from './components/userconfirmmodal/usercon
     PayForTicketmodalComponent,
     LoginmodalComponent,
     UserconfirmmodalComponent,
+    KesCurrencyPipe,
   ],
   imports: [
     BrowserModule,

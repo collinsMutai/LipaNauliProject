@@ -15,22 +15,25 @@ export class BuslistmodalComponent implements OnInit {
   sourceCityId!: string;
 
   login!: boolean;
-  bookingInfo!: any;
+  tripInfo!: any;
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
+
     this.apiService.tripData$
       .pipe(
         filter((res) => res !== null),
         tap((res) => {
           if (res) {
             if (Array.isArray(res.data)) {
-              this.bookingInfo = res.data[0];
+              this.tripInfo = res.data[0];
+              console.log('tripInfo', this.tripInfo);
             } else if (typeof res.data === 'object' && res.data !== null) {
-              this.bookingInfo = res.data;
+              this.tripInfo = res.data;
+              console.log('tripInfo', this.tripInfo);
             }
           }
         })

@@ -73,8 +73,7 @@
   color: #739b5b;
 }
 .hero {
-  /* background: url("../../../assets/Lipanauli/Affordable bus service Nairobi.png"); */
-  background: url("../../../assets/Lipanauli/Bus routes Nairobi.png");
+  background: url("../../../assets/Lipanauli/Affordable bus service Nairobi.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -114,7 +113,13 @@
   max-width: 500px;
   width: 100%;
 }
+.hero .nav-section .logo {
+  height: 50px;
+  width: 150px;
+}
 .hero .nav-section .phone-cta {
+  height: 40px;
+  width: 250px;
   font-size: 14px;
   background-color: #293a43;
   border-radius: 25px;
@@ -240,6 +245,12 @@ input {
   .hero {
     height: auto;
   }
+  .hero .nav-section .social-icons {
+    right: -65px;
+  }
+  .hero .nav-section .login {
+    left: 78%;
+  }
   input {
     width: 150px;
   }
@@ -253,6 +264,23 @@ input {
   }
   .hero {
     height: auto;
+  }
+  .hero .nav-section .logo {
+    height: 50px;
+    width: 120px;
+  }
+  .hero .nav-section .phone-cta {
+    width: 230px;
+  }
+  .hero .nav-section .social-icons {
+    right: -110px;
+  }
+  .hero .nav-section .login {
+    left: 85%;
+  }
+  .hero .nav-section .login p svg {
+    height: 20px;
+    width: 20px;
   }
   .input-item {
     flex-direction: column;
@@ -309,4 +337,13 @@ input {
   .rowContainer {
     margin-top: 20px;
   }
+
+ 
+  .form-card{
+    margin-top: 20px;
+  }
+  .header{
+    font-size: 30px;
+  }
+  
 }

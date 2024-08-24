@@ -33,6 +33,7 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeSubscriptions();
+    this.updateTotalPrice();
   }
 
   private initializeSubscriptions(): void {
@@ -90,18 +91,22 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
       }
     );
 
-    // Handle booking data updates
-    this.apiService.bookingData$.pipe(takeUntil(this.destroy$)).subscribe(
-      (res) => {
-        if (res) {
+    this.apiService.bookingData$
+      .pipe(
+        filter((res) => res !== null),
+        tap((res) => {
           this.bookingInfo = res.data;
-          console.log('Updated booking data:', this.bookingInfo);
-        }
-      },
-      (error) => {
-        console.error('Error fetching booking data:', error);
-      }
-    );
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
+    this.passengerForm.valueChanges
+      .pipe(
+        tap(() => this.updateTotalPrice()),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   private handleFormData(numberOfPassengers: number): void {
@@ -207,10 +212,58 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
   }
 
   tripReview() {
-    //  this.apiService.booking().subscribe(res=>{
-    //   console.log(res);
-
-    //  })
+    const bookingInfo: any = {
+      booking_date: '2024-08-29',
+      route_id: '5',
+      token: 'E8887142-7E2A-4327-B324-27B4402FAE2A',
+      pickup_id: '4',
+      return_id: '1',
+      departure_time: '05:00 AM',
+      paymentMethod: 'mpesa',
+      bus_id: '69',
+      currencyId: '1',
+      ticket_cnt: '1',
+      sub_total: '1.00',
+      tax: '0',
+      total: '1.00',
+      is_luggage: false,
+      c_address: '',
+      c_city: '',
+      c_state: '',
+      c_zip: '',
+      c_country: '',
+      is_flat_offer: false,
+      passenger: [
+        {
+          seat_id: '1',
+          seat_name: '',
+          seat_type: 'normal',
+          ticketPrice: '1.00',
+          flatTicketPrice: '1.00',
+          currency: 'KES',
+          flat_sale: 0,
+          name: '',
+          last_name: '',
+          gender: '',
+          age: '',
+          mobileId: '254',
+          mobile: '715176167',
+          nationality: 'Kenyan',
+          id_no: '0000',
+        },
+      ],
+      isPromotional: false,
+      promotionalTripMsg: '',
+      seatSelectionLimit: '0',
+      c_email: '',
+      delayedFlag: false,
+      delayedDate: '',
+      bookedThrough: 'web',
+      sourcetype: 'web',
+    };
+    this.apiService.booking(bookingInfo).subscribe((res) => {
+      console.log(res);
+    });
     $('#customerDetailsModal').modal('hide');
     this.apiService.triggerModal('#payForTicketModal');
   }
@@ -248,5 +301,9 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
       this.user === 'yes' ? numberOfPassengers + 1 : numberOfPassengers;
 
     return totalPassengers * pricePerPassenger;
+  }
+  private updateTotalPrice(): void {
+    const totalPrice = this.calculateTotalPrice();
+    this.apiService.updateTotalPrice(totalPrice); // Update total price in ApiService
   }
 }

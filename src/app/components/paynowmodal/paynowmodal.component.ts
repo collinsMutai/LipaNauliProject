@@ -8,21 +8,22 @@ declare var $: any;
   styleUrls: ['./paynowmodal.component.css'],
 })
 export class PaynowmodalComponent implements OnInit {
+  tripInfo: any;
   constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {}
-  registrationHandler() {
-    const tripInfo: any = {
-      booking_date: '2024-05-04',
-      vehicle_reg: 'kdf 002z',
-    };
-    this.apiService.getAllTrip(tripInfo).subscribe((res) => {
+  ngOnInit(): void {
+    this.tripInfo = this.apiService.getTripsSpecificBodyData();
+  }
+
+  searchTripRegistration() {
+    this.apiService.getAllTrip(this.tripInfo).subscribe((res) => {
       console.log(res);
       $('#payNowModal').modal('hide');
       this.apiService.triggerModal('#buslistModal');
       this.apiService.setDisplayState(true);
     });
   }
+
   closePayNowModal() {
     $('#payNowModal').modal('hide');
   }

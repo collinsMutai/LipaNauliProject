@@ -52,9 +52,12 @@ export class HomeComponent implements OnInit {
       $(modalId).modal('show');
     });
     // this.apiService.triggerModal('#customerDetailsModal');
-    this.apiService.getSourceCity().subscribe((res) => {
-      this.sourceCities = res.data;
-    });
+
+    this.apiService
+      .getSourceCity(this.apiService.getCitySourceBodyData())
+      .subscribe((res) => {
+        this.sourceCities = res.data;
+      });
 
     const currentDate = new Date().toISOString().split('T')[0];
     this.tripForm.get('departure').setValue(currentDate);
@@ -70,7 +73,12 @@ export class HomeComponent implements OnInit {
     if (selectedCity) {
       const sourceCityId = selectedCity.id;
 
-      this.apiService.getDestinationCity(sourceCityId).subscribe((res) => {
+      const cityDestinationBodyData =
+        this.apiService.getCityDestinationBodyData();
+      cityDestinationBodyData.city_id = sourceCityId;
+      this.apiService.setCityDestinationBodyData(cityDestinationBodyData);
+
+      this.apiService.getDestinationCity().subscribe((res) => {
         this.destinationCities = res.data;
       });
     } else {
@@ -90,12 +98,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  bookTrip() {
+  searchTrip() {
     // this.apiService.triggerModal('#buslistModal');
     if (this.tripForm.valid) {
       const formData = this.tripForm.value;
       const departure = formData.departure;
-      // console.log(formData);
+
       if (
         formData &&
         formData.from &&
@@ -157,18 +165,6 @@ export class HomeComponent implements OnInit {
 
   payNowTrip() {
     this.apiService.triggerModal('#payNowModal');
-  }
-  registrationHandler() {
-    const tripInfo: any = {
-      booking_date: '2024-05-04',
-      vehicle_reg: 'kdf 002z',
-    };
-    this.apiService.getAllTrip(tripInfo).subscribe((res) => {
-      console.log(res);
-      $('#payNowModal').modal('hide');
-
-      this.apiService.setDisplayState(true);
-    });
   }
 
   loginUser() {

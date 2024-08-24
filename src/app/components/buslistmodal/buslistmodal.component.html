@@ -11,10 +11,10 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content custom-modal">
         <div class="modal-header">
-          <h5 *ngIf="bookingInfo" class="modal-title" id="staticBackdropLabel5">
-            Bus route: {{ bookingInfo.route_name }}
+          <h5 *ngIf="tripInfo" class="modal-title" id="staticBackdropLabel5">
+            Bus route: {{ tripInfo.route_name }}
           </h5>
-          <h5 *ngIf="!bookingInfo" class="modal-title" id="staticBackdropLabel5">
+          <h5 *ngIf="!tripInfo" class="modal-title" id="staticBackdropLabel5">
             Bus not found for the route.
           </h5>
           <button
@@ -27,7 +27,7 @@
         </div>
         <div class="modal-body">
           <div
-            *ngIf="bookingInfo"
+            *ngIf="tripInfo"
             class="card"
           
           >
@@ -44,8 +44,8 @@
                     />
                   </div>
                   <div class="bus-content">
-                    <h3>{{ bookingInfo.company_name }}</h3>
-                    <p>{{ bookingInfo.route_name }}</p>
+                    <h3>{{ tripInfo.company_name }}</h3>
+                    <p>{{ tripInfo.route_name }}</p>
                     <div class="amenities">
                       <p>
                         <svg
@@ -135,7 +135,7 @@
                   </p>
                   <div>
                     <p>Departure Time</p>
-                    <p>{{ bookingInfo.departure_time }}</p>
+                    <p>{{ tripInfo.departure_time }}</p>
                   </div>
                 </div>
                 <div class="rating">
@@ -211,16 +211,16 @@
                 <div class="">
                   <p>Seat Type</p>
                   <p
-                    *ngIf="bookingInfo.fares && bookingInfo.fares.length > 0"
+                    *ngIf="tripInfo.fares && tripInfo.fares.length > 0"
                     style="text-transform: capitalize"
                   >
-                    {{ bookingInfo.fares[0].seatType }}:
+                    {{ tripInfo.fares[0].seatType }}:
                   </p>
                 </div>
                 <div class="">
                   <p>Price</p>
-                  <p *ngIf="bookingInfo.fares && bookingInfo.fares.length > 0">
-                    KES: {{ bookingInfo.fares[0].price }}
+                  <p *ngIf="tripInfo.fares && tripInfo.fares.length > 0">
+                     {{ tripInfo.fares[0].price | kesCurrency }}
                   </p>
                 </div>
                 <div class="seats">

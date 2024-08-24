@@ -26,24 +26,24 @@
             <ng-container *ngIf="user === 'yes'">
               <div class="contact-detail" style="padding-bottom: 10px">
                 <label class="form-label">Contact Detail</label>
-                  <div
-                class="input-group inlineInput mb-3"
-                style="padding-bottom: 10px; display: flex; gap: 10px"
-              >
-                <input
-                  style="width: 40%"
-                  type="text"
-                  class="form-control"
-                  formControlName="email"
-                  placeholder="john@gmail.com"
-                />
-                <input
-                  style="width: 40%"
-                  type="text"
-                  class="form-control"
-                  formControlName="primary_phone"
-                  placeholder="john@gmail.com"
-                />
+                <div
+                  class="input-group inlineInput mb-3"
+                  style="padding-bottom: 10px; display: flex; gap: 10px"
+                >
+                  <input
+                    style="width: 40%"
+                    type="text"
+                    class="form-control"
+                    formControlName="email"
+                    placeholder="john@gmail.com"
+                  />
+                  <input
+                    style="width: 40%"
+                    type="text"
+                    class="form-control"
+                    formControlName="primary_phone"
+                    placeholder="john@gmail.com"
+                  />
                 </div>
               </div>
 
@@ -126,8 +126,11 @@
             </ng-container>
           </div>
         </div>
+
         <div class="modal-footer">
-           <p>Total Price: {{ calculateTotalPrice() | currency }}</p>
+          <p>
+            Total Price:  {{ calculateTotalPrice() | kesCurrency}}
+          </p>
           <button type="submit" class="payBtn">Proceed To Pay</button>
         </div>
       </form>

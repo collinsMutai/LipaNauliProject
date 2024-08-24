@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { Subscription, interval } from 'rxjs';
@@ -10,60 +10,13 @@ declare var $: any;
   templateUrl: './pay-for-ticketmodal.component.html',
   styleUrls: ['./pay-for-ticketmodal.component.css'],
 })
-export class PayForTicketmodalComponent implements OnInit, OnDestroy {
+export class PayForTicketmodalComponent implements OnInit {
+  totalPrice: number = 0;
   stkpush: boolean = false;
   paymentStatus: any; // Replace with appropriate type
   loading: boolean = false;
   error: string | null = null;
-  bookingData: any = {
-    booking_date: '2024-08-1',
-    route_id: '5',
-    token: 'E8887142-7E2A-4327-B324-27B4402FAE2A',
-    pickup_id: '4',
-    return_id: '1',
-    departure_time: '05:00 AM',
-    paymentMethod: 'mpesa',
-    bus_id: '69',
-    currencyId: '1',
-    ticket_cnt: '1',
-    sub_total: '1.00',
-    tax: '0',
-    total: '1.00',
-    is_luggage: false,
-    c_address: '',
-    c_city: '',
-    c_state: '',
-    c_zip: '',
-    c_country: '',
-    is_flat_offer: false,
-    passenger: [
-      {
-        seat_id: '1',
-        seat_name: '',
-        seat_type: 'normal',
-        ticketPrice: '1.00',
-        flatTicketPrice: '1.00',
-        currency: 'KES',
-        flat_sale: 0,
-        name: '',
-        last_name: '',
-        gender: '',
-        age: '',
-        mobileId: '254',
-        mobile: '715176167',
-        nationality: 'Kenyan',
-        id_no: '0000',
-      },
-    ],
-    isPromotional: false,
-    promotionalTripMsg: '',
-    seatSelectionLimit: '0',
-    c_email: '',
-    delayedFlag: false,
-    delayedDate: '',
-    bookedThrough: 'web',
-    sourcetype: 'web',
-  };
+
   ticketRefInfo: any = {
     bookingRef: 'SWNGW939T2',
     queryoption: '10',
@@ -74,9 +27,6 @@ export class PayForTicketmodalComponent implements OnInit, OnDestroy {
   bookingInfo!: any;
   tripInfo!: any;
   paymentForm: FormGroup;
-  countdown$: Subscription | null = null;
-  minutes: number = 10;
-  seconds: number = 0;
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.paymentForm = this.fb.group({
@@ -95,8 +45,26 @@ export class PayForTicketmodalComponent implements OnInit, OnDestroy {
         filter((res) => res !== null),
         tap((res) => {
           if (res.data) {
-            this.bookingInfo = res.data[0];
-            console.log(this.bookingInfo);
+            this.tripInfo = res.data[0];
+            console.log('tripInfo', this.tripInfo);
+          } else {
+            console.warn('No data found');
+          }
+        })
+      )
+      .subscribe();
+
+    this.apiService.totalPrice$.subscribe((price) => {
+      this.totalPrice = price;
+    });
+
+    this.apiService.bookingData$
+      .pipe(
+        filter((res) => res !== null),
+        tap((res) => {
+          if (res) {
+            this.bookingInfo = res;
+            console.log('bookingInfo', this.bookingInfo);
           } else {
             console.warn('No data found');
           }
@@ -132,10 +100,5 @@ export class PayForTicketmodalComponent implements OnInit, OnDestroy {
 
   closePayNowModal() {
     $('#payForTicketModal').modal('hide');
-  }
-  ngOnDestroy() {
-    if (this.countdown$) {
-      this.countdown$.unsubscribe();
-    }
   }
 }
