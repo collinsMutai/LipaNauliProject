@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
-import { Subscription, interval } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 declare var $: any;
 
@@ -17,13 +17,7 @@ export class PayForTicketmodalComponent implements OnInit {
   loading: boolean = false;
   error: string | null = null;
 
-  ticketRefInfo: any = {
-    bookingRef: 'SWNGW939T2',
-    queryoption: '10',
-    queryvalue: '254726097666',
-    requestType: 'ticket',
-    paymentType: 'mpesa',
-  };
+  tripReviewInfo: any;
   bookingInfo!: any;
   tripInfo!: any;
   paymentForm: FormGroup;
@@ -31,7 +25,7 @@ export class PayForTicketmodalComponent implements OnInit {
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.paymentForm = this.fb.group({
       code: ['254', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      phone: ['726097666', [Validators.required]],
     });
   }
 
@@ -71,21 +65,40 @@ export class PayForTicketmodalComponent implements OnInit {
         })
       )
       .subscribe();
+
+    this.tripReviewInfo = this.apiService.getStkPushBodyData();
+    console.log('this.tripReviewInfo', this.tripReviewInfo);
+    this.updateQueryValue();
+
+    // Subscribe to form value changes
+    this.paymentForm.valueChanges.subscribe(() => {
+      this.updateQueryValue();
+    });
+  }
+
+  updateQueryValue() {
+    if (this.tripReviewInfo && this.paymentForm.valid) {
+      const formValues = this.paymentForm.value;
+      this.tripReviewInfo.queryvalue = formValues.phone;
+      console.log('Updated tripReviewInfo', this.tripReviewInfo);
+    }
   }
 
   onSubmit() {
+    console.log(this.paymentForm.value);
+
     if (this.paymentForm.invalid) {
       // Handle form validation errors
       return;
     }
 
-    this.loading = true;
-    this.error = null;
+ 
 
     const formValues = this.paymentForm.value;
-    this.ticketRefInfo.queryvalue = formValues.phone;
+    this.tripReviewInfo.queryvalue = `${formValues.code}${formValues.phone}`;
+    console.log('this.tripReviewInfo', this.tripReviewInfo);
 
-    this.apiService.stkPushPay(this.ticketRefInfo).subscribe(
+    this.apiService.stkPushPay(this.tripReviewInfo).subscribe(
       (response) => {
         this.paymentStatus = response;
         console.log(this.paymentStatus);

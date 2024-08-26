@@ -14,6 +14,7 @@ declare var $: any;
 export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   bookingInfo: any;
+  tripReviewInfo: any;
   passengerForm: FormGroup;
   user: string | null = null; // Initialize user as null
 
@@ -90,6 +91,9 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
         console.error('Error handling modal trigger:', error);
       }
     );
+    
+    this.tripReviewInfo = this.apiService.getBookingBodyData();
+  
 
     this.apiService.bookingData$
       .pipe(
@@ -113,7 +117,7 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
     const primaryPassenger =
       this.user === 'no'
         ? {
-            name: this.passengerForm.get('firstName')?.value,
+            name: '',
             phone: '',
           }
         : {};
@@ -123,8 +127,8 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
       this.passengerForm.patchValue({
         email: this.passengerForm.get('email')?.value || '',
         primary_phone: this.passengerForm.get('primary_phone')?.value || '',
-        firstName: primaryPassenger.name || '',
-        lastName: primaryPassenger.phone || '',
+        firstName: this.passengerForm.get('firstName')?.value || '',
+        lastName: this.passengerForm.get('lastName')?.value || '',
       });
 
       // Update FormArray based on number of additional passengers
@@ -212,29 +216,36 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
   }
 
   tripReview() {
-    const bookingInfo: any = {
-      booking_date: '2024-08-29',
-      route_id: '5',
-      token: 'E8887142-7E2A-4327-B324-27B4402FAE2A',
-      pickup_id: '4',
-      return_id: '1',
-      departure_time: '05:00 AM',
-      paymentMethod: 'mpesa',
-      bus_id: '69',
-      currencyId: '1',
-      ticket_cnt: '1',
-      sub_total: '1.00',
-      tax: '0',
-      total: '1.00',
-      is_luggage: false,
-      c_address: '',
-      c_city: '',
-      c_state: '',
-      c_zip: '',
-      c_country: '',
-      is_flat_offer: false,
-      passenger: [
-        {
+    console.log('passengerForm', this.passengerForm.value);
+    console.log('tripReviewInfo', this.tripReviewInfo);
+
+    const totalPrice = this.calculateTotalPrice();
+
+    // Determine primary passenger info
+    const primaryPassenger =
+      this.user === 'yes'
+        ? {
+            seat_id: '1',
+            seat_name: '',
+            seat_type: 'normal',
+            ticketPrice: '1.00',
+            flatTicketPrice: '1.00',
+            currency: 'KES',
+            flat_sale: 0,
+            name: this.passengerForm.get('firstName')?.value || '',
+            last_name: this.passengerForm.get('lastName')?.value || '',
+            gender: '',
+            age: '',
+            mobileId: '254',
+            mobile: this.passengerForm.get('primary_phone')?.value || '',
+            nationality: 'Kenyan',
+            id_no: '0000',
+          }
+        : null;
+
+    const passengersArray = this.passengerForm.get('passengers')?.value.map(
+      (passenger: any) =>
+        ({
           seat_id: '1',
           seat_name: '',
           seat_type: 'normal',
@@ -242,28 +253,33 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
           flatTicketPrice: '1.00',
           currency: 'KES',
           flat_sale: 0,
-          name: '',
-          last_name: '',
+          name: passenger.name,
+          last_name: passenger.name,
           gender: '',
           age: '',
           mobileId: '254',
-          mobile: '715176167',
+          mobile: passenger.phone,
           nationality: 'Kenyan',
           id_no: '0000',
-        },
+        } || [])
+    );
+
+    // Construct tripReviewInfo
+    const tripReviewInfo = {
+      ...this.tripReviewInfo,
+      total: totalPrice,
+      passenger: [
+        ...(primaryPassenger ? [primaryPassenger] : []),
+        ...passengersArray,
       ],
-      isPromotional: false,
-      promotionalTripMsg: '',
-      seatSelectionLimit: '0',
-      c_email: '',
-      delayedFlag: false,
-      delayedDate: '',
-      bookedThrough: 'web',
-      sourcetype: 'web',
     };
-    this.apiService.booking(bookingInfo).subscribe((res) => {
+
+    console.log('tripReviewInfo', tripReviewInfo);
+
+    this.apiService.booking(tripReviewInfo).subscribe((res) => {
       console.log(res);
     });
+
     $('#customerDetailsModal').modal('hide');
     this.apiService.triggerModal('#payForTicketModal');
   }

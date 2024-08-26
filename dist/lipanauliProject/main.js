@@ -1642,6 +1642,7 @@ class CustomerdetailsmodalComponent {
         }, (error) => {
             console.error('Error handling modal trigger:', error);
         });
+        this.tripReviewInfo = this.apiService.getBookingBodyData();
         this.apiService.bookingData$
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["filter"])((res) => res !== null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => {
             this.bookingInfo = res.data;
@@ -1652,20 +1653,20 @@ class CustomerdetailsmodalComponent {
             .subscribe();
     }
     handleFormData(numberOfPassengers) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         const primaryPassenger = this.user === 'no'
             ? {
-                name: (_a = this.passengerForm.get('firstName')) === null || _a === void 0 ? void 0 : _a.value,
+                name: '',
                 phone: '',
             }
             : {};
         if (this.user === 'yes') {
             // Populate form fields for primary passenger
             this.passengerForm.patchValue({
-                email: ((_b = this.passengerForm.get('email')) === null || _b === void 0 ? void 0 : _b.value) || '',
-                primary_phone: ((_c = this.passengerForm.get('primary_phone')) === null || _c === void 0 ? void 0 : _c.value) || '',
-                firstName: primaryPassenger.name || '',
-                lastName: primaryPassenger.phone || '',
+                email: ((_a = this.passengerForm.get('email')) === null || _a === void 0 ? void 0 : _a.value) || '',
+                primary_phone: ((_b = this.passengerForm.get('primary_phone')) === null || _b === void 0 ? void 0 : _b.value) || '',
+                firstName: ((_c = this.passengerForm.get('firstName')) === null || _c === void 0 ? void 0 : _c.value) || '',
+                lastName: ((_d = this.passengerForm.get('lastName')) === null || _d === void 0 ? void 0 : _d.value) || '',
             });
             // Update FormArray based on number of additional passengers
             this.updatePassengerArray(numberOfPassengers - 1);
@@ -1682,8 +1683,8 @@ class CustomerdetailsmodalComponent {
         else {
             // Populate form fields including primary passenger
             this.passengerForm.patchValue({
-                email: ((_d = this.passengerForm.get('email')) === null || _d === void 0 ? void 0 : _d.value) || '',
-                primary_phone: ((_e = this.passengerForm.get('primary_phone')) === null || _e === void 0 ? void 0 : _e.value) || '',
+                email: ((_e = this.passengerForm.get('email')) === null || _e === void 0 ? void 0 : _e.value) || '',
+                primary_phone: ((_f = this.passengerForm.get('primary_phone')) === null || _f === void 0 ? void 0 : _f.value) || '',
                 firstName: primaryPassenger.name || '',
                 lastName: primaryPassenger.phone || '',
             });
@@ -1734,56 +1735,54 @@ class CustomerdetailsmodalComponent {
         this.destroy$.complete();
     }
     tripReview() {
-        const bookingInfo = {
-            booking_date: '2024-08-29',
-            route_id: '5',
-            token: 'E8887142-7E2A-4327-B324-27B4402FAE2A',
-            pickup_id: '4',
-            return_id: '1',
-            departure_time: '05:00 AM',
-            paymentMethod: 'mpesa',
-            bus_id: '69',
-            currencyId: '1',
-            ticket_cnt: '1',
-            sub_total: '1.00',
-            tax: '0',
-            total: '1.00',
-            is_luggage: false,
-            c_address: '',
-            c_city: '',
-            c_state: '',
-            c_zip: '',
-            c_country: '',
-            is_flat_offer: false,
-            passenger: [
-                {
-                    seat_id: '1',
-                    seat_name: '',
-                    seat_type: 'normal',
-                    ticketPrice: '1.00',
-                    flatTicketPrice: '1.00',
-                    currency: 'KES',
-                    flat_sale: 0,
-                    name: '',
-                    last_name: '',
-                    gender: '',
-                    age: '',
-                    mobileId: '254',
-                    mobile: '715176167',
-                    nationality: 'Kenyan',
-                    id_no: '0000',
-                },
-            ],
-            isPromotional: false,
-            promotionalTripMsg: '',
-            seatSelectionLimit: '0',
-            c_email: '',
-            delayedFlag: false,
-            delayedDate: '',
-            bookedThrough: 'web',
-            sourcetype: 'web',
-        };
-        this.apiService.booking(bookingInfo).subscribe((res) => {
+        var _a, _b, _c, _d;
+        console.log('passengerForm', this.passengerForm.value);
+        console.log('tripReviewInfo', this.tripReviewInfo);
+        const totalPrice = this.calculateTotalPrice();
+        // Determine primary passenger info
+        const primaryPassenger = this.user === 'yes'
+            ? {
+                seat_id: '1',
+                seat_name: '',
+                seat_type: 'normal',
+                ticketPrice: '1.00',
+                flatTicketPrice: '1.00',
+                currency: 'KES',
+                flat_sale: 0,
+                name: ((_a = this.passengerForm.get('firstName')) === null || _a === void 0 ? void 0 : _a.value) || '',
+                last_name: ((_b = this.passengerForm.get('lastName')) === null || _b === void 0 ? void 0 : _b.value) || '',
+                gender: '',
+                age: '',
+                mobileId: '254',
+                mobile: ((_c = this.passengerForm.get('primary_phone')) === null || _c === void 0 ? void 0 : _c.value) || '',
+                nationality: 'Kenyan',
+                id_no: '0000',
+            }
+            : null;
+        const passengersArray = (_d = this.passengerForm.get('passengers')) === null || _d === void 0 ? void 0 : _d.value.map((passenger) => ({
+            seat_id: '1',
+            seat_name: '',
+            seat_type: 'normal',
+            ticketPrice: '1.00',
+            flatTicketPrice: '1.00',
+            currency: 'KES',
+            flat_sale: 0,
+            name: passenger.name,
+            last_name: passenger.name,
+            gender: '',
+            age: '',
+            mobileId: '254',
+            mobile: passenger.phone,
+            nationality: 'Kenyan',
+            id_no: '0000',
+        } || []));
+        // Construct tripReviewInfo
+        const tripReviewInfo = Object.assign(Object.assign({}, this.tripReviewInfo), { total: totalPrice, passenger: [
+                ...(primaryPassenger ? [primaryPassenger] : []),
+                ...passengersArray,
+            ] });
+        console.log('tripReviewInfo', tripReviewInfo);
+        this.apiService.booking(tripReviewInfo).subscribe((res) => {
             console.log(res);
         });
         $('#customerDetailsModal').modal('hide');
@@ -1902,7 +1901,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function PayForTicketmodalComponent_span_24_Template(rf, ctx) { if (rf & 1) {
+function PayForTicketmodalComponent_span_23_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -1911,7 +1910,7 @@ function PayForTicketmodalComponent_span_24_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](ctx_r0.tripInfo.route_name);
 } }
-function PayForTicketmodalComponent_span_27_Template(rf, ctx) { if (rf & 1) {
+function PayForTicketmodalComponent_span_26_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](2, "date");
@@ -1921,7 +1920,7 @@ function PayForTicketmodalComponent_span_27_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind2"](2, 1, ctx_r1.tripInfo.sort_time, "yyyy-MM-dd"));
 } }
-function PayForTicketmodalComponent_span_31_Template(rf, ctx) { if (rf & 1) {
+function PayForTicketmodalComponent_span_30_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -1930,7 +1929,7 @@ function PayForTicketmodalComponent_span_31_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](ctx_r2.tripInfo.route_name.split(" -")[0]);
 } }
-function PayForTicketmodalComponent_span_35_Template(rf, ctx) { if (rf & 1) {
+function PayForTicketmodalComponent_span_34_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -1947,16 +1946,9 @@ class PayForTicketmodalComponent {
         this.stkpush = false;
         this.loading = false;
         this.error = null;
-        this.ticketRefInfo = {
-            bookingRef: 'SWNGW939T2',
-            queryoption: '10',
-            queryvalue: '254726097666',
-            requestType: 'ticket',
-            paymentType: 'mpesa',
-        };
         this.paymentForm = this.fb.group({
             code: ['254', _angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required],
-            phone: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].pattern(/^\d{10}$/)]],
+            phone: ['726097666', [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]],
         });
     }
     ngOnInit() {
@@ -1988,17 +1980,31 @@ class PayForTicketmodalComponent {
             }
         }))
             .subscribe();
+        this.tripReviewInfo = this.apiService.getStkPushBodyData();
+        console.log('this.tripReviewInfo', this.tripReviewInfo);
+        this.updateQueryValue();
+        // Subscribe to form value changes
+        this.paymentForm.valueChanges.subscribe(() => {
+            this.updateQueryValue();
+        });
+    }
+    updateQueryValue() {
+        if (this.tripReviewInfo && this.paymentForm.valid) {
+            const formValues = this.paymentForm.value;
+            this.tripReviewInfo.queryvalue = formValues.phone;
+            console.log('Updated tripReviewInfo', this.tripReviewInfo);
+        }
     }
     onSubmit() {
+        console.log(this.paymentForm.value);
         if (this.paymentForm.invalid) {
             // Handle form validation errors
             return;
         }
-        this.loading = true;
-        this.error = null;
         const formValues = this.paymentForm.value;
-        this.ticketRefInfo.queryvalue = formValues.phone;
-        this.apiService.stkPushPay(this.ticketRefInfo).subscribe((response) => {
+        this.tripReviewInfo.queryvalue = `${formValues.code}${formValues.phone}`;
+        console.log('this.tripReviewInfo', this.tripReviewInfo);
+        this.apiService.stkPushPay(this.tripReviewInfo).subscribe((response) => {
             this.paymentStatus = response;
             console.log(this.paymentStatus);
             this.loading = false;
@@ -2012,7 +2018,7 @@ class PayForTicketmodalComponent {
     }
 }
 PayForTicketmodalComponent.ɵfac = function PayForTicketmodalComponent_Factory(t) { return new (t || PayForTicketmodalComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](src_app_api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"])); };
-PayForTicketmodalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: PayForTicketmodalComponent, selectors: [["app-pay-for-ticketmodal"]], decls: 61, vars: 10, consts: [["id", "payForTicketModal", "data-bs-backdrop", "static", "data-bs-keyboard", "false", "tabindex", "-1", "aria-labelledby", "staticBackdropLabel4", "aria-hidden", "true", 1, "modal"], [1, "modal-dialog", "modal-xl"], [1, "modal-content", "slide-in-modal"], [1, "modal-header"], ["id", "staticBackdropLabel4", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close", 3, "click"], [1, "row", "mb-3"], [1, "", 2, "flex", "2"], [1, "card", "modalCard", 2, "padding-top", "20px"], [1, "card-body"], [1, "custom-container"], ["aria-label", "Default select example", 1, "form-select", "me-2", 2, "width", "90px"], ["selected", ""], ["value", "254"], ["type", "tel", "id", "exampleFormControlInput1", "placeholder", "Phone", 1, "form-control", "me-2", 2, "width", "200px"], ["type", "button", 1, "paymentBtn", "btn", "btn-primary", 3, "click"], [1, "tripDetails"], [1, "column"], [4, "ngIf"], [1, "", 2, "flex", "1"], [1, "card", "modalCard"], [1, "fare"], [2, "font-weight", "600"], [1, "card-footer"]], template: function PayForTicketmodalComponent_Template(rf, ctx) { if (rf & 1) {
+PayForTicketmodalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: PayForTicketmodalComponent, selectors: [["app-pay-for-ticketmodal"]], decls: 60, vars: 11, consts: [["id", "payForTicketModal", "data-bs-backdrop", "static", "data-bs-keyboard", "false", "tabindex", "-1", "aria-labelledby", "staticBackdropLabel4", "aria-hidden", "true", 1, "modal"], [1, "modal-dialog", "modal-xl"], [1, "modal-content", "slide-in-modal"], [1, "modal-header"], ["id", "staticBackdropLabel4", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close", 3, "click"], [3, "formGroup", "ngSubmit"], [1, "row", "mb-3"], [1, "", 2, "flex", "2"], [1, "card", "modalCard", 2, "padding-top", "20px"], [1, "card-body"], [1, "custom-container"], ["formControlName", "code", "aria-label", "Default select example", 1, "form-select", "me-2", 2, "width", "90px"], ["value", "254"], ["formControlName", "phone", "type", "tel", "id", "exampleFormControlInput1", "placeholder", "Phone", 1, "form-control", "me-2", 2, "width", "200px"], ["type", "submit", 1, "paymentBtn", "btn", "btn-primary"], [1, "tripDetails"], [1, "column"], [4, "ngIf"], [1, "", 2, "flex", "1"], [1, "card", "modalCard"], [1, "fare"], [2, "font-weight", "600"], [1, "card-footer"]], template: function PayForTicketmodalComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div", 2);
@@ -2024,88 +2030,87 @@ PayForTicketmodalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function PayForTicketmodalComponent_Template_button_click_6_listener() { return ctx.closePayNowModal(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](7, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](7, "form", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngSubmit", function PayForTicketmodalComponent_Template_form_ngSubmit_7_listener() { return ctx.onSubmit(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](8, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](9, "div", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](10, "div", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](11, "div", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](12, "select", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](13, "option", 12);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](14, "Code");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](15, "option", 13);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](16, "254");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](12, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](13, "select", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](14, "option", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](15, "254");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](17, "input", 14);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](18, "button", 15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function PayForTicketmodalComponent_Template_button_click_18_listener() { return ctx.onSubmit(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](19, " Make Payment ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](16, "input", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](17, "button", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](18, " Make Payment ");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](20, "div", 16);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](21, "div", 17);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](22, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](23, " Route: ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](24, PayForTicketmodalComponent_span_24_Template, 2, 1, "span", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](19, "div", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](20, "div", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](21, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](22, " Route: ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](23, PayForTicketmodalComponent_span_23_Template, 2, 1, "span", 18);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](25, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](26, " Booking Date: ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](27, PayForTicketmodalComponent_span_27_Template, 3, 4, "span", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](28, "div", 17);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](29, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](30, " Boarding Point: ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](31, PayForTicketmodalComponent_span_31_Template, 2, 1, "span", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](24, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](25, " Booking Date: ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](26, PayForTicketmodalComponent_span_26_Template, 3, 4, "span", 18);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](32, "div", 17);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](33, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](34, " Dropping Point: ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](35, PayForTicketmodalComponent_span_35_Template, 2, 1, "span", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](27, "div", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](28, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](29, " Boarding Point: ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](30, PayForTicketmodalComponent_span_30_Template, 2, 1, "span", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](31, "div", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](32, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](33, " Dropping Point: ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](34, PayForTicketmodalComponent_span_34_Template, 2, 1, "span", 18);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](36, "div", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](37, "div", 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](38, "div", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](39, "div", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](40, "p", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](41, "Fare Details");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](35, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](36, "div", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](37, "div", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](38, "div", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](39, "p", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](40, "Fare Details");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](42, "p", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](43, "Total");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](44, "div", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](45, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](46, "Onward Fare");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](47, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](48);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](49, "kesCurrency");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](41, "p", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](42, "Total");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](50, "div", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](51, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](52, "Wallet");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](43, "div", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](44, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](45, "Onward Fare");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](53, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](54, "KES 0");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](46, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](47);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](48, "kesCurrency");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](49, "div", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](50, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](51, "Wallet");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](52, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](53, "KES 0");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](55, "div", 23);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](56, "P");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](57, "Total Payable");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](54, "div", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](55, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](56, "Total Payable");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](58, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](59);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](60, "kesCurrency");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](57, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](58);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](59, "kesCurrency");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -2115,7 +2120,9 @@ PayForTicketmodalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formGroup", ctx.paymentForm);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](16);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx.tripInfo == null ? null : ctx.tripInfo.route_name);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx.tripInfo == null ? null : ctx.tripInfo.sort_time);
@@ -2124,10 +2131,10 @@ PayForTicketmodalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx.tripInfo == null ? null : ctx.tripInfo.route_name);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](13);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"]("KES ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](49, 6, ctx.totalPrice), "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"]("KES ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](48, 7, ctx.totalPrice), "");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"]("KES ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](60, 8, ctx.totalPrice), "");
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"]], pipes: [_kes_currency_pipe__WEBPACK_IMPORTED_MODULE_5__["KesCurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["DatePipe"]], styles: ["h2[_ngcontent-%COMP%] {\n  font-size: 34px;\n  font-weight: 600;\n}\n.modalCard[_ngcontent-%COMP%] {\n  max-width: 90%;\n  margin: auto;\n  padding: 10px;\n  margin-top: 10px;\n}\n.card-body[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.top-banner[_ngcontent-%COMP%] {\n  font-size: 14px;\n  background-color: #89d079;\n  color: #000;\n  padding: 5px;\n  border-radius: 5px;\n}\n.fare[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n}\n.card-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  font-size: 16px;\n  font-weight: 500;\n}\n.paymentBtn[_ngcontent-%COMP%] {\n  width: 140px;\n  height: 40px;\n  padding: 5px;\n  background-color: #509141;\n  color: #fff;\n  border: none;\n  outline: none;\n  border-radius: 5px;\n}\n.bus-details[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  padding-top: 60px;\n}\n.busDetails[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 60px;\n  padding-bottom: 20px;\n}\n.tripDetails[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 20px;\n}\n.tripDetails[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  font-weight: 600;\n}\n.tripDetails[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-weight: normal;\n}\n.busDetails[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  height: 80px;\n  width: 80px;\n}\n.form-control[_ngcontent-%COMP%] {\n  width: 200px;\n}\n.custom-container[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 40px 0;\n}\n.custom-container[_ngcontent-%COMP%]   select[_ngcontent-%COMP%], .custom-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  margin-right: 10px;\n}\n@media (max-width: 768px) {\n  .modal-dialog[_ngcontent-%COMP%] {\n    width: 100%;\n    margin: 0;\n    height: 100vh;\n    padding: 0;\n  }\n  .form-control[_ngcontent-%COMP%] {\n    width: 100px;\n  }\n  .custom-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n\n  .custom-container[_ngcontent-%COMP%]   select[_ngcontent-%COMP%], .custom-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n    width: 100%;\n    margin-bottom: 10px;\n  }\n\n  .custom-container[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBheS1mb3ItdGlja2V0bW9kYWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQWU7RUFDZixnQkFBZ0I7QUFDbEI7QUFDQTtFQUNFLGNBQWM7RUFDZCxZQUFZO0VBQ1osYUFBYTtFQUNiLGdCQUFnQjtBQUNsQjtBQUNBO0VBQ0UsYUFBYTtFQUNiLHNCQUFzQjtBQUN4QjtBQUNBO0VBQ0UsZUFBZTtFQUNmLHlCQUF5QjtFQUN6QixXQUFXO0VBQ1gsWUFBWTtFQUNaLGtCQUFrQjtBQUNwQjtBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixlQUFlO0VBQ2YsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxZQUFZO0VBQ1osWUFBWTtFQUNaLFlBQVk7RUFDWix5QkFBeUI7RUFDekIsV0FBVztFQUNYLFlBQVk7RUFDWixhQUFhO0VBQ2Isa0JBQWtCO0FBQ3BCO0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLGlCQUFpQjtBQUNuQjtBQUVBO0VBQ0UsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixTQUFTO0VBQ1Qsb0JBQW9CO0FBQ3RCO0FBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLDhCQUE4QjtFQUM5QixlQUFlO0VBQ2YsU0FBUztBQUNYO0FBRUE7RUFDRSxhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLFNBQVM7RUFDVCxnQkFBZ0I7QUFDbEI7QUFFQTtFQUNFLG1CQUFtQjtBQUNyQjtBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYjtBQUNBO0VBQ0UsWUFBWTtBQUNkO0FBQ0E7RUFDRSxhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLGVBQWU7QUFDakI7QUFFQTs7RUFFRSxrQkFBa0I7QUFDcEI7QUFFQTtFQUNFO0lBQ0UsV0FBVztJQUNYLFNBQVM7SUFDVCxhQUFhO0lBQ2IsVUFBVTtFQUNaO0VBQ0E7SUFDRSxZQUFZO0VBQ2Q7RUFDQTtJQUNFLHNCQUFzQjtJQUN0Qix1QkFBdUI7RUFDekI7O0VBRUE7O0lBRUUsV0FBVztJQUNYLG1CQUFtQjtFQUNyQjs7RUFFQTtJQUNFLFdBQVc7RUFDYjtBQUNGIiwiZmlsZSI6InBheS1mb3ItdGlja2V0bW9kYWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImgyIHtcbiAgZm9udC1zaXplOiAzNHB4O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuLm1vZGFsQ2FyZCB7XG4gIG1heC13aWR0aDogOTAlO1xuICBtYXJnaW46IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG59XG4uY2FyZC1ib2R5IHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbn1cbi50b3AtYmFubmVyIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjODlkMDc5O1xuICBjb2xvcjogIzAwMDtcbiAgcGFkZGluZzogNXB4O1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG5cbi5mYXJlIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4uY2FyZC1mb290ZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbn1cblxuLnBheW1lbnRCdG4ge1xuICB3aWR0aDogMTQwcHg7XG4gIGhlaWdodDogNDBweDtcbiAgcGFkZGluZzogNXB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTA5MTQxO1xuICBjb2xvcjogI2ZmZjtcbiAgYm9yZGVyOiBub25lO1xuICBvdXRsaW5lOiBub25lO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG5cbi5idXMtZGV0YWlscyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgcGFkZGluZy10b3A6IDYwcHg7XG59XG5cbi5idXNEZXRhaWxzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgZ2FwOiA2MHB4O1xuICBwYWRkaW5nLWJvdHRvbTogMjBweDtcbn1cblxuLnRyaXBEZXRhaWxzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGdhcDogMjBweDtcbn1cblxuLnRyaXBEZXRhaWxzIHAge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBnYXA6IDIwcHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbi50cmlwRGV0YWlscyBwIHNwYW4ge1xuICBmb250LXdlaWdodDogbm9ybWFsO1xufVxuXG4uYnVzRGV0YWlscyBpbWcge1xuICBoZWlnaHQ6IDgwcHg7XG4gIHdpZHRoOiA4MHB4O1xufVxuLmZvcm0tY29udHJvbCB7XG4gIHdpZHRoOiAyMDBweDtcbn1cbi5jdXN0b20tY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgcGFkZGluZzogNDBweCAwO1xufVxuXG4uY3VzdG9tLWNvbnRhaW5lciBzZWxlY3QsXG4uY3VzdG9tLWNvbnRhaW5lciBpbnB1dCB7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbn1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDc2OHB4KSB7XG4gIC5tb2RhbC1kaWFsb2cge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG1hcmdpbjogMDtcbiAgICBoZWlnaHQ6IDEwMHZoO1xuICAgIHBhZGRpbmc6IDA7XG4gIH1cbiAgLmZvcm0tY29udHJvbCB7XG4gICAgd2lkdGg6IDEwMHB4O1xuICB9XG4gIC5jdXN0b20tY29udGFpbmVyIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGFsaWduLWl0ZW1zOiBmbGV4LXN0YXJ0O1xuICB9XG5cbiAgLmN1c3RvbS1jb250YWluZXIgc2VsZWN0LFxuICAuY3VzdG9tLWNvbnRhaW5lciBpbnB1dCB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxuXG4gIC5jdXN0b20tY29udGFpbmVyIGJ1dHRvbiB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbn1cbiJdfQ== */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"]("KES ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](59, 9, ctx.totalPrice), "");
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"]], pipes: [_kes_currency_pipe__WEBPACK_IMPORTED_MODULE_5__["KesCurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["DatePipe"]], styles: ["h2[_ngcontent-%COMP%] {\n  font-size: 34px;\n  font-weight: 600;\n}\n.modalCard[_ngcontent-%COMP%] {\n  max-width: 90%;\n  margin: auto;\n  padding: 10px;\n  margin-top: 10px;\n}\n.card-body[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.top-banner[_ngcontent-%COMP%] {\n  font-size: 14px;\n  background-color: #89d079;\n  color: #000;\n  padding: 5px;\n  border-radius: 5px;\n}\n.fare[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n}\n.card-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  font-size: 16px;\n  font-weight: 500;\n}\n.paymentBtn[_ngcontent-%COMP%] {\n  width: 140px;\n  height: 40px;\n  padding: 5px;\n  background-color: #509141;\n  color: #fff;\n  border: none;\n  outline: none;\n  border-radius: 5px;\n}\n.bus-details[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  padding-top: 60px;\n}\n.busDetails[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 60px;\n  padding-bottom: 20px;\n}\n.tripDetails[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 20px;\n}\n.tripDetails[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  font-weight: 600;\n}\n.tripDetails[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-weight: normal;\n}\n.busDetails[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  height: 80px;\n  width: 80px;\n}\n.form-control[_ngcontent-%COMP%] {\n  width: 200px;\n}\n.custom-container[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 40px 0;\n}\n.custom-container[_ngcontent-%COMP%]   select[_ngcontent-%COMP%], .custom-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  margin-right: 10px;\n}\n@media (max-width: 768px) {\n  .modal-dialog[_ngcontent-%COMP%] {\n    width: 100%;\n    margin: 0;\n    height: 100vh;\n    padding: 0;\n  }\n  .form-control[_ngcontent-%COMP%] {\n    width: 100px;\n  }\n  .custom-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n\n  .custom-container[_ngcontent-%COMP%]   select[_ngcontent-%COMP%], .custom-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n    width: 100%;\n    margin-bottom: 10px;\n  }\n\n  .custom-container[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBheS1mb3ItdGlja2V0bW9kYWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQWU7RUFDZixnQkFBZ0I7QUFDbEI7QUFDQTtFQUNFLGNBQWM7RUFDZCxZQUFZO0VBQ1osYUFBYTtFQUNiLGdCQUFnQjtBQUNsQjtBQUNBO0VBQ0UsYUFBYTtFQUNiLHNCQUFzQjtBQUN4QjtBQUNBO0VBQ0UsZUFBZTtFQUNmLHlCQUF5QjtFQUN6QixXQUFXO0VBQ1gsWUFBWTtFQUNaLGtCQUFrQjtBQUNwQjtBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQztBQUVBO0VBQ0UsYUFBYTtFQUNiLDhCQUE4QjtFQUM5QixlQUFlO0VBQ2YsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxZQUFZO0VBQ1osWUFBWTtFQUNaLFlBQVk7RUFDWix5QkFBeUI7RUFDekIsV0FBVztFQUNYLFlBQVk7RUFDWixhQUFhO0VBQ2Isa0JBQWtCO0FBQ3BCO0FBRUE7RUFDRSxhQUFhO0VBQ2IsOEJBQThCO0VBQzlCLGlCQUFpQjtBQUNuQjtBQUVBO0VBQ0UsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixTQUFTO0VBQ1Qsb0JBQW9CO0FBQ3RCO0FBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLDhCQUE4QjtFQUM5QixlQUFlO0VBQ2YsU0FBUztBQUNYO0FBRUE7RUFDRSxhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLFNBQVM7RUFDVCxnQkFBZ0I7QUFDbEI7QUFFQTtFQUNFLG1CQUFtQjtBQUNyQjtBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYjtBQUNBO0VBQ0UsWUFBWTtBQUNkO0FBQ0E7RUFDRSxhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLGVBQWU7QUFDakI7QUFFQTs7RUFFRSxrQkFBa0I7QUFDcEI7QUFFQTtFQUNFO0lBQ0UsV0FBVztJQUNYLFNBQVM7SUFDVCxhQUFhO0lBQ2IsVUFBVTtFQUNaO0VBQ0E7SUFDRSxZQUFZO0VBQ2Q7RUFDQTtJQUNFLHNCQUFzQjtJQUN0Qix1QkFBdUI7RUFDekI7O0VBRUE7O0lBRUUsV0FBVztJQUNYLG1CQUFtQjtFQUNyQjs7RUFFQTtJQUNFLFdBQVc7RUFDYjtBQUNGIiwiZmlsZSI6InBheS1mb3ItdGlja2V0bW9kYWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImgyIHtcbiAgZm9udC1zaXplOiAzNHB4O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuLm1vZGFsQ2FyZCB7XG4gIG1heC13aWR0aDogOTAlO1xuICBtYXJnaW46IGF1dG87XG4gIHBhZGRpbmc6IDEwcHg7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG59XG4uY2FyZC1ib2R5IHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbn1cbi50b3AtYmFubmVyIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjODlkMDc5O1xuICBjb2xvcjogIzAwMDtcbiAgcGFkZGluZzogNXB4O1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG5cbi5mYXJlIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xufVxuXG4uY2FyZC1mb290ZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbn1cblxuLnBheW1lbnRCdG4ge1xuICB3aWR0aDogMTQwcHg7XG4gIGhlaWdodDogNDBweDtcbiAgcGFkZGluZzogNXB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTA5MTQxO1xuICBjb2xvcjogI2ZmZjtcbiAgYm9yZGVyOiBub25lO1xuICBvdXRsaW5lOiBub25lO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG5cbi5idXMtZGV0YWlscyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgcGFkZGluZy10b3A6IDYwcHg7XG59XG5cbi5idXNEZXRhaWxzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgZ2FwOiA2MHB4O1xuICBwYWRkaW5nLWJvdHRvbTogMjBweDtcbn1cblxuLnRyaXBEZXRhaWxzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGdhcDogMjBweDtcbn1cblxuLnRyaXBEZXRhaWxzIHAge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBnYXA6IDIwcHg7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbi50cmlwRGV0YWlscyBwIHNwYW4ge1xuICBmb250LXdlaWdodDogbm9ybWFsO1xufVxuXG4uYnVzRGV0YWlscyBpbWcge1xuICBoZWlnaHQ6IDgwcHg7XG4gIHdpZHRoOiA4MHB4O1xufVxuLmZvcm0tY29udHJvbCB7XG4gIHdpZHRoOiAyMDBweDtcbn1cbi5jdXN0b20tY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgcGFkZGluZzogNDBweCAwO1xufVxuXG4uY3VzdG9tLWNvbnRhaW5lciBzZWxlY3QsXG4uY3VzdG9tLWNvbnRhaW5lciBpbnB1dCB7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbn1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDc2OHB4KSB7XG4gIC5tb2RhbC1kaWFsb2cge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG1hcmdpbjogMDtcbiAgICBoZWlnaHQ6IDEwMHZoO1xuICAgIHBhZGRpbmc6IDA7XG4gIH1cbiAgLmZvcm0tY29udHJvbCB7XG4gICAgd2lkdGg6IDEwMHB4O1xuICB9XG4gIC5jdXN0b20tY29udGFpbmVyIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGFsaWduLWl0ZW1zOiBmbGV4LXN0YXJ0O1xuICB9XG5cbiAgLmN1c3RvbS1jb250YWluZXIgc2VsZWN0LFxuICAuY3VzdG9tLWNvbnRhaW5lciBpbnB1dCB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxuXG4gIC5jdXN0b20tY29udGFpbmVyIGJ1dHRvbiB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbn1cbiJdfQ== */"] });
 
 
 /***/ }),
@@ -2208,6 +2215,7 @@ class ApiService {
         this.initializeCityDestinationBodyData();
         this.initializeTripsSpecificBodyData();
         this.initializeTripsAllBodyData();
+        this.initializeBookingBodyData();
         this.initializeStkPushBodyData();
     }
     login(data) {
@@ -2234,7 +2242,7 @@ class ApiService {
     }
     // Get booking body data
     getBookingBodyData() {
-        return this.bookingBodyData$;
+        return this.bookingBodyDataSubject.getValue();
     }
     // Initialize booking body data
     initializeBookingBodyData() {
@@ -2362,7 +2370,7 @@ class ApiService {
     }
     // Get STK Push body data
     getStkPushBodyData() {
-        return this.initStkPushBodyData$;
+        return this.initStkPushBodyDataSubject.getValue();
     }
     // Initialize STK Push body data
     initializeStkPushBodyData() {
@@ -2449,7 +2457,9 @@ class ApiService {
             Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
         });
         return this.http
-            .post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].stkPushURL, ticketRefInfo, { headers })
+            .post('/api/globalApi/paymentGateway/init', ticketRefInfo, {
+            headers,
+        })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.stkPushSubject.next(res)));
     }
     forgotPassword(forgotPasswordData) {

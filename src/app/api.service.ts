@@ -73,6 +73,7 @@ export class ApiService {
     this.initializeCityDestinationBodyData();
     this.initializeTripsSpecificBodyData();
     this.initializeTripsAllBodyData();
+    this.initializeBookingBodyData()
     this.initializeStkPushBodyData();
   }
 
@@ -107,7 +108,7 @@ export class ApiService {
 
   // Get booking body data
   getBookingBodyData(): Observable<any> {
-    return this.bookingBodyData$;
+    return this.bookingBodyDataSubject.getValue();
   }
 
   // Initialize booking body data
@@ -250,7 +251,7 @@ export class ApiService {
 
   // Get STK Push body data
   getStkPushBodyData(): Observable<any> {
-    return this.initStkPushBodyData$;
+    return this.initStkPushBodyDataSubject.getValue();
   }
 
   // Initialize STK Push body data
@@ -352,7 +353,9 @@ export class ApiService {
       Authorization: environment.AUTHORIZATION,
     });
     return this.http
-      .post<any>(environment.stkPushURL, ticketRefInfo, { headers })
+      .post<any>('/api/globalApi/paymentGateway/init', ticketRefInfo, {
+        headers,
+      })
       .pipe(tap((res) => this.stkPushSubject.next(res)));
   }
 

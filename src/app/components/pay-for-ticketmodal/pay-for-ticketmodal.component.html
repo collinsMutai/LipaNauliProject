@@ -20,95 +20,98 @@
         ></button>
       </div>
 
-      <div class="row mb-3">
-        <div class="" style="flex: 2;">
-          <div class="card modalCard" style="padding-top: 20px">
-            <div class="card-body">
-              <div class="custom-container">
-                <select
-                  style="width: 90px"
-                  class="form-select me-2"
-                  aria-label="Default select example"
-                >
-                  <option selected>Code</option>
-                  <option value="254">254</option>
-                </select>
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+          <div class="" style="flex: 2;">
+            <div class="card modalCard" style="padding-top: 20px">
+              <div class="card-body">
+                <div class="custom-container">
+                  <select
+                    formControlName="code"
+                    style="width: 90px"
+                    class="form-select me-2"
+                    aria-label="Default select example"
+                  >
+                    <option value="254">254</option>
+                  </select>
 
-                <input
-                  style="width: 200px"
-                  type="tel"
-                  class="form-control me-2"
-                  id="exampleFormControlInput1"
-                  placeholder="Phone"
-                />
+                  <input
+                    formControlName="phone"
+                    style="width: 200px"
+                    type="tel"
+                    class="form-control me-2"
+                    id="exampleFormControlInput1"
+                    placeholder="Phone"
+                  />
 
-                <button
-                  type="button"
-                  class="paymentBtn btn btn-primary"
-                  (click)="onSubmit()"
-                >
-                  Make Payment
-                </button>
-              </div>
-
-              <div class="tripDetails">
-                <div class="column">
-                  <p>
-                    Route:
-                    <span *ngIf="tripInfo?.route_name">{{
-                      tripInfo.route_name
-                    }}</span>
-                  </p>
-                  <p>
-                    Booking Date:
-                    <span *ngIf="tripInfo?.sort_time">{{
-                      tripInfo.sort_time | date : "yyyy-MM-dd"
-                    }}</span>
-                  </p>
+                  <button
+                    type="submit"
+                    class="paymentBtn btn btn-primary"
+                   
+                  >
+                    Make Payment
+                  </button>
                 </div>
-                <div class="column">
-                  <p>
-                    Boarding Point:
-                    <span *ngIf="tripInfo?.route_name">{{
-                      tripInfo.route_name.split(" -")[0]
-                    }}</span>
-                  </p>
-                </div>
-                <div class="column">
-                  <p>
-                    Dropping Point:
-                    <span *ngIf="tripInfo?.route_name">{{
-                      tripInfo.route_name.split("-")[1]
-                    }}</span>
-                  </p>
+
+                <div class="tripDetails">
+                  <div class="column">
+                    <p>
+                      Route:
+                      <span *ngIf="tripInfo?.route_name">{{
+                        tripInfo.route_name
+                      }}</span>
+                    </p>
+                    <p>
+                      Booking Date:
+                      <span *ngIf="tripInfo?.sort_time">{{
+                        tripInfo.sort_time | date : "yyyy-MM-dd"
+                      }}</span>
+                    </p>
+                  </div>
+                  <div class="column">
+                    <p>
+                      Boarding Point:
+                      <span *ngIf="tripInfo?.route_name">{{
+                        tripInfo.route_name.split(" -")[0]
+                      }}</span>
+                    </p>
+                  </div>
+                  <div class="column">
+                    <p>
+                      Dropping Point:
+                      <span *ngIf="tripInfo?.route_name">{{
+                        tripInfo.route_name.split("-")[1]
+                      }}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="" style="flex: 1;">
-          <div class="card modalCard">
-            <div class="card-body">
-              <div class="fare">
-                <p style="font-weight: 600">Fare Details</p>
-                <p style="font-weight: 600">Total</p>
+          <div class="" style="flex: 1;">
+            <div class="card modalCard">
+              <div class="card-body">
+                <div class="fare">
+                  <p style="font-weight: 600">Fare Details</p>
+                  <p style="font-weight: 600">Total</p>
+                </div>
+                <div class="fare">
+                  <p>Onward Fare</p>
+                  <p>KES {{ totalPrice | kesCurrency }}</p>
+                </div>
+                <div class="fare">
+                  <p>Wallet</p>
+                  <p>KES 0</p>
+                </div>
               </div>
-              <div class="fare">
-                <p>Onward Fare</p>
+              <div class="card-footer">
+                <p>Total Payable</p>
                 <p>KES {{ totalPrice | kesCurrency }}</p>
               </div>
-              <div class="fare">
-                <p>Wallet</p>
-                <p>KES 0</p>
-              </div>
-            </div>
-            <div class="card-footer">
-              <P>Total Payable</P>
-              <p>KES {{ totalPrice | kesCurrency }}</p>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
