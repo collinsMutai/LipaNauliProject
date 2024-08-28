@@ -113,14 +113,14 @@ a {
 
   .cta .left,
   .cta .right {
-    flex: 1; /* Allow images to occupy full width */
-    margin: 10px 0; /* Add margin between left and right images */
-    align-items: center; /* Center images */
+    flex: 1; 
+    margin: 10px 0; 
+    align-items: center; 
   }
 
   .cta .right img {
-    width: 80px; /* Adjust width for smaller screens */
-    height: 60px; /* Adjust height for smaller screens */
-    margin-bottom: 0; /* Reset bottom margin */
+    width: 100px; 
+    height: 60px; 
+    margin-bottom: 0; 
   }
 }

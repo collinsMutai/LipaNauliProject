@@ -1,10 +1,11 @@
 {
-  "/api": {
+  "/": {
     "target": "https://api.lipanauli.com",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {
-      "^/api": ""
+      "^/": ""
     }
   }
 }
+

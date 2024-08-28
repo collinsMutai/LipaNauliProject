@@ -673,6 +673,41 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComp
 
 /***/ }),
 
+/***/ "E/nK":
+/*!*************************************!*\
+  !*** ./src/app/auth.interceptor.ts ***!
+  \*************************************/
+/*! exports provided: AuthInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthInterceptor", function() { return AuthInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+class AuthInterceptor {
+    constructor() {
+        this.token = '4F5D3QC5-C94A-CFD5-87C1-4E2903311DF0';
+    }
+    intercept(req, next) {
+        // Clone the request to add the new headers.
+        const authReq = req.clone({
+            setHeaders: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                Authorization: `${this.token}`,
+            },
+        });
+        // Pass the cloned request with the headers to the next handler.
+        return next.handle(authReq);
+    }
+}
+AuthInterceptor.ɵfac = function AuthInterceptor_Factory(t) { return new (t || AuthInterceptor)(); };
+AuthInterceptor.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AuthInterceptor, factory: AuthInterceptor.ɵfac });
+
+
+/***/ }),
+
 /***/ "I3kq":
 /*!***************************************************************************!*\
   !*** ./src/app/components/userconfirmmodal/userconfirmmodal.component.ts ***!
@@ -775,9 +810,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class LipanaulisliderComponent {
-    constructor() { }
-    ngOnInit() {
+    constructor() {
+        this.showIndicators = false;
+        this.showArrows = false;
     }
+    ngOnInit() { }
 }
 LipanaulisliderComponent.ɵfac = function LipanaulisliderComponent_Factory(t) { return new (t || LipanaulisliderComponent)(); };
 LipanaulisliderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: LipanaulisliderComponent, selectors: [["app-lipanaulislider"]], decls: 8, vars: 1, consts: [[2, "padding", "0"], [2, "width", "100%", "height", "auto", 3, "showIndicators"], ["src", "../../../assets/Lipanauli/Nairobi Bus Booking.png", "alt", "first slide", 2, "display", "block", "width", "100%", "height", "auto"], ["src", "../../../assets/Lipanauli/Book bus seat Nairobi.png", "alt", "second slide", 2, "display", "block", "width", "100%", "height", "auto"], ["src", "../../../assets/Lipanauli/Nairobi bus schedules.png", "alt", "third slide", 2, "display", "block", "width", "100%", "height", "auto"]], template: function LipanaulisliderComponent_Template(rf, ctx) { if (rf & 1) {
@@ -958,62 +995,11 @@ class CtaComponent {
     }
 }
 CtaComponent.ɵfac = function CtaComponent_Factory(t) { return new (t || CtaComponent)(); };
-CtaComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CtaComponent, selectors: [["app-cta"]], decls: 34, vars: 0, consts: [[1, "col-12", "cta", "d-flex", "align-items-center", 2, "padding", "0"], [1, "col-2", "right", 2, "flex", "1"], ["src", "../../../assets/Lipanauli/Asset 84-8.png", "alt", ""], [1, "col-8", "mid", "d-flex", "flex-wrap", 2, "flex", "2"], [1, "col-lg-3", "col-md-4", "item", "text-center"], ["href", "#"], ["src", "../../../assets/Lipanauli/Asset 93-8.png", "alt", ""]], template: function CtaComponent_Template(rf, ctx) { if (rf & 1) {
+CtaComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CtaComponent, selectors: [["app-cta"]], decls: 2, vars: 0, consts: [[1, "col-12", "cta", "d-flex", "align-items-center", 2, "padding", "0"], ["src", "../../../assets/Lipanauli/Local bus commuting Nairobi.png", "alt", "Local bus commuting in Nairobi", 2, "width", "100%", "height", "auto"]], template: function CtaComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "img", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "img", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h5");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "Traveling during COVID-19");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Find all current information about our network.");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "a", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "Click here > ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "h4");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, "Comfort on board");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15, " Our buses are equipped with large and comfortable seats, Wi-Fi, and power outlets. ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "a", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](17, "Our onboard service > ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "h5");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "Largest bus network in Kenya");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22, " Choose from over 2,500 travel destinations in 47 counties and discover Kenya with Lipanauli. ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "a", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](24, "Our route network >");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "h5");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](27, "Travel environmentally friendly");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](29, " Our efficient coaches are proven to have an excellent carbon footprint per driven passenger-kilometer. ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "a", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](31, "Bus travel and environment > ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](33, "img", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, styles: [".cta[_ngcontent-%COMP%] {\n  padding: 40px 10px;\n  height: 60vh;\n  display: flex; \n}\n\n.cta[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  height: 60vh;\n  width: 100%;\n}\n\n.mid[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start; \n  flex: 2;\n}\n\n.mid[_ngcontent-%COMP%]   p[_ngcontent-%COMP%], .mid[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n\na[_ngcontent-%COMP%] {\n  color: #f6b228;\n}\n\n.cta[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center; \n  align-items: flex-end; \n  flex: 1;\n  position: relative; \n}\n\n.cta[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%], .cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center; \n  align-items: flex-end; \n  flex: 1;\n  position: relative; \n}\n\n.cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 80px;\n  margin-bottom: -120px; \n}\n\n.appBtn[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center; \n  justify-content: center; \n  background-color: #000; \n  padding: 5px; \n  border-radius: 5px; \n  width: 100px; \n  \n  height: 60px; \n}\n\n.appBtnTxt[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 10px;\n  color: #fff;\n  margin: 0; \n  text-align: center; \n}\n\n.appBtnTxt[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-size: 14px; \n}\n\n.appBtn[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  height: 30px; \n  width: 30px; \n  margin-right: 5px; \n}\n\n\n\n@media (max-width: 768px) {\n  .cta[_ngcontent-%COMP%] {\n    flex-direction: column; \n    height: auto; \n  }\n\n  .cta[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    height: auto; \n    width: 100%; \n  }\n\n  .mid[_ngcontent-%COMP%] {\n    flex-direction: column; \n    align-items: center; \n  }\n\n  .mid[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%] {\n    width: 100%; \n    margin-bottom: 20px; \n  }\n\n  .mid[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%], .mid[_ngcontent-%COMP%]   h5[_ngcontent-%COMP%] {\n    font-size: 16px; \n  }\n\n  .mid[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 12px; \n  }\n\n  .mid[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 12px; \n  }\n\n  .cta[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%], .cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%] {\n    flex: 1; \n    margin: 10px 0; \n    align-items: center; \n  }\n\n  .cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 80px; \n    height: 60px; \n    margin-bottom: 0; \n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImN0YS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixhQUFhLEVBQUUsMkNBQTJDO0FBQzVEOztBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsdUJBQXVCLEVBQUUsbURBQW1EO0VBQzVFLE9BQU87QUFDVDs7QUFFQTs7RUFFRSxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsY0FBYztBQUNoQjs7QUFFQTtFQUNFLGFBQWE7RUFDYix1QkFBdUIsRUFBRSxvQ0FBb0M7RUFDN0QscUJBQXFCLEVBQUUsOEJBQThCO0VBQ3JELE9BQU87RUFDUCxrQkFBa0IsRUFBRSxrQ0FBa0M7QUFDeEQ7O0FBQ0E7O0VBRUUsYUFBYTtFQUNiLHVCQUF1QixFQUFFLG9DQUFvQztFQUM3RCxxQkFBcUIsRUFBRSw4QkFBOEI7RUFDckQsT0FBTztFQUNQLGtCQUFrQixFQUFFLGtDQUFrQztBQUN4RDs7QUFFQTtFQUNFLFdBQVc7RUFDWCxZQUFZO0VBQ1oscUJBQXFCLEVBQUUsZ0NBQWdDO0FBQ3pEOztBQUNBO0VBQ0UsYUFBYTtFQUNiLG1CQUFtQixFQUFFLDZCQUE2QjtFQUNsRCx1QkFBdUIsRUFBRSwrQkFBK0I7RUFDeEQsc0JBQXNCLEVBQUUsb0NBQW9DO0VBQzVELFlBQVksRUFBRSx1Q0FBdUM7RUFDckQsa0JBQWtCLEVBQUUsb0JBQW9CO0VBQ3hDLFlBQVksRUFBRSxxQ0FBcUM7RUFDbkQsbUNBQW1DO0VBQ25DLFlBQVksRUFBRSx3Q0FBd0M7QUFDeEQ7O0FBRUE7RUFDRSxlQUFlO0VBQ2YsV0FBVztFQUNYLFNBQVMsRUFBRSwwQkFBMEI7RUFDckMsa0JBQWtCLEVBQUUsNkJBQTZCO0FBQ25EOztBQUVBO0VBQ0UsZUFBZSxFQUFFLDRDQUE0QztBQUMvRDs7QUFFQTtFQUNFLFlBQVksRUFBRSw2QkFBNkI7RUFDM0MsV0FBVyxFQUFFLDZCQUE2QjtFQUMxQyxpQkFBaUIsRUFBRSxpQ0FBaUM7QUFDdEQ7O0FBR0Esa0JBQWtCOztBQUNsQjtFQUNFO0lBQ0Usc0JBQXNCLEVBQUUsOEJBQThCO0lBQ3RELFlBQVksRUFBRSxzQ0FBc0M7RUFDdEQ7O0VBRUE7SUFDRSxZQUFZLEVBQUUsb0NBQW9DO0lBQ2xELFdBQVcsRUFBRSx3QkFBd0I7RUFDdkM7O0VBRUE7SUFDRSxzQkFBc0IsRUFBRSxxQ0FBcUM7SUFDN0QsbUJBQW1CLEVBQUUsaUJBQWlCO0VBQ3hDOztFQUVBO0lBQ0UsV0FBVyxFQUFFLHNDQUFzQztJQUNuRCxtQkFBbUIsRUFBRSw0QkFBNEI7RUFDbkQ7O0VBRUE7O0lBRUUsZUFBZSxFQUFFLGdEQUFnRDtFQUNuRTs7RUFFQTtJQUNFLGVBQWUsRUFBRSwrQkFBK0I7RUFDbEQ7O0VBRUE7SUFDRSxlQUFlLEVBQUUsMEJBQTBCO0VBQzdDOztFQUVBOztJQUVFLE9BQU8sRUFBRSxzQ0FBc0M7SUFDL0MsY0FBYyxFQUFFLDZDQUE2QztJQUM3RCxtQkFBbUIsRUFBRSxrQkFBa0I7RUFDekM7O0VBRUE7SUFDRSxXQUFXLEVBQUUscUNBQXFDO0lBQ2xELFlBQVksRUFBRSxzQ0FBc0M7SUFDcEQsZ0JBQWdCLEVBQUUsd0JBQXdCO0VBQzVDO0FBQ0YiLCJmaWxlIjoiY3RhLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3RhIHtcbiAgcGFkZGluZzogNDBweCAxMHB4O1xuICBoZWlnaHQ6IDYwdmg7XG4gIGRpc3BsYXk6IGZsZXg7IC8qIEVuc3VyZSB0aGUgbWFpbiBjb250YWluZXIgaXMgYSBmbGV4Ym94ICovXG59XG5cbi5jdGEgaW1nIHtcbiAgaGVpZ2h0OiA2MHZoO1xuICB3aWR0aDogMTAwJTtcbn1cblxuLm1pZCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1pdGVtczogZmxleC1zdGFydDsgLyogQ2hhbmdlZCBmcm9tICd0b3AnIHRvICdmbGV4LXN0YXJ0JyBmb3IgY2xhcml0eSAqL1xuICBmbGV4OiAyO1xufVxuXG4ubWlkIHAsXG4ubWlkIGEge1xuICBmb250LXNpemU6IDE0cHg7XG59XG5cbmEge1xuICBjb2xvcjogI2Y2YjIyODtcbn1cblxuLmN0YSAubGVmdCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyOyAvKiBDZW50ZXIgdGhlIGNvbnRlbnQgaG9yaXpvbnRhbGx5ICovXG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDsgLyogQWxpZ24gaXRlbXMgdG8gdGhlIGJvdHRvbSAqL1xuICBmbGV4OiAxO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7IC8qIEVzdGFibGlzaCBwb3NpdGlvbmluZyBjb250ZXh0ICovXG59XG4uY3RhIC5sZWZ0LFxuLmN0YSAucmlnaHQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsgLyogQ2VudGVyIHRoZSBjb250ZW50IGhvcml6b250YWxseSAqL1xuICBhbGlnbi1pdGVtczogZmxleC1lbmQ7IC8qIEFsaWduIGl0ZW1zIHRvIHRoZSBib3R0b20gKi9cbiAgZmxleDogMTtcbiAgcG9zaXRpb246IHJlbGF0aXZlOyAvKiBFc3RhYmxpc2ggcG9zaXRpb25pbmcgY29udGV4dCAqL1xufVxuXG4uY3RhIC5yaWdodCBpbWcge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA4MHB4O1xuICBtYXJnaW4tYm90dG9tOiAtMTIwcHg7IC8qIFJlbW92ZSBib3R0b20gbWFyZ2luIGlmIGFueSAqL1xufVxuLmFwcEJ0biB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7IC8qIFZlcnRpY2FsbHkgY2VudGVycyBpdGVtcyAqL1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsgLyogSG9yaXpvbnRhbGx5IGNlbnRlcnMgaXRlbXMgKi9cbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDsgLyogQmFja2dyb3VuZCBjb2xvciBmb3IgdGhlIGJ1dHRvbiAqL1xuICBwYWRkaW5nOiA1cHg7IC8qIEV2ZW4gcGFkZGluZyBhcm91bmQgdGhlIGVudGlyZSBkaXYgKi9cbiAgYm9yZGVyLXJhZGl1czogNXB4OyAvKiBSb3VuZGVkIGNvcm5lcnMgKi9cbiAgd2lkdGg6IDEwMHB4OyAvKiBTZXQgYSBmaXhlZCB3aWR0aCBmb3IgdGhlIGJ1dHRvbiAqL1xuICAvKiBZb3UgY2FuIGFkZCBhIGhlaWdodCBpZiBuZWVkZWQgKi9cbiAgaGVpZ2h0OiA2MHB4OyAvKiBFeGFtcGxlIGhlaWdodCwgYWRqdXN0IGFzIG5lY2Vzc2FyeSAqL1xufVxuXG4uYXBwQnRuVHh0IHAge1xuICBmb250LXNpemU6IDEwcHg7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW46IDA7IC8qIFJlbW92ZSBkZWZhdWx0IG1hcmdpbiAqL1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7IC8qIENlbnRlciB0ZXh0IGhvcml6b250YWxseSAqL1xufVxuXG4uYXBwQnRuVHh0IHAgc3BhbiB7XG4gIGZvbnQtc2l6ZTogMTRweDsgLyogTGFyZ2VyIGZvbnQgc2l6ZSBmb3IgXCJHb29nbGUgUGxheVwiIHRleHQgKi9cbn1cblxuLmFwcEJ0biBpbWcge1xuICBoZWlnaHQ6IDMwcHg7IC8qIEFkanVzdCBzaXplIG9mIHRoZSBpbWFnZSAqL1xuICB3aWR0aDogMzBweDsgLyogQWRqdXN0IHNpemUgb2YgdGhlIGltYWdlICovXG4gIG1hcmdpbi1yaWdodDogNXB4OyAvKiBTcGFjZSBiZXR3ZWVuIGltYWdlIGFuZCB0ZXh0ICovXG59XG5cblxuLyogTW9iaWxlIHN0eWxlcyAqL1xuQG1lZGlhIChtYXgtd2lkdGg6IDc2OHB4KSB7XG4gIC5jdGEge1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47IC8qIFN0YWNrIGVsZW1lbnRzIHZlcnRpY2FsbHkgKi9cbiAgICBoZWlnaHQ6IGF1dG87IC8qIEFsbG93IGhlaWdodCB0byBhZGp1c3QgdG8gY29udGVudCAqL1xuICB9XG5cbiAgLmN0YSBpbWcge1xuICAgIGhlaWdodDogYXV0bzsgLyogTGV0IGltYWdlcyBzY2FsZSBkb3duIG5hdHVyYWxseSAqL1xuICAgIHdpZHRoOiAxMDAlOyAvKiBNYWludGFpbiBmdWxsIHdpZHRoICovXG4gIH1cblxuICAubWlkIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyAvKiBTdGFjayBpdGVtcyB2ZXJ0aWNhbGx5IG9uIG1vYmlsZSAqL1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7IC8qIENlbnRlciBpdGVtcyAqL1xuICB9XG5cbiAgLm1pZCAuaXRlbSB7XG4gICAgd2lkdGg6IDEwMCU7IC8qIEVuc3VyZSBlYWNoIGl0ZW0gdGFrZXMgZnVsbCB3aWR0aCAqL1xuICAgIG1hcmdpbi1ib3R0b206IDIwcHg7IC8qIEFkZCBzcGFjZSBiZXR3ZWVuIGl0ZW1zICovXG4gIH1cblxuICAubWlkIGg0LFxuICAubWlkIGg1IHtcbiAgICBmb250LXNpemU6IDE2cHg7IC8qIEFkanVzdCBoZWFkaW5nIHNpemVzIGZvciBiZXR0ZXIgcmVhZGFiaWxpdHkgKi9cbiAgfVxuXG4gIC5taWQgcCB7XG4gICAgZm9udC1zaXplOiAxMnB4OyAvKiBSZWR1Y2UgcGFyYWdyYXBoIGZvbnQgc2l6ZSAqL1xuICB9XG5cbiAgLm1pZCBhIHtcbiAgICBmb250LXNpemU6IDEycHg7IC8qIFJlZHVjZSBsaW5rIGZvbnQgc2l6ZSAqL1xuICB9XG5cbiAgLmN0YSAubGVmdCxcbiAgLmN0YSAucmlnaHQge1xuICAgIGZsZXg6IDE7IC8qIEFsbG93IGltYWdlcyB0byBvY2N1cHkgZnVsbCB3aWR0aCAqL1xuICAgIG1hcmdpbjogMTBweCAwOyAvKiBBZGQgbWFyZ2luIGJldHdlZW4gbGVmdCBhbmQgcmlnaHQgaW1hZ2VzICovXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjsgLyogQ2VudGVyIGltYWdlcyAqL1xuICB9XG5cbiAgLmN0YSAucmlnaHQgaW1nIHtcbiAgICB3aWR0aDogODBweDsgLyogQWRqdXN0IHdpZHRoIGZvciBzbWFsbGVyIHNjcmVlbnMgKi9cbiAgICBoZWlnaHQ6IDYwcHg7IC8qIEFkanVzdCBoZWlnaHQgZm9yIHNtYWxsZXIgc2NyZWVucyAqL1xuICAgIG1hcmdpbi1ib3R0b206IDA7IC8qIFJlc2V0IGJvdHRvbSBtYXJnaW4gKi9cbiAgfVxufVxuIl19 */"] });
+    } }, styles: [".cta[_ngcontent-%COMP%] {\n  padding: 40px 10px;\n  height: 60vh;\n  display: flex; \n}\n\n.cta[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  height: 60vh;\n  width: 100%;\n}\n\n.mid[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: flex-start; \n  flex: 2;\n}\n\n.mid[_ngcontent-%COMP%]   p[_ngcontent-%COMP%], .mid[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n\na[_ngcontent-%COMP%] {\n  color: #f6b228;\n}\n\n.cta[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center; \n  align-items: flex-end; \n  flex: 1;\n  position: relative; \n}\n\n.cta[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%], .cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center; \n  align-items: flex-end; \n  flex: 1;\n  position: relative; \n}\n\n.cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 80px;\n  margin-bottom: -120px; \n}\n\n.appBtn[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center; \n  justify-content: center; \n  background-color: #000; \n  padding: 5px; \n  border-radius: 5px; \n  width: 100px; \n  \n  height: 60px; \n}\n\n.appBtnTxt[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 10px;\n  color: #fff;\n  margin: 0; \n  text-align: center; \n}\n\n.appBtnTxt[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-size: 14px; \n}\n\n.appBtn[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  height: 30px; \n  width: 30px; \n  margin-right: 5px; \n}\n\n\n\n@media (max-width: 768px) {\n  .cta[_ngcontent-%COMP%] {\n    flex-direction: column; \n    height: auto; \n  }\n\n  .cta[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    height: auto; \n    width: 100%; \n  }\n\n  .mid[_ngcontent-%COMP%] {\n    flex-direction: column; \n    align-items: center; \n  }\n\n  .mid[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%] {\n    width: 100%; \n    margin-bottom: 20px; \n  }\n\n  .mid[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%], .mid[_ngcontent-%COMP%]   h5[_ngcontent-%COMP%] {\n    font-size: 16px; \n  }\n\n  .mid[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 12px; \n  }\n\n  .mid[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 12px; \n  }\n\n  .cta[_ngcontent-%COMP%]   .left[_ngcontent-%COMP%], .cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%] {\n    flex: 1; \n    margin: 10px 0; \n    align-items: center; \n  }\n\n  .cta[_ngcontent-%COMP%]   .right[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 100px; \n    height: 60px; \n    margin-bottom: 0; \n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImN0YS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixhQUFhLEVBQUUsMkNBQTJDO0FBQzVEOztBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsdUJBQXVCLEVBQUUsbURBQW1EO0VBQzVFLE9BQU87QUFDVDs7QUFFQTs7RUFFRSxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsY0FBYztBQUNoQjs7QUFFQTtFQUNFLGFBQWE7RUFDYix1QkFBdUIsRUFBRSxvQ0FBb0M7RUFDN0QscUJBQXFCLEVBQUUsOEJBQThCO0VBQ3JELE9BQU87RUFDUCxrQkFBa0IsRUFBRSxrQ0FBa0M7QUFDeEQ7O0FBQ0E7O0VBRUUsYUFBYTtFQUNiLHVCQUF1QixFQUFFLG9DQUFvQztFQUM3RCxxQkFBcUIsRUFBRSw4QkFBOEI7RUFDckQsT0FBTztFQUNQLGtCQUFrQixFQUFFLGtDQUFrQztBQUN4RDs7QUFFQTtFQUNFLFdBQVc7RUFDWCxZQUFZO0VBQ1oscUJBQXFCLEVBQUUsZ0NBQWdDO0FBQ3pEOztBQUNBO0VBQ0UsYUFBYTtFQUNiLG1CQUFtQixFQUFFLDZCQUE2QjtFQUNsRCx1QkFBdUIsRUFBRSwrQkFBK0I7RUFDeEQsc0JBQXNCLEVBQUUsb0NBQW9DO0VBQzVELFlBQVksRUFBRSx1Q0FBdUM7RUFDckQsa0JBQWtCLEVBQUUsb0JBQW9CO0VBQ3hDLFlBQVksRUFBRSxxQ0FBcUM7RUFDbkQsbUNBQW1DO0VBQ25DLFlBQVksRUFBRSx3Q0FBd0M7QUFDeEQ7O0FBRUE7RUFDRSxlQUFlO0VBQ2YsV0FBVztFQUNYLFNBQVMsRUFBRSwwQkFBMEI7RUFDckMsa0JBQWtCLEVBQUUsNkJBQTZCO0FBQ25EOztBQUVBO0VBQ0UsZUFBZSxFQUFFLDRDQUE0QztBQUMvRDs7QUFFQTtFQUNFLFlBQVksRUFBRSw2QkFBNkI7RUFDM0MsV0FBVyxFQUFFLDZCQUE2QjtFQUMxQyxpQkFBaUIsRUFBRSxpQ0FBaUM7QUFDdEQ7O0FBR0Esa0JBQWtCOztBQUNsQjtFQUNFO0lBQ0Usc0JBQXNCLEVBQUUsOEJBQThCO0lBQ3RELFlBQVksRUFBRSxzQ0FBc0M7RUFDdEQ7O0VBRUE7SUFDRSxZQUFZLEVBQUUsb0NBQW9DO0lBQ2xELFdBQVcsRUFBRSx3QkFBd0I7RUFDdkM7O0VBRUE7SUFDRSxzQkFBc0IsRUFBRSxxQ0FBcUM7SUFDN0QsbUJBQW1CLEVBQUUsaUJBQWlCO0VBQ3hDOztFQUVBO0lBQ0UsV0FBVyxFQUFFLHNDQUFzQztJQUNuRCxtQkFBbUIsRUFBRSw0QkFBNEI7RUFDbkQ7O0VBRUE7O0lBRUUsZUFBZSxFQUFFLGdEQUFnRDtFQUNuRTs7RUFFQTtJQUNFLGVBQWUsRUFBRSwrQkFBK0I7RUFDbEQ7O0VBRUE7SUFDRSxlQUFlLEVBQUUsMEJBQTBCO0VBQzdDOztFQUVBOztJQUVFLE9BQU87SUFDUCxjQUFjO0lBQ2QsbUJBQW1CO0VBQ3JCOztFQUVBO0lBQ0UsWUFBWTtJQUNaLFlBQVk7SUFDWixnQkFBZ0I7RUFDbEI7QUFDRiIsImZpbGUiOiJjdGEuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jdGEge1xuICBwYWRkaW5nOiA0MHB4IDEwcHg7XG4gIGhlaWdodDogNjB2aDtcbiAgZGlzcGxheTogZmxleDsgLyogRW5zdXJlIHRoZSBtYWluIGNvbnRhaW5lciBpcyBhIGZsZXhib3ggKi9cbn1cblxuLmN0YSBpbWcge1xuICBoZWlnaHQ6IDYwdmg7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4ubWlkIHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBmbGV4LXN0YXJ0OyAvKiBDaGFuZ2VkIGZyb20gJ3RvcCcgdG8gJ2ZsZXgtc3RhcnQnIGZvciBjbGFyaXR5ICovXG4gIGZsZXg6IDI7XG59XG5cbi5taWQgcCxcbi5taWQgYSB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn1cblxuYSB7XG4gIGNvbG9yOiAjZjZiMjI4O1xufVxuXG4uY3RhIC5sZWZ0IHtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7IC8qIENlbnRlciB0aGUgY29udGVudCBob3Jpem9udGFsbHkgKi9cbiAgYWxpZ24taXRlbXM6IGZsZXgtZW5kOyAvKiBBbGlnbiBpdGVtcyB0byB0aGUgYm90dG9tICovXG4gIGZsZXg6IDE7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTsgLyogRXN0YWJsaXNoIHBvc2l0aW9uaW5nIGNvbnRleHQgKi9cbn1cbi5jdGEgLmxlZnQsXG4uY3RhIC5yaWdodCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyOyAvKiBDZW50ZXIgdGhlIGNvbnRlbnQgaG9yaXpvbnRhbGx5ICovXG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDsgLyogQWxpZ24gaXRlbXMgdG8gdGhlIGJvdHRvbSAqL1xuICBmbGV4OiAxO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7IC8qIEVzdGFibGlzaCBwb3NpdGlvbmluZyBjb250ZXh0ICovXG59XG5cbi5jdGEgLnJpZ2h0IGltZyB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDgwcHg7XG4gIG1hcmdpbi1ib3R0b206IC0xMjBweDsgLyogUmVtb3ZlIGJvdHRvbSBtYXJnaW4gaWYgYW55ICovXG59XG4uYXBwQnRuIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjsgLyogVmVydGljYWxseSBjZW50ZXJzIGl0ZW1zICovXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyOyAvKiBIb3Jpem9udGFsbHkgY2VudGVycyBpdGVtcyAqL1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDAwOyAvKiBCYWNrZ3JvdW5kIGNvbG9yIGZvciB0aGUgYnV0dG9uICovXG4gIHBhZGRpbmc6IDVweDsgLyogRXZlbiBwYWRkaW5nIGFyb3VuZCB0aGUgZW50aXJlIGRpdiAqL1xuICBib3JkZXItcmFkaXVzOiA1cHg7IC8qIFJvdW5kZWQgY29ybmVycyAqL1xuICB3aWR0aDogMTAwcHg7IC8qIFNldCBhIGZpeGVkIHdpZHRoIGZvciB0aGUgYnV0dG9uICovXG4gIC8qIFlvdSBjYW4gYWRkIGEgaGVpZ2h0IGlmIG5lZWRlZCAqL1xuICBoZWlnaHQ6IDYwcHg7IC8qIEV4YW1wbGUgaGVpZ2h0LCBhZGp1c3QgYXMgbmVjZXNzYXJ5ICovXG59XG5cbi5hcHBCdG5UeHQgcCB7XG4gIGZvbnQtc2l6ZTogMTBweDtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbjogMDsgLyogUmVtb3ZlIGRlZmF1bHQgbWFyZ2luICovXG4gIHRleHQtYWxpZ246IGNlbnRlcjsgLyogQ2VudGVyIHRleHQgaG9yaXpvbnRhbGx5ICovXG59XG5cbi5hcHBCdG5UeHQgcCBzcGFuIHtcbiAgZm9udC1zaXplOiAxNHB4OyAvKiBMYXJnZXIgZm9udCBzaXplIGZvciBcIkdvb2dsZSBQbGF5XCIgdGV4dCAqL1xufVxuXG4uYXBwQnRuIGltZyB7XG4gIGhlaWdodDogMzBweDsgLyogQWRqdXN0IHNpemUgb2YgdGhlIGltYWdlICovXG4gIHdpZHRoOiAzMHB4OyAvKiBBZGp1c3Qgc2l6ZSBvZiB0aGUgaW1hZ2UgKi9cbiAgbWFyZ2luLXJpZ2h0OiA1cHg7IC8qIFNwYWNlIGJldHdlZW4gaW1hZ2UgYW5kIHRleHQgKi9cbn1cblxuXG4vKiBNb2JpbGUgc3R5bGVzICovXG5AbWVkaWEgKG1heC13aWR0aDogNzY4cHgpIHtcbiAgLmN0YSB7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjsgLyogU3RhY2sgZWxlbWVudHMgdmVydGljYWxseSAqL1xuICAgIGhlaWdodDogYXV0bzsgLyogQWxsb3cgaGVpZ2h0IHRvIGFkanVzdCB0byBjb250ZW50ICovXG4gIH1cblxuICAuY3RhIGltZyB7XG4gICAgaGVpZ2h0OiBhdXRvOyAvKiBMZXQgaW1hZ2VzIHNjYWxlIGRvd24gbmF0dXJhbGx5ICovXG4gICAgd2lkdGg6IDEwMCU7IC8qIE1haW50YWluIGZ1bGwgd2lkdGggKi9cbiAgfVxuXG4gIC5taWQge1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47IC8qIFN0YWNrIGl0ZW1zIHZlcnRpY2FsbHkgb24gbW9iaWxlICovXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjsgLyogQ2VudGVyIGl0ZW1zICovXG4gIH1cblxuICAubWlkIC5pdGVtIHtcbiAgICB3aWR0aDogMTAwJTsgLyogRW5zdXJlIGVhY2ggaXRlbSB0YWtlcyBmdWxsIHdpZHRoICovXG4gICAgbWFyZ2luLWJvdHRvbTogMjBweDsgLyogQWRkIHNwYWNlIGJldHdlZW4gaXRlbXMgKi9cbiAgfVxuXG4gIC5taWQgaDQsXG4gIC5taWQgaDUge1xuICAgIGZvbnQtc2l6ZTogMTZweDsgLyogQWRqdXN0IGhlYWRpbmcgc2l6ZXMgZm9yIGJldHRlciByZWFkYWJpbGl0eSAqL1xuICB9XG5cbiAgLm1pZCBwIHtcbiAgICBmb250LXNpemU6IDEycHg7IC8qIFJlZHVjZSBwYXJhZ3JhcGggZm9udCBzaXplICovXG4gIH1cblxuICAubWlkIGEge1xuICAgIGZvbnQtc2l6ZTogMTJweDsgLyogUmVkdWNlIGxpbmsgZm9udCBzaXplICovXG4gIH1cblxuICAuY3RhIC5sZWZ0LFxuICAuY3RhIC5yaWdodCB7XG4gICAgZmxleDogMTsgXG4gICAgbWFyZ2luOiAxMHB4IDA7IFxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7IFxuICB9XG5cbiAgLmN0YSAucmlnaHQgaW1nIHtcbiAgICB3aWR0aDogMTAwcHg7IFxuICAgIGhlaWdodDogNjBweDsgXG4gICAgbWFyZ2luLWJvdHRvbTogMDsgXG4gIH1cbn1cbiJdfQ== */"] });
 
 
 /***/ }),
@@ -1048,7 +1034,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loginmodal_loginmodal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./loginmodal/loginmodal.component */ "fMSf");
 /* harmony import */ var _components_userconfirmmodal_userconfirmmodal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/userconfirmmodal/userconfirmmodal.component */ "I3kq");
 /* harmony import */ var _kes_currency_pipe__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./kes-currency.pipe */ "sP0K");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "1kSV");
+/* harmony import */ var _auth_interceptor__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./auth.interceptor */ "E/nK");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+
 
 
 
@@ -1074,8 +1064,10 @@ __webpack_require__.r(__webpack_exports__);
 class AppModule {
 }
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
-AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
-AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineInjector"]({ providers: [], imports: [[
+AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_22__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
+AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_22__["ɵɵdefineInjector"]({ providers: [
+        { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _auth_interceptor__WEBPACK_IMPORTED_MODULE_21__["AuthInterceptor"], multi: true },
+    ], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_1__["AppRoutingModule"],
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
@@ -1084,8 +1076,10 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineInjecto
             _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_20__["NgbModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_20__["NgbCarouselModule"],
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_22__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
         _components_home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"],
         _components_footer_footer_component__WEBPACK_IMPORTED_MODULE_6__["FooterComponent"],
         _components_cta_cta_component__WEBPACK_IMPORTED_MODULE_7__["CtaComponent"],
@@ -1102,7 +1096,9 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineInjecto
         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"], ngx_bootstrap_carousel__WEBPACK_IMPORTED_MODULE_5__["CarouselModule"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["CommonModule"],
         _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"]] }); })();
+        _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
+        _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_20__["NgbModule"],
+        _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_20__["NgbCarouselModule"]] }); })();
 
 
 /***/ }),
@@ -1946,12 +1942,18 @@ class PayForTicketmodalComponent {
         this.stkpush = false;
         this.loading = false;
         this.error = null;
+        this.seconds = 20; // Timer countdown seconds
         this.paymentForm = this.fb.group({
             code: ['254', _angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required],
             phone: ['726097666', [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]],
         });
     }
     ngOnInit() {
+        this.apiService.stkPush$.subscribe((data) => {
+            console.log('stkPushSubject data:', data);
+        }, (error) => {
+            console.error('Error in stkPushSubject subscription:', error);
+        });
         this.apiService.modalTrigger$.subscribe((modalId) => {
             $(modalId).modal('show');
         });
@@ -1982,6 +1984,8 @@ class PayForTicketmodalComponent {
             .subscribe();
         this.tripReviewInfo = this.apiService.getStkPushBodyData();
         console.log('this.tripReviewInfo', this.tripReviewInfo);
+        this.checkPaymentInfo = this.apiService.getCheckMpesaPaymentBodyData();
+        console.log('this.checkPaymentInfo', this.checkPaymentInfo);
         this.updateQueryValue();
         // Subscribe to form value changes
         this.paymentForm.valueChanges.subscribe(() => {
@@ -1991,26 +1995,68 @@ class PayForTicketmodalComponent {
     updateQueryValue() {
         if (this.tripReviewInfo && this.paymentForm.valid) {
             const formValues = this.paymentForm.value;
-            this.tripReviewInfo.queryvalue = formValues.phone;
+            this.tripReviewInfo.queryvalue = `${this.paymentForm.value.code}${this.paymentForm.value.phone}`;
+            this.tripReviewInfo.bookingRef = `${this.paymentForm.value.code}${this.paymentForm.value.phone}`;
             console.log('Updated tripReviewInfo', this.tripReviewInfo);
         }
     }
+    startTimer() {
+        console.log('Starting timer...');
+        this.id = setInterval(() => {
+            --this.seconds;
+            console.log(`Timer seconds left: ${this.seconds}`);
+            if (this.seconds < 1) {
+                clearInterval(this.id);
+                console.log('Timer finished. Calling checkMpesaPayment...');
+                this.checkMpesaPayment();
+            }
+        }, 1000); // 1000 milliseconds = 1 second
+    }
+    checkMpesaPayment() {
+        console.log('checkMpesaPayment called.');
+        let data = {
+            bookingRef: this.bookingInfo.booking_reference,
+            queryoption: 1,
+            queryvalue: `${this.paymentForm.value.code}${this.paymentForm.value.phone}`,
+            originalBookingRef: this.bookingInfo.booking_reference,
+            uuid: this.bookingInfo.booking_reference,
+            requestType: 'ticket',
+        };
+        this.tripReviewInfo.bookingRef = this.bookingInfo.booking_reference;
+        this.tripReviewInfo.queryvalue = `${this.paymentForm.value.code}${this.paymentForm.value.phone}`;
+        this.apiService.checkMpesaPayment(data).subscribe((res) => {
+            console.log('Payment checked', res);
+        }, (error) => {
+            console.error('Error checking payment', error);
+        });
+    }
     onSubmit() {
-        console.log(this.paymentForm.value);
+        console.log('Form submitted', this.paymentForm.value);
         if (this.paymentForm.invalid) {
+            console.warn('Form is invalid');
             // Handle form validation errors
             return;
         }
         const formValues = this.paymentForm.value;
         this.tripReviewInfo.queryvalue = `${formValues.code}${formValues.phone}`;
+        this.tripReviewInfo.bookingRef = this.bookingInfo.booking_reference;
         console.log('this.tripReviewInfo', this.tripReviewInfo);
-        this.apiService.stkPushPay(this.tripReviewInfo).subscribe((response) => {
+        let data = {
+            bookingRef: this.bookingInfo.booking_reference,
+            queryoption: '10',
+            queryvalue: '254726097666',
+            requestType: 'ticket',
+            paymentType: 'mpesa',
+        };
+        console.log('data', data);
+        this.apiService.stkPushPay(data).subscribe((response) => {
             this.paymentStatus = response;
-            console.log(this.paymentStatus);
-            this.loading = false;
+            console.log('Payment response', this.paymentStatus);
+            // Start the timer for 20 seconds
+            this.seconds = 20; // Reset the timer
+            this.startTimer();
         }, (error) => {
             this.error = error.message;
-            this.loading = false;
         });
     }
     closePayNowModal() {
@@ -2149,12 +2195,11 @@ PayForTicketmodalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["�
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiService", function() { return ApiService; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../environments/environment */ "AytR");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
-
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../environments/environment */ "AytR");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 
 
 
@@ -2173,22 +2218,23 @@ class ApiService {
             city_type: 'destination',
             sourcetype: 'web',
         };
-        this.sourceCitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.destinationCitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.tripDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.bookingDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.bookingBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.getTripsAllBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.getTripsSpecificBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.getCitySourceBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.getCityDestinationBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.stkPushSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.forgotPasswordSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.changeForgotPasswordSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.formDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
-        this.selectedOptionSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"]('yes');
-        this.totalPriceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](0);
-        this.initStkPushBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
+        this.sourceCitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.destinationCitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.tripDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.bookingDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.bookingBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.getTripsAllBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.getTripsSpecificBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.getCitySourceBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.getCityDestinationBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.stkPushSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.forgotPasswordSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.changeForgotPasswordSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.formDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.selectedOptionSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"]('yes');
+        this.totalPriceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](0);
+        this.initStkPushBodyDataSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
+        this.checkMpesaPaymentSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
         this.formData$ = this.formDataSubject.asObservable();
         this.sourceCity$ = this.sourceCitySubject.asObservable();
         this.destinationCity$ = this.destinationCitySubject.asObservable();
@@ -2205,11 +2251,12 @@ class ApiService {
         this.selectedOption$ = this.selectedOptionSubject.asObservable();
         this.totalPrice$ = this.totalPriceSubject.asObservable();
         this.initStkPushBodyData$ = this.initStkPushBodyDataSubject.asObservable();
-        this.modalTriggerSource = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+        this.checkMpesaPayment$ = this.checkMpesaPaymentSubject.asObservable();
+        this.modalTriggerSource = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.modalTrigger$ = this.modalTriggerSource.asObservable();
-        this.displaySubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](false);
+        this.displaySubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](false);
         this.display$ = this.displaySubject.asObservable();
-        this.modalCloseSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+        this.modalCloseSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.modalClose$ = this.modalCloseSubject.asObservable();
         this.initializeCitySourceBodyData();
         this.initializeCityDestinationBodyData();
@@ -2217,6 +2264,7 @@ class ApiService {
         this.initializeTripsAllBodyData();
         this.initializeBookingBodyData();
         this.initializeStkPushBodyData();
+        this.initializeCheckMpesaPaymentBodyData();
     }
     login(data) {
         return;
@@ -2372,16 +2420,32 @@ class ApiService {
     getStkPushBodyData() {
         return this.initStkPushBodyDataSubject.getValue();
     }
-    // Initialize STK Push body data
     initializeStkPushBodyData() {
         const stkPushBodyData = {
-            bookingRef: 'SWNGW939T2',
+            bookingRef: 'SWNGW93889T2',
             queryoption: '10',
             queryvalue: '254726097666',
             requestType: 'ticket',
             paymentType: 'mpesa',
         };
         this.setStkPushBodyData(stkPushBodyData);
+    }
+    setCheckMpesaPaymentBodyData(data) {
+        this.checkMpesaPaymentSubject.next(data);
+    }
+    getCheckMpesaPaymentBodyData() {
+        return this.checkMpesaPaymentSubject.getValue();
+    }
+    initializeCheckMpesaPaymentBodyData() {
+        const checkMpesaPaymentData = {
+            bookingRef: 'this.ref_no',
+            queryoption: 'this.data.totalTicketPrice',
+            queryvalue: "formData.country_code+''+formData.mobile'",
+            originalBookingRef: 'this.ref_no',
+            uuid: 'this.ref_no',
+            requestType: 'ticket',
+        };
+        this.setCheckMpesaPaymentBodyData(checkMpesaPaymentData);
     }
     // Method to get the current state
     getDisplayState() {
@@ -2407,82 +2471,53 @@ class ApiService {
         return this.selectedOption$;
     }
     getSourceCity(sourceCities) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            'Content-Type': 'application/json',
-        });
         return this.http
-            .post('/api/globalApi/common/getCity', sourceCities, {
-            headers,
-        })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.sourceCitySubject.next(res)));
+            .post('/globalApi/common/getCity', sourceCities)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.sourceCitySubject.next(res)));
     }
     getDestinationCity() {
-        const token = '4F5D3QC5-C94A-CFD5-87C1-4E2903311DF0';
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        });
         return this.http
-            .post('/api/globalApi/common/getCity', this.destCities, {
-            headers,
-        })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.destinationCitySubject.next(res)));
+            .post('/globalApi/common/getCity', this.destCities)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.destinationCitySubject.next(res)));
     }
     getAllTrip(tripData) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
-        });
         return this.http
-            .post('/api/globalApi/trips/getTrips', tripData, { headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.tripDataSubject.next(res)));
+            .post('/globalApi/trips/getTrips', tripData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.tripDataSubject.next(res)));
     }
     payNow(bookingData) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
-        });
         return this.http
-            .post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].api, bookingData, { headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.bookingDataSubject.next(res)));
+            .post(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].api, bookingData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.bookingDataSubject.next(res)));
     }
     booking(bookingData) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
-        });
         return this.http
-            .post('/api/globalApi/ticket/booking', bookingData, { headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.bookingDataSubject.next(res)));
+            .post('/globalApi/ticket/booking', bookingData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.bookingDataSubject.next(res)));
     }
     stkPushPay(ticketRefInfo) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
-        });
         return this.http
-            .post('/api/globalApi/paymentGateway/init', ticketRefInfo, {
-            headers,
-        })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.stkPushSubject.next(res)));
+            .post('/globalApi/paymentGateway/init', ticketRefInfo)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.stkPushSubject.next(res)));
+    }
+    checkMpesaPayment(data) {
+        return this.http
+            .post('/globalApi/paymentGateway/checkMpesaPayment', data)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.setCheckMpesaPaymentBodyData(res)));
     }
     forgotPassword(forgotPasswordData) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
-        });
         return this.http
-            .post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].forgotPasswordURL, forgotPasswordData, { headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.forgotPasswordSubject.next(res)));
+            .post('/globalApi/appUser/forgotPassword', forgotPasswordData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.forgotPasswordSubject.next(res)));
     }
     changeForgotPassword(changeForgotPasswordData) {
-        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
-            Authorization: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].AUTHORIZATION,
-        });
         return this.http
-            .post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].changeForgotPasswordURL, changeForgotPasswordData, {
-            headers,
-        })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((res) => this.changeForgotPasswordSubject.next(res)));
+            .post('/globalApi/appUser/changeForgotPassword', changeForgotPasswordData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])((res) => this.changeForgotPasswordSubject.next(res)));
     }
 }
-ApiService.ɵfac = function ApiService_Factory(t) { return new (t || ApiService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); };
-ApiService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({ token: ApiService, factory: ApiService.ɵfac, providedIn: 'root' });
+ApiService.ɵfac = function ApiService_Factory(t) { return new (t || ApiService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"])); };
+ApiService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: ApiService, factory: ApiService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),

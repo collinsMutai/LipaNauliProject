@@ -12,7 +12,7 @@ import { LipanauliappComponent } from './components/lipanauliapp/lipanauliapp.co
 
 import { LipanaulisliderComponent } from './components/lipanaulislider/lipanaulislider.component';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaynowmodalComponent } from './components/paynowmodal/paynowmodal.component';
 import { BuslistmodalComponent } from './components/buslistmodal/buslistmodal.component';
@@ -21,6 +21,8 @@ import { PayForTicketmodalComponent } from './components/pay-for-ticketmodal/pay
 import { LoginmodalComponent } from './loginmodal/loginmodal.component';
 import { UserconfirmmodalComponent } from './components/userconfirmmodal/userconfirmmodal.component';
 import { KesCurrencyPipe } from './kes-currency.pipe';
+import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,8 +49,12 @@ import { KesCurrencyPipe } from './kes-currency.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
+    NgbCarouselModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

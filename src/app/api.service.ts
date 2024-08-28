@@ -38,6 +38,7 @@ export class ApiService {
   private totalPriceSubject = new BehaviorSubject<number>(0);
 
   private initStkPushBodyDataSubject = new BehaviorSubject<any>(null);
+  private checkMpesaPaymentSubject = new BehaviorSubject<any>(null);
 
   formData$ = this.formDataSubject.asObservable();
   sourceCity$ = this.sourceCitySubject.asObservable();
@@ -58,6 +59,7 @@ export class ApiService {
   selectedOption$ = this.selectedOptionSubject.asObservable();
   totalPrice$ = this.totalPriceSubject.asObservable();
   initStkPushBodyData$ = this.initStkPushBodyDataSubject.asObservable();
+  checkMpesaPayment$ = this.checkMpesaPaymentSubject.asObservable();
 
   private modalTriggerSource = new Subject<string>();
   modalTrigger$ = this.modalTriggerSource.asObservable();
@@ -73,8 +75,9 @@ export class ApiService {
     this.initializeCityDestinationBodyData();
     this.initializeTripsSpecificBodyData();
     this.initializeTripsAllBodyData();
-    this.initializeBookingBodyData()
+    this.initializeBookingBodyData();
     this.initializeStkPushBodyData();
+    this.initializeCheckMpesaPaymentBodyData()
   }
 
   login(data): Observable<any> {
@@ -254,16 +257,35 @@ export class ApiService {
     return this.initStkPushBodyDataSubject.getValue();
   }
 
-  // Initialize STK Push body data
+
   initializeStkPushBodyData(): void {
     const stkPushBodyData = {
-      bookingRef: 'SWNGW939T2',
+      bookingRef: 'SWNGW93889T2',
       queryoption: '10',
       queryvalue: '254726097666',
       requestType: 'ticket',
       paymentType: 'mpesa',
     };
     this.setStkPushBodyData(stkPushBodyData);
+  }
+
+  setCheckMpesaPaymentBodyData(data: any): void {
+    this.checkMpesaPaymentSubject.next(data);
+  }
+
+  getCheckMpesaPaymentBodyData(): Observable<any> {
+    return this.checkMpesaPaymentSubject.getValue();
+  }
+  initializeCheckMpesaPaymentBodyData(): void {
+    const checkMpesaPaymentData = {
+      bookingRef: 'this.ref_no',
+      queryoption: 'this.data.totalTicketPrice',
+      queryvalue: "formData.country_code+''+formData.mobile'",
+      originalBookingRef: 'this.ref_no',
+      uuid: 'this.ref_no',
+      requestType: 'ticket',
+    };
+    this.setCheckMpesaPaymentBodyData(checkMpesaPaymentData);
   }
 
   // Method to get the current state
@@ -296,89 +318,57 @@ export class ApiService {
   }
 
   getSourceCity(sourceCities): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
     return this.http
-      .post<any>('/api/globalApi/common/getCity', sourceCities, {
-        headers,
-      })
+      .post<any>('/globalApi/common/getCity', sourceCities)
       .pipe(tap((res) => this.sourceCitySubject.next(res)));
   }
 
   getDestinationCity(): Observable<any> {
-    const token = '4F5D3QC5-C94A-CFD5-87C1-4E2903311DF0';
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
     return this.http
-      .post<any>('/api/globalApi/common/getCity', this.destCities, {
-        headers,
-      })
+      .post<any>('/globalApi/common/getCity', this.destCities)
       .pipe(tap((res) => this.destinationCitySubject.next(res)));
   }
 
   getAllTrip(tripData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: environment.AUTHORIZATION,
-    });
-
     return this.http
-      .post<any>('/api/globalApi/trips/getTrips', tripData, { headers })
+      .post<any>('/globalApi/trips/getTrips', tripData)
       .pipe(tap((res) => this.tripDataSubject.next(res)));
   }
 
   payNow(bookingData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: environment.AUTHORIZATION,
-    });
     return this.http
-      .post<any>(environment.api, bookingData, { headers })
+      .post<any>(environment.api, bookingData)
       .pipe(tap((res) => this.bookingDataSubject.next(res)));
   }
 
   booking(bookingData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: environment.AUTHORIZATION,
-    });
     return this.http
-      .post<any>('/api/globalApi/ticket/booking', bookingData, { headers })
+      .post<any>('/globalApi/ticket/booking', bookingData)
       .pipe(tap((res) => this.bookingDataSubject.next(res)));
   }
 
   stkPushPay(ticketRefInfo: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: environment.AUTHORIZATION,
-    });
     return this.http
-      .post<any>('/api/globalApi/paymentGateway/init', ticketRefInfo, {
-        headers,
-      })
+      .post<any>('/globalApi/paymentGateway/init', ticketRefInfo)
       .pipe(tap((res) => this.stkPushSubject.next(res)));
+  }
+  checkMpesaPayment(data): Observable<any> {
+    return this.http
+      .post('/globalApi/paymentGateway/checkMpesaPayment', data)
+      .pipe(tap((res) => this.setCheckMpesaPaymentBodyData(res)));
   }
 
   forgotPassword(forgotPasswordData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: environment.AUTHORIZATION,
-    });
     return this.http
-      .post<any>(environment.forgotPasswordURL, forgotPasswordData, { headers })
+      .post<any>('/globalApi/appUser/forgotPassword', forgotPasswordData)
       .pipe(tap((res) => this.forgotPasswordSubject.next(res)));
   }
 
   changeForgotPassword(changeForgotPasswordData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: environment.AUTHORIZATION,
-    });
     return this.http
       .post<any>(
-        environment.changeForgotPasswordURL,
-        changeForgotPasswordData,
-        {
-          headers,
-        }
+        '/globalApi/appUser/changeForgotPassword',
+        changeForgotPasswordData
       )
       .pipe(tap((res) => this.changeForgotPasswordSubject.next(res)));
   }
