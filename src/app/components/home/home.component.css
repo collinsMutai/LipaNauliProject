@@ -73,7 +73,7 @@
   color: #739b5b;
 }
 .hero {
-  background: url("../../../assets/Lipanauli/Affordable bus service Nairobi.png");
+  background: url("../../../assets/Lipanauli/Lipa-Nauli-Website-LANDING.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -301,8 +301,12 @@ input {
   .hero {
     height: auto;
   }
+  .header{
+    font-size: 40px;
+  }
   .form-card {
     padding-left: 15px;
+    margin-top: 40px;
   }
   .form-card img {
     display: none;
@@ -324,6 +328,13 @@ input {
   }
   .rowContainer {
     margin-top: 60px;
+  }
+  .right img {
+    height: 350px;
+    width: 100%;
+  }
+  .input-item{
+    gap: 5px;
   }
 }
 

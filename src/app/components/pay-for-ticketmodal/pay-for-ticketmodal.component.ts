@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { filter, tap } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -99,36 +100,25 @@ export class PayForTicketmodalComponent implements OnInit {
     }
   }
 
-  startTimer() {
-    console.log('Starting timer...');
-    this.id = setInterval(() => {
-      --this.seconds;
-      console.log(`Timer seconds left: ${this.seconds}`);
-      if (this.seconds < 1) {
-        clearInterval(this.id);
-        console.log('Timer finished. Calling checkMpesaPayment...');
-        this.checkMpesaPayment();
-      }
-    }, 1000); // 1000 milliseconds = 1 second
-  }
-
-  checkMpesaPayment() {
+  checkMpesaPayment(ref: any) {
     console.log('checkMpesaPayment called.');
     let data = {
-      bookingRef: this.bookingInfo.booking_reference,
-      queryoption: 1,
+      bookingRef: ref,
+      queryoption: this.totalPrice,
       queryvalue: `${this.paymentForm.value.code}${this.paymentForm.value.phone}`,
-      originalBookingRef: this.bookingInfo.booking_reference,
-      uuid: this.bookingInfo.booking_reference,
+      originalBookingRef: ref,
+      uuid: ref,
       requestType: 'ticket',
     };
-    this.tripReviewInfo.bookingRef = this.bookingInfo.booking_reference;
-    this.tripReviewInfo.queryvalue = `${this.paymentForm.value.code}${this.paymentForm.value.phone}`;
+    // this.tripReviewInfo.bookingRef = this.bookingInfo.booking_reference;
+    // this.tripReviewInfo.queryvalue = `${this.paymentForm.value.code}${this.paymentForm.value.phone}`;
     this.apiService.checkMpesaPayment(data).subscribe(
       (res) => {
+        Swal.fire(res.msg);
         console.log('Payment checked', res);
       },
       (error) => {
+        Swal.fire(error.msg);
         console.error('Error checking payment', error);
       }
     );
@@ -149,27 +139,42 @@ export class PayForTicketmodalComponent implements OnInit {
     console.log('this.tripReviewInfo', this.tripReviewInfo);
     let data = {
       bookingRef: this.bookingInfo.booking_reference,
-      queryoption: '10',
+      queryoption: this.totalPrice,
       queryvalue: '254726097666',
       requestType: 'ticket',
       paymentType: 'mpesa',
     };
+    // let data = {
+    //   bookingRef: 'SWNGW93889T2',
+    //   queryoption: this.totalPrice,
+    //   queryvalue: '254726097666',
+    //   requestType: 'ticket',
+    //   paymentType: 'mpesa',
+    // };
     console.log('data', data);
 
     this.apiService.stkPushPay(data).subscribe(
       (response) => {
         this.paymentStatus = response;
         console.log('Payment response', this.paymentStatus);
-
-        // Start the timer for 20 seconds
-        this.seconds = 20; // Reset the timer
-        this.startTimer();
       },
       (error) => {
         this.error = error.message;
-       
       }
     );
+
+    const intervalTime = 20000;
+    const totalDuration = 40000;
+
+    const intervalId = setInterval(() => {
+      this.checkMpesaPayment(this.bookingInfo.booking_reference);
+    }, intervalTime);
+
+    setTimeout(() => {
+      clearInterval(intervalId);
+      this.closePayNowModal()
+      window.location.reload();
+    }, totalDuration);
   }
 
   closePayNowModal() {

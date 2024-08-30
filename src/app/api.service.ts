@@ -39,6 +39,7 @@ export class ApiService {
 
   private initStkPushBodyDataSubject = new BehaviorSubject<any>(null);
   private checkMpesaPaymentSubject = new BehaviorSubject<any>(null);
+  private confirmMpesaPaymentSubject = new BehaviorSubject<any>(null);
 
   formData$ = this.formDataSubject.asObservable();
   sourceCity$ = this.sourceCitySubject.asObservable();
@@ -60,6 +61,7 @@ export class ApiService {
   totalPrice$ = this.totalPriceSubject.asObservable();
   initStkPushBodyData$ = this.initStkPushBodyDataSubject.asObservable();
   checkMpesaPayment$ = this.checkMpesaPaymentSubject.asObservable();
+  confirmMpesaPayment$ = this.confirmMpesaPaymentSubject.asObservable();
 
   private modalTriggerSource = new Subject<string>();
   modalTrigger$ = this.modalTriggerSource.asObservable();
@@ -77,7 +79,7 @@ export class ApiService {
     this.initializeTripsAllBodyData();
     this.initializeBookingBodyData();
     this.initializeStkPushBodyData();
-    this.initializeCheckMpesaPaymentBodyData()
+    this.initializeCheckMpesaPaymentBodyData();
   }
 
   login(data): Observable<any> {
@@ -102,6 +104,14 @@ export class ApiService {
 
   getFormData(): Observable<any> {
     return this.formData$;
+  }
+  setConfirmMpesaPaymentBodyData(data: any): void {
+    this.confirmMpesaPaymentSubject.next(data);
+  }
+
+  // Method to get data for checkMpesaPayment
+  getConfirmMpesaPaymentBodyData(): Observable<any> {
+    return this.confirmMpesaPayment$;
   }
 
   // Set booking body data
@@ -257,7 +267,6 @@ export class ApiService {
     return this.initStkPushBodyDataSubject.getValue();
   }
 
-
   initializeStkPushBodyData(): void {
     const stkPushBodyData = {
       bookingRef: 'SWNGW93889T2',
@@ -352,10 +361,17 @@ export class ApiService {
       .post<any>('/globalApi/paymentGateway/init', ticketRefInfo)
       .pipe(tap((res) => this.stkPushSubject.next(res)));
   }
-  checkMpesaPayment(data): Observable<any> {
+  checkMpesaPayment(data: any): Observable<any> {
+    console.log('api data', data);
+    
     return this.http
       .post('/globalApi/paymentGateway/checkMpesaPayment', data)
-      .pipe(tap((res) => this.setCheckMpesaPaymentBodyData(res)));
+      .pipe(
+        tap((res) => {
+          console.log('Response in tap:', res);
+          this.setConfirmMpesaPaymentBodyData(res);
+        })
+      );
   }
 
   forgotPassword(forgotPasswordData: any): Observable<any> {

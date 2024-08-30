@@ -116,7 +116,7 @@ export class LoginmodalComponent implements OnInit {
       console.log('Verify otp', this.loginForm.value.otp);
       this.toggleVerifyOtp();
       const verifyOtpData = {
-        phone: '123456789',
+        phone: '726097666',
         newPassword: 'xxxxxxx',
         confirmPassword: ' xxxxxxx',
         country_code: '254',

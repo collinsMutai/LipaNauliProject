@@ -91,9 +91,8 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
         console.error('Error handling modal trigger:', error);
       }
     );
-    
+
     this.tripReviewInfo = this.apiService.getBookingBodyData();
-  
 
     this.apiService.bookingData$
       .pipe(
@@ -268,6 +267,7 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
     const tripReviewInfo = {
       ...this.tripReviewInfo,
       total: totalPrice,
+      booking_date: "2024-08-30",
       passenger: [
         ...(primaryPassenger ? [primaryPassenger] : []),
         ...passengersArray,
@@ -304,7 +304,6 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
   removePassenger(index: number): void {
     const passengersArray = this.passengerForm.get('passengers') as FormArray;
     if (passengersArray.length > 0) {
-      // Adjust condition to handle removal
       passengersArray.removeAt(index);
     }
   }
@@ -320,6 +319,6 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
   }
   private updateTotalPrice(): void {
     const totalPrice = this.calculateTotalPrice();
-    this.apiService.updateTotalPrice(totalPrice); // Update total price in ApiService
+    this.apiService.updateTotalPrice(totalPrice);
   }
 }
