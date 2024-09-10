@@ -140,7 +140,7 @@ export class PayForTicketmodalComponent implements OnInit {
     let data = {
       bookingRef: this.bookingInfo.booking_reference,
       queryoption: this.totalPrice,
-      queryvalue: '254726097666',
+      queryvalue: '254724026032',
       requestType: 'ticket',
       paymentType: 'mpesa',
     };

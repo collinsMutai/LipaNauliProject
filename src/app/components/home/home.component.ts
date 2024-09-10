@@ -57,6 +57,8 @@ export class HomeComponent implements OnInit {
       .getSourceCity(this.apiService.getCitySourceBodyData())
       .subscribe((res) => {
         this.sourceCities = res.data;
+        console.log('this.sourceCities', this.sourceCities);
+        
       });
 
     const currentDate = new Date().toISOString().split('T')[0];
