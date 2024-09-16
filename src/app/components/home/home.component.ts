@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { ApiService } from 'src/app/api.service';
+import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -28,11 +29,13 @@ export class HomeComponent implements OnInit {
 
   display!: boolean;
   displayState: boolean;
+  user!: string;
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.tripForm = this.fb.group({
       from: [''],
@@ -42,23 +45,30 @@ export class HomeComponent implements OnInit {
     });
   }
   isMobileMenuOpen = false;
+  isAuthenticated: boolean = false;
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
   ngOnInit() {
+    this.authService.isAuthenticated$.subscribe((authenticated) => {
+      this.isAuthenticated = authenticated;
+    });
+
+    this.authService.user$.subscribe((username) => {
+      this.user = username ?? ''; // Set the user property
+    });
+
     this.apiService.modalTrigger$.subscribe((modalId: string) => {
       $(modalId).modal('show');
     });
-    // this.apiService.triggerModal('#customerDetailsModal');
 
     this.apiService
       .getSourceCity(this.apiService.getCitySourceBodyData())
       .subscribe((res) => {
         this.sourceCities = res.data;
         console.log('this.sourceCities', this.sourceCities);
-        
       });
 
     const currentDate = new Date().toISOString().split('T')[0];
@@ -87,6 +97,7 @@ export class HomeComponent implements OnInit {
       Swal.fire('Source city not found.');
     }
   }
+
   selectedDestCity(selectedDestinationCity: string) {
     const selectedCity = this.destinationCities.find(
       (city) =>
@@ -101,7 +112,6 @@ export class HomeComponent implements OnInit {
   }
 
   searchTrip() {
-    // this.apiService.triggerModal('#buslistModal');
     if (this.tripForm.valid) {
       const formData = this.tripForm.value;
       const departure = formData.departure;
@@ -141,22 +151,16 @@ export class HomeComponent implements OnInit {
           source_id: this.sourceCityId,
           destination_id: this.destinationCityId,
           booking_date: '2024-05-29',
-          // booking_date: departure,
         };
 
         this.apiService.getAllTrip(tripData).subscribe((res) => {
           if (res.data[0]) {
             this.apiService.triggerModal('#buslistModal');
-
             this.apiService.setDisplayState(true);
           } else {
-            Swal.fire(' Bus not found for the route.');
+            Swal.fire('Bus not found for the route.');
           }
         });
-
-        //  this.tripForm.reset();
-        //  this.destinationCities = [];
-        //  this.selectedSourceCity = '';
       }
     }
   }
@@ -171,5 +175,9 @@ export class HomeComponent implements OnInit {
 
   loginUser() {
     this.apiService.triggerModal('#loginModal');
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

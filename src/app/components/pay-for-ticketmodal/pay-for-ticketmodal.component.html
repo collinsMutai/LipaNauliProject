@@ -25,62 +25,92 @@
           <div class="" style="flex: 2">
             <div class="card modalCard" style="padding-top: 20px">
               <div class="card-body">
-                <div class="custom-container">
-                  <select
-                    formControlName="code"
-                    style="width: 90px"
-                    class="form-select me-2"
-                    aria-label="Default select example"
+                <tabset>
+                  <p style="margin: 15px 0px;">
+                    To complete the payment you will receive a prompt from Mpesa
+                    on the mobile number below
+                  </p>
+                  <tab
+                    heading="Mpesa"
+                    class=""
+                    style="margin: 10px 0px;"
+                    (selectTab)="onSelect($event)"
                   >
-                    <option value="254">254</option>
-                  </select>
+                    <div class="custom-container">
+                      <select
+                        formControlName="code"
+                        style="width: 90px"
+                        class="form-select me-2"
+                        aria-label="Default select example"
+                      >
+                        <option value="254">254</option>
+                      </select>
 
-                  <input
-                    formControlName="phone"
-                    style="width: 200px"
-                    type="tel"
-                    class="form-control me-2"
-                    id="exampleFormControlInput1"
-                    placeholder="Phone"
-                  />
+                      <input
+                        formControlName="phone"
+                        style="width: 200px"
+                        type="tel"
+                        class="form-control me-2"
+                        id="exampleFormControlInput1"
+                        placeholder="Phone"
+                      />
 
-                  <button type="submit" class="paymentBtn btn btn-primary">
-                    Make Payment
-                  </button>
-                </div>
+                      <button type="submit" class="paymentBtn btn btn-primary">
+                        Make Payment
+                      </button>
+                    </div>
 
-                <div class="tripDetails">
-                  <div class="column">
+                    <div class="tripDetails">
+                      <div class="column">
+                        <p>
+                          Route:
+                          <span *ngIf="tripInfo?.route_name">{{
+                            tripInfo.route_name
+                          }}</span>
+                        </p>
+                        <p>
+                          Booking Date:
+                          <span *ngIf="tripInfo?.sort_time">{{
+                            tripInfo.sort_time | date : "yyyy-MM-dd"
+                          }}</span>
+                        </p>
+                      </div>
+                      <div class="column">
+                        <p>
+                          Boarding Point:
+                          <span *ngIf="tripInfo?.route_name">{{
+                            tripInfo.route_name.split(" -")[0]
+                          }}</span>
+                        </p>
+                      </div>
+                      <div class="column">
+                        <p>
+                          Dropping Point:
+                          <span *ngIf="tripInfo?.route_name">{{
+                            tripInfo.route_name.split("-")[1]
+                          }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </tab>
+                  <tab
+                    heading="Paybill"
+                    style="margin: 10px 0px;"
+                    (selectTab)="onSelect($event)"
+                  >
+                    <h4>Proceed To pay</h4>
                     <p>
-                      Route:
-                      <span *ngIf="tripInfo?.route_name">{{
-                        tripInfo.route_name
-                      }}</span>
+                      You will be prompted to enter your MPESA pin to authorize
+                      your payment request of KES 1400 to SPHPG1JKXX
                     </p>
-                    <p>
-                      Booking Date:
-                      <span *ngIf="tripInfo?.sort_time">{{
-                        tripInfo.sort_time | date : "yyyy-MM-dd"
-                      }}</span>
-                    </p>
-                  </div>
-                  <div class="column">
-                    <p>
-                      Boarding Point:
-                      <span *ngIf="tripInfo?.route_name">{{
-                        tripInfo.route_name.split(" -")[0]
-                      }}</span>
-                    </p>
-                  </div>
-                  <div class="column">
-                    <p>
-                      Dropping Point:
-                      <span *ngIf="tripInfo?.route_name">{{
-                        tripInfo.route_name.split("-")[1]
-                      }}</span>
-                    </p>
-                  </div>
-                </div>
+                    <p>Choose MPESA</p>
+                    <p>Go to your sim toolkit enter</p>
+                    <p>Enter 3038861 as your business number</p>
+                    <p>Enter SPHPG1JKXX as account No</p>
+                    <p>Enter KES 1400</p>
+                    <p>Enter PIN</p>
+                  </tab>
+                </tabset>
               </div>
             </div>
           </div>

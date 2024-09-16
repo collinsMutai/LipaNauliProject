@@ -3,11 +3,10 @@
     <div class="nav-section">
       <img
         class="logo"
-       
         src="../../../assets/Lipanauli/Lipanauli fare prices.png"
         alt=""
       />
-      <p class="phone-cta" >
+      <p class="phone-cta">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -24,8 +23,8 @@
         0790 215 215 | 0737 740 740
       </p>
 
-      <div class="login" (click)="loginUser()">
-        <p>Sign In / Sign Out</p>
+      <div class="login" (click)="isAuthenticated ? logout() : loginUser()">
+        <p>{{ isAuthenticated ? "Sign Out" : "Sign In" }}</p>
         <p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +46,9 @@
             />
           </svg>
         </p>
+        <p>{{ user }}</p>
       </div>
+
       <div class="social-icons" style="display: flex; flex-direction: column">
         <div class="img">
           <svg
@@ -154,9 +155,7 @@
     </div>
 
     <div class="form-card left">
-      <h1 class="header">
-        <span>Fare</span> ya kisure
-      </h1>
+      <h1 class="header"><span>Fare</span> ya kisure</h1>
       <div class="card">
         <div class="card-body">
           <form [formGroup]="tripForm">
@@ -227,7 +226,7 @@
       </div>
       <div class="card">
         <div class="card-body payForTripCard">
-          <p>Are you traveling now? </p>
+          <p>Are you traveling now?</p>
           <button (click)="payNowTrip()" type="button" class="paynow">
             Pay For Trip
           </button>
@@ -235,7 +234,10 @@
       </div>
     </div>
     <div class="right" style="padding: 0">
-      <img src="../../../assets/Lipanauli/Lipa-Nauli-Website--MOBILE--CIRCLE.png" alt="">
+      <img
+        src="../../../assets/Lipanauli/Lipa-Nauli-Website--MOBILE--CIRCLE.png"
+        alt=""
+      />
     </div>
   </div>
   <div class="row">

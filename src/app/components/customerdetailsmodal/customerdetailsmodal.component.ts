@@ -267,7 +267,7 @@ export class CustomerdetailsmodalComponent implements OnInit, OnDestroy {
     const tripReviewInfo = {
       ...this.tripReviewInfo,
       total: totalPrice,
-      booking_date: "2024-09-05",
+      booking_date: "2024-09-16",
       passenger: [
         ...(primaryPassenger ? [primaryPassenger] : []),
         ...passengersArray,

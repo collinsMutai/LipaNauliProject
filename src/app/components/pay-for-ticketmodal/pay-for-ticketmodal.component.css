@@ -62,6 +62,7 @@ h2 {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
+  padding-top: 15px;
 }
 
 .tripDetails p {
@@ -85,7 +86,7 @@ h2 {
 .custom-container {
   display: flex;
   align-items: center;
-  padding: 40px 0;
+  padding: 15px 0px;
 }
 
 .custom-container select,

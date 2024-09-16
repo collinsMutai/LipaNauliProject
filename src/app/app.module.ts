@@ -23,6 +23,8 @@ import { UserconfirmmodalComponent } from './components/userconfirmmodal/usercon
 import { KesCurrencyPipe } from './kes-currency.pipe';
 import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptor } from './auth.interceptor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { AuthInterceptor } from './auth.interceptor';
     ReactiveFormsModule,
     NgbModule,
     NgbCarouselModule,
+    TabsModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

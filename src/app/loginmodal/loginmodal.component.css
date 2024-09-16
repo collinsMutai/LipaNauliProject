@@ -1,10 +1,22 @@
+.left {
+  flex: 1;
+  background: url("../../assets/Lipanauli/Nairobi bus reservations.jpeg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 200px;
+}
+.right {
+  flex: 2;
+}
+
 .modal-header svg {
   color: #000;
   height: 30px;
   width: 30px;
 }
-.modalDialog{
-  width: 550px;
+.modalDialog {
+  width: auto;
 }
 .modal-title {
   font-size: 24px;
@@ -12,12 +24,15 @@
 .loginBtn {
   background-color: #509141;
   color: #fff;
-  width: 260px;
+  width: 100%;
   padding: 8px 12px;
   border: none;
   outline: none;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+.modal-content {
+  width: 550px;
 }
 .modal-content > div {
   display: flex;
@@ -34,10 +49,16 @@
   width: auto;
 }
 @media (max-width: 475px) {
+  .modal-content {
+  width: auto;
+}
+  .modal-content > div {
+    flex-direction: column;
+  }
   .modal-content > div img {
     display: none;
   }
- .modalDialog{
-  width: auto;
-}
+  .modalDialog {
+    width: auto;
+  }
 }

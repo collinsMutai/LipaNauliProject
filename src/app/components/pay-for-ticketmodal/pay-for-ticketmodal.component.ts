@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { filter, tap } from 'rxjs/operators';
+import { TabDirective } from 'ngx-bootstrap/tabs';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -22,8 +23,12 @@ export class PayForTicketmodalComponent implements OnInit {
   tripInfo!: any;
   checkPaymentInfo!: any;
   paymentForm: FormGroup;
-  seconds: number = 20; // Timer countdown seconds
+  seconds: number = 480; // Timer countdown seconds
   id: any; // Timer ID
+  value?: string;
+
+  private intervalId: any;
+  private timeoutId: any;
 
   constructor(private apiService: ApiService, private fb: FormBuilder) {
     this.paymentForm = this.fb.group({
@@ -110,17 +115,27 @@ export class PayForTicketmodalComponent implements OnInit {
       uuid: ref,
       requestType: 'ticket',
     };
-    // this.tripReviewInfo.bookingRef = this.bookingInfo.booking_reference;
-    // this.tripReviewInfo.queryvalue = `${this.paymentForm.value.code}${this.paymentForm.value.phone}`;
+
     this.apiService.checkMpesaPayment(data).subscribe(
       (res) => {
-        Swal.fire(res.msg);
-        console.log('Payment checked', res);
+        Swal.fire(res.msg).then(() => {
+          // Close the modal
+          this.closePayNowModal();
+
+          // Reload the window
+          window.location.reload();
+
+          // Clear the interval and timeout
+          clearInterval(this.intervalId);
+          clearTimeout(this.timeoutId);
+
+          console.log('Payment checked', res);
+        });
       },
-      (error) => {
-        Swal.fire(error.msg);
-        console.error('Error checking payment', error);
-      }
+        (error) => {
+          Swal.fire(error.msg);
+          console.error('Error checking payment', error);
+        }
     );
   }
 
@@ -140,17 +155,11 @@ export class PayForTicketmodalComponent implements OnInit {
     let data = {
       bookingRef: this.bookingInfo.booking_reference,
       queryoption: this.totalPrice,
-      queryvalue: '254724026032',
+      queryvalue: '254726097666',
       requestType: 'ticket',
       paymentType: 'mpesa',
     };
-    // let data = {
-    //   bookingRef: 'SWNGW93889T2',
-    //   queryoption: this.totalPrice,
-    //   queryvalue: '254726097666',
-    //   requestType: 'ticket',
-    //   paymentType: 'mpesa',
-    // };
+
     console.log('data', data);
 
     this.apiService.stkPushPay(data).subscribe(
@@ -163,21 +172,23 @@ export class PayForTicketmodalComponent implements OnInit {
       }
     );
 
-    const intervalTime = 20000;
-    const totalDuration = 40000;
+    const intervalTime = 60000; // 1 minute
+    const totalDuration = 480000; // 8 minutes
 
-    const intervalId = setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.checkMpesaPayment(this.bookingInfo.booking_reference);
     }, intervalTime);
 
-    setTimeout(() => {
-      clearInterval(intervalId);
-      this.closePayNowModal()
-      window.location.reload();
+    this.timeoutId = setTimeout(() => {
+      clearInterval(this.intervalId);
     }, totalDuration);
   }
 
   closePayNowModal() {
     $('#payForTicketModal').modal('hide');
+  }
+
+  onSelect(data: TabDirective): void {
+    this.value = data.heading;
   }
 }

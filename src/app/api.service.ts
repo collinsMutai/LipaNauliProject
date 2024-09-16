@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
 import { environment } from '../environments/environment';
 import { tap } from 'rxjs/operators';
 
@@ -361,17 +361,39 @@ export class ApiService {
       .post<any>('/globalApi/paymentGateway/init', ticketRefInfo)
       .pipe(tap((res) => this.stkPushSubject.next(res)));
   }
+  // checkMpesaPayment(data: any): Observable<any> {
+  //   console.log('api data', data);
+
+  //   return this.http
+  //     .post('/globalApi/paymentGateway/checkMpesaPayment', data)
+  //     .pipe(
+  //       tap((res) => {
+  //         console.log('Response in tap:', res);
+  //         this.setConfirmMpesaPaymentBodyData(res);
+  //       })
+  //     );
+  // }
   checkMpesaPayment(data: any): Observable<any> {
     console.log('api data', data);
-    
-    return this.http
-      .post('/globalApi/paymentGateway/checkMpesaPayment', data)
-      .pipe(
-        tap((res) => {
-          console.log('Response in tap:', res);
-          this.setConfirmMpesaPaymentBodyData(res);
-        })
-      );
+
+    // Simulated successful response
+    const simulatedResponse = {
+      msg: 'Payment successfully processed',
+      status: 'success',
+      data: {
+        // Include any other data you expect in the response
+        transactionId: '1234567890',
+        amount: data.queryoption,
+      },
+    };
+
+    // Return the simulated response as an Observable
+    return of(simulatedResponse).pipe(
+      tap((res) => {
+        console.log('Simulated response:', res);
+        this.setConfirmMpesaPaymentBodyData(res);
+      })
+    );
   }
 
   forgotPassword(forgotPasswordData: any): Observable<any> {
